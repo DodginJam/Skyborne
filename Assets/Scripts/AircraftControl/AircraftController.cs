@@ -9,7 +9,7 @@ public class AircraftController : MonoBehaviour
     { get; private set; }
 
     [field: SerializeField]
-    public AircraftValues Values
+    public AircraftCurrentValues CurrentValues
     { get; private set; }
 
     [field: SerializeField]
@@ -25,10 +25,10 @@ public class AircraftController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 rotationInput = new Vector3(InputControls.PitchInput * Values.PitchSpeed, InputControls.YawInput * Values.YawSpeed, InputControls.RollInput * Values.RollSpeed);
+        Vector3 rotationInput = new Vector3(InputControls.PitchInput * CurrentValues.PitchSpeed, InputControls.YawInput * CurrentValues.YawSpeed, InputControls.RollInput * CurrentValues.RollSpeed);
 
         transform.Rotate(Time.deltaTime * rotationInput);
 
-        transform.Translate(Time.deltaTime * (Vector3.forward * Values.ThrustSpeed), Space.Self);
+        transform.Translate(Time.deltaTime * (Vector3.forward * CurrentValues.ThrustSpeed), Space.Self);
     }
 }

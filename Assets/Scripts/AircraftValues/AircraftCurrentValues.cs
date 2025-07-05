@@ -2,11 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AircraftValues : MonoBehaviour
+public class AircraftCurrentValues : MonoBehaviour
 {
     [field: SerializeField]
     public AircraftStartingValues StartingValues
     {  get; private set; }
+
+    /// <summary>
+    /// The forces acting on the current aircraft.
+    /// </summary>
+    public ForcesOnFlight FlightForces
+    { get; private set; }
+
+    /// <summary>
+    /// The current degress of rotation that the Primary Flight Controls are being adjusted to via player input.
+    /// </summary>
+    public PrimaryFlightControls FlightControls
+    { get; private set; }
 
     [field: SerializeField]
     public float ThrustSpeed
@@ -27,6 +39,8 @@ public class AircraftValues : MonoBehaviour
     private void Awake()
     {
         InitialiseStartingValues();
+        FlightForces = new ForcesOnFlight();
+        FlightControls = new PrimaryFlightControls();
     }
 
     // Start is called before the first frame update
