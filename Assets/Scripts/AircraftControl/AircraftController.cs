@@ -72,7 +72,7 @@ public class AircraftController : MonoBehaviour
 
         flightControls.ThrottleValue = Mathf.Clamp01(newThrottleValue);
 
-        Debug.Log($"Throttle Value:{flightControls.ThrottleValue}");
+        // Debug.Log($"Throttle Value:{flightControls.ThrottleValue}");
     }
 
     /// <summary>
@@ -87,7 +87,7 @@ public class AircraftController : MonoBehaviour
 
         flightForces.Thrust = thrustForce;
 
-        Debug.Log($"Thrust Value:{flightForces.Thrust}");
+        // Debug.Log($"Thrust Value:{flightForces.Thrust}");
     }
 
     /// <summary>
