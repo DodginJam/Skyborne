@@ -11,23 +11,29 @@ public class PrimaryFlightControls
     /// The angle at which the elevator is set to.
     /// </summary>
     public float ElevatorDegree
-    { get; private set; }
+    { get; set; } = 0;
 
     /// <summary>
     /// The angle at which the elevator is set to.
     /// </summary>
     public float AileronDegree_Left
-    { get; private set; }
+    { get; set; } = 0;
 
     /// <summary>
     /// The angle at which the elevator is set to.
     /// </summary>
     public float AileronDegree_Right
-    { get; private set; }
+    { get; set; } = 0;
 
     /// <summary>
     /// The angle at which the elevator is set to.
     /// </summary>
     public float RudderDegree
-    { get; private set; }
+    { get; set; } = 0;
+
+    /// <summary>
+    /// The value of the throttle which directs the power sent to the engine.
+    /// </summary>
+    public float ThrottleValue
+    { get; set; } = 0;
 }

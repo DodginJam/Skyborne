@@ -46,15 +46,6 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Fire"",
-                    ""type"": ""Button"",
-                    ""id"": ""455a13ae-164c-4d1f-975b-dfd710ce93f8"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Yaw"",
                     ""type"": ""Value"",
                     ""id"": ""7a3e05d8-cc65-4a27-bb80-1f1260fbb496"",
@@ -196,61 +187,6 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""143bb1cd-cc10-4eca-a2f0-a3664166fe91"",
-                    ""path"": ""<Gamepad>/rightTrigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Fire"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""05f6913d-c316-48b2-a6bb-e225f14c7960"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Fire"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""886e731e-7071-4ae4-95c0-e61739dad6fd"",
-                    ""path"": ""<Touchscreen>/primaryTouch/tap"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Touch"",
-                    ""action"": ""Fire"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""ee3d0cd2-254e-47a7-a8cb-bc94d9658c54"",
-                    ""path"": ""<Joystick>/trigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Joystick"",
-                    ""action"": ""Fire"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""8255d333-5683-4943-a58a-ccb207ff1dce"",
-                    ""path"": ""<XRController>/{PrimaryAction}"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""XR"",
-                    ""action"": ""Fire"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
                     ""name"": ""QE [Keyboard]"",
                     ""id"": ""4d041e1c-9fd1-4941-96e5-294e67717575"",
                     ""path"": ""1DAxis"",
@@ -284,6 +220,39 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
                     ""isPartOfComposite"": true
                 },
                 {
+                    ""name"": ""Shoulders [Gamepad]"",
+                    ""id"": ""5d376b1b-40dd-4604-98c6-7efe7acafb21"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Yaw"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""f0ae9319-e20b-41b2-ad2d-c29d048d62d9"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Yaw"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""f4a4dc02-24a2-47c9-99e4-b4b307a571ca"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Yaw"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
                     ""name"": ""ZX [Keyboard]"",
                     ""id"": ""72fb0798-2332-4b6f-9501-edf11a3b7772"",
                     ""path"": ""1DAxis"",
@@ -312,6 +281,39 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Throttle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Triggers [Gamepad]"",
+                    ""id"": ""bafefa62-31b1-4837-b26b-2905a511bbda"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Throttle"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""31ab43c0-669b-42e1-96ce-f2220c0ccc95"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Throttle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""fca87019-01ca-4532-ba3c-d6b5d5184b1a"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Throttle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -902,7 +904,6 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
         m_Aircraft = asset.FindActionMap("Aircraft", throwIfNotFound: true);
         m_Aircraft_PitchAndRoll = m_Aircraft.FindAction("PitchAndRoll", throwIfNotFound: true);
         m_Aircraft_Look = m_Aircraft.FindAction("Look", throwIfNotFound: true);
-        m_Aircraft_Fire = m_Aircraft.FindAction("Fire", throwIfNotFound: true);
         m_Aircraft_Yaw = m_Aircraft.FindAction("Yaw", throwIfNotFound: true);
         m_Aircraft_Throttle = m_Aircraft.FindAction("Throttle", throwIfNotFound: true);
         // UI
@@ -980,7 +981,6 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
     private List<IAircraftActions> m_AircraftActionsCallbackInterfaces = new List<IAircraftActions>();
     private readonly InputAction m_Aircraft_PitchAndRoll;
     private readonly InputAction m_Aircraft_Look;
-    private readonly InputAction m_Aircraft_Fire;
     private readonly InputAction m_Aircraft_Yaw;
     private readonly InputAction m_Aircraft_Throttle;
     public struct AircraftActions
@@ -989,7 +989,6 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
         public AircraftActions(@InputActions_Skyborne wrapper) { m_Wrapper = wrapper; }
         public InputAction @PitchAndRoll => m_Wrapper.m_Aircraft_PitchAndRoll;
         public InputAction @Look => m_Wrapper.m_Aircraft_Look;
-        public InputAction @Fire => m_Wrapper.m_Aircraft_Fire;
         public InputAction @Yaw => m_Wrapper.m_Aircraft_Yaw;
         public InputAction @Throttle => m_Wrapper.m_Aircraft_Throttle;
         public InputActionMap Get() { return m_Wrapper.m_Aircraft; }
@@ -1007,9 +1006,6 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
             @Look.started += instance.OnLook;
             @Look.performed += instance.OnLook;
             @Look.canceled += instance.OnLook;
-            @Fire.started += instance.OnFire;
-            @Fire.performed += instance.OnFire;
-            @Fire.canceled += instance.OnFire;
             @Yaw.started += instance.OnYaw;
             @Yaw.performed += instance.OnYaw;
             @Yaw.canceled += instance.OnYaw;
@@ -1026,9 +1022,6 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
             @Look.started -= instance.OnLook;
             @Look.performed -= instance.OnLook;
             @Look.canceled -= instance.OnLook;
-            @Fire.started -= instance.OnFire;
-            @Fire.performed -= instance.OnFire;
-            @Fire.canceled -= instance.OnFire;
             @Yaw.started -= instance.OnYaw;
             @Yaw.performed -= instance.OnYaw;
             @Yaw.canceled -= instance.OnYaw;
@@ -1219,7 +1212,6 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
     {
         void OnPitchAndRoll(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
-        void OnFire(InputAction.CallbackContext context);
         void OnYaw(InputAction.CallbackContext context);
         void OnThrottle(InputAction.CallbackContext context);
     }

@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(PlayerInput))]
 public class AircraftInput : MonoBehaviour
 {
     public InputActions_Skyborne InputActions
@@ -12,16 +13,16 @@ public class AircraftInput : MonoBehaviour
     public InputActions_Skyborne.AircraftActions AircraftActionMap
     { get; private set; }
 
-    public float ThrustInput
+    public float ThrottleInput
     { get; private set; }
 
-    public float PitchInput
+    public float ElevatorInput
     { get; private set; }
 
-    public float RollInput
+    public float AileronInput
     { get; private set; }
 
-    public float YawInput
+    public float RudderInput
     { get; private set; }
 
     private void Awake()
@@ -58,11 +59,11 @@ public class AircraftInput : MonoBehaviour
     void Update()
     {
         // Process the input of the aircraft controls here through update polling.
-        ThrustInput = AircraftActionMap.Throttle.ReadValue<float>();
-        PitchInput = AircraftActionMap.PitchAndRoll.ReadValue<Vector2>().y;
-        RollInput = -AircraftActionMap.PitchAndRoll.ReadValue<Vector2>().x;
-        YawInput = AircraftActionMap.Yaw.ReadValue<float>();
+        ThrottleInput = AircraftActionMap.Throttle.ReadValue<float>();
+        ElevatorInput = AircraftActionMap.PitchAndRoll.ReadValue<Vector2>().y;
+        AileronInput = -AircraftActionMap.PitchAndRoll.ReadValue<Vector2>().x;
+        RudderInput = AircraftActionMap.Yaw.ReadValue<float>();
 
-        Debug.Log($"Thrust: {ThrustInput}, Pitch: {PitchInput}, Roll: {RollInput}, Yaw: {YawInput}");
+        // Debug.Log($"Throttle: {ThrottleInput}\tElevator: {ElevatorInput}\tAileron:{AileronInput}\tRudder: {RudderInput}");
     }
 }

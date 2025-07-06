@@ -550,7 +550,7 @@ Transform:
   m_GameObject: {fileID: 3496496507756802184}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.83, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -578,6 +578,7 @@ GameObject:
   - component: {fileID: 1553783894350797530}
   - component: {fileID: 9126036078835411459}
   - component: {fileID: 4243774247088781921}
+  - component: {fileID: 3437159362284223084}
   m_Layer: 0
   m_Name: Aircraft
   m_TagString: Untagged
@@ -657,8 +658,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <InputControls>k__BackingField: {fileID: 1553783894350797530}
-  <Values>k__BackingField: {fileID: 4243774247088781921}
-  <PlaneRigidBody>k__BackingField: {fileID: 0}
+  <CurrentValues>k__BackingField: {fileID: 4243774247088781921}
+  <PlaneRigidBody>k__BackingField: {fileID: 3437159362284223084}
 --- !u!114 &4243774247088781921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -671,12 +672,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7ce7c337cc10534080e152d7efd6554, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <StartingValues>k__BackingField: {fileID: 11400000, guid: c92e2733d27cb7c4ebbb810d09f9880d,
+  <BaseValues>k__BackingField: {fileID: 11400000, guid: c92e2733d27cb7c4ebbb810d09f9880d,
     type: 2}
-  <ThrustSpeed>k__BackingField: 0
-  <PitchSpeed>k__BackingField: 0
-  <RollSpeed>k__BackingField: 0
-  <YawSpeed>k__BackingField: 0
+--- !u!54 &3437159362284223084
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3577304230785751517}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &3832248819273569905
 GameObject:
   m_ObjectHideFlags: 0
