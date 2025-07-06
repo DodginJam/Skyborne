@@ -7,15 +7,27 @@ using UnityEngine;
 /// </summary>
 public class ForcesOnFlight
 {
+    /// <summary>
+    /// The weight of the aircraft - an unchanging value.
+    /// </summary>
     public float Weight
     { get; private set; }
 
+    /// <summary>
+    /// The calcualted lift the aircraft experiances as a result of calculated airflow under the wings.
+    /// </summary>
     public float Lift
     { get; private set; }
 
+    /// <summary>
+    /// The calulated forward force produced by the engine.
+    /// </summary>
     public float Thrust
     { get; private set; }
 
+    /// <summary>
+    /// The calulated resistance to forward thrust (a backwards acting force) determined by the speed at which the aircraft is moving through the air.
+    /// </summary>
     public float Drag
     { get; private set; }
 }
