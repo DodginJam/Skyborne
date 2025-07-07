@@ -83,11 +83,12 @@ public class AircraftController : MonoBehaviour
     public void FlightControlsToForces(PrimaryFlightControls flightControls, ForcesOnFlight flightForces)
     {
         // Converting the throttle value to the thrust output.
-        float thrustForce = flightControls.ThrottleValue * CurrentValues.BaseValues.ThrustMax;
+        flightForces.Thrust = ForcesOnFlight.CalculateThrust(flightControls.ThrottleValue, CurrentValues.BaseValues.ThrustMax);
 
-        flightForces.Thrust = thrustForce;
+        flightForces.Drag = ForcesOnFlight.CalculateDrag();
 
-        // Debug.Log($"Thrust Value:{flightForces.Thrust}");
+        Debug.Log($"Thrust Value:{flightForces.Thrust}");
+        Debug.Log($"Thrust Value:{flightForces.Drag}");
     }
 
     /// <summary>
@@ -99,5 +100,6 @@ public class AircraftController : MonoBehaviour
     {
         // Applying the thrust value to the aircraft rigidbody.
         rigidBody.AddForce(transform.forward * flightForces.Thrust, ForceMode.Force);
+        rigidBody.AddForce(-transform.forward * flightForces.Drag, ForceMode.Force);
     }
 }

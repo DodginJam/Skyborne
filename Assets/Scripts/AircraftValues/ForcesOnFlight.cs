@@ -30,4 +30,15 @@ public class ForcesOnFlight
     /// </summary>
     public float Drag
     { get; set; } = 0;
+
+    public static float CalculateThrust(float throttleValue, float maximumThrust)
+    {
+        // Converting the throttle value to the thrust output.
+        return throttleValue * maximumThrust;
+    }
+
+    public static float CalculateDrag()
+    {
+        return default(float);
+    }
 }
