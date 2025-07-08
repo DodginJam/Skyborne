@@ -3,23 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using TMPro;
 
 public class EmailStorage : MonoBehaviour
 {
-    public string emailTest;
+    //public string emailTest;
 
-    private string formURL = "form link"; // Replace with form link
+    private string formURL = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSeJX9BMjpxOb9IZ-uKZpSWRUVsdKoNEwRDh6ekTYg2l3Rvi0Q/formResponse"; // Replace with form link
+
+    [SerializeField] TMP_InputField userEmail;
 
     //[Button]
     public void SubmitEmail()
     {
-        StartCoroutine(Post(emailTest));
+        StartCoroutine(Post(userEmail.text));
     }
 
-    private IEnumerator Post(string emailTest)
+    private IEnumerator Post(string userEmail)
     {
         WWWForm form = new WWWForm();
-        form.AddField("new entry", emailTest);
+        form.AddField("entry.2006081951", userEmail);
 
         using (UnityWebRequest www = UnityWebRequest.Post(formURL, form))
         {
