@@ -7,22 +7,18 @@ using TMPro;
 
 public class EmailStorage : MonoBehaviour
 {
-    //public string emailTest;
-
     private string formURL = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSeJX9BMjpxOb9IZ-uKZpSWRUVsdKoNEwRDh6ekTYg2l3Rvi0Q/formResponse"; // Replace with form link
-
     [SerializeField] TMP_InputField userEmail;
 
-    //[Button]
     public void SubmitEmail()
     {
-        StartCoroutine(Post(userEmail.text));
+        StartCoroutine(Post(userEmail.text)); // Called when the button is pressed
     }
 
     private IEnumerator Post(string userEmail)
     {
         WWWForm form = new WWWForm();
-        form.AddField("entry.2006081951", userEmail);
+        form.AddField("entry.2006081951", userEmail); // Sends the entered data to the google form
 
         using (UnityWebRequest www = UnityWebRequest.Post(formURL, form))
         {
@@ -34,21 +30,8 @@ public class EmailStorage : MonoBehaviour
             }
             else
             {
-                Debug.Log("Error in email submission: " + www.error);
+                Debug.Log("Error in email submission: " + www.error); // On fail write the error to the console
             }
         }
-
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
