@@ -18,6 +18,13 @@ MonoBehaviour:
   <ElevatorDegreeLimit>k__BackingField: 30
   <AileronDegreeLimit>k__BackingField: 30
   <RudderDegreeLimit>k__BackingField: 30
+  <DragCoefficientValues>k__BackingField:
+    <AxisX_Pos>k__BackingField: 2
+    <AxisX_Neg>k__BackingField: 2
+    <AxisY_Pos>k__BackingField: 2
+    <AxisY_Neg>k__BackingField: 2
+    <AxisZ_Pos>k__BackingField: 1
+    <AxisZ_Neg>k__BackingField: 2
   <LiftCurve>k__BackingField:
     serializedVersion: 2
     m_Curve: []

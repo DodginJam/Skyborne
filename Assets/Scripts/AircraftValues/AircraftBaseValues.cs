@@ -52,9 +52,49 @@ public class AircraftBaseValues : ScriptableObject
     { get; private set; }
 
     /// <summary>
+    /// The drag coefficent values for the aircraft axis - ideally forward (z positive) should provide the least amount of drag, with the other values providing increased drag.
+    /// </summary>
+    [field: SerializeField]
+    public DragCoefficient DragCoefficientValues
+    { get; private set; }
+
+    /// <summary>
     /// Animation Curve used to represent the Lift coefficent relationship with the angle of attack of the plane.
     /// </summary>
     [field: SerializeField]
     public AnimationCurve LiftCurve
     { get; private set; }
+}
+
+/// <summary>
+/// Class containing the coefficent values for the drag of an aircraft based upon the axis the aircraft is facing upon travelling.
+/// </summary>
+[Serializable]
+public class DragCoefficient
+{
+    [field: SerializeField]
+    public float AxisX_Pos
+    { get; private set; } = 2;
+
+    [field: SerializeField]
+    public float AxisX_Neg
+    { get; private set; } = 2;
+
+
+    [field: SerializeField]
+    public float AxisY_Pos
+    { get; private set; } = 2;
+
+    [field: SerializeField]
+    public float AxisY_Neg
+    { get; private set; } = 2;
+
+
+    [field: SerializeField]
+    public float AxisZ_Pos
+    { get; private set; } = 1;
+
+    [field: SerializeField]
+    public float AxisZ_Neg
+    { get; private set; } = 2;
 }

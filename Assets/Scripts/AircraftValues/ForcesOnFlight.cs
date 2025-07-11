@@ -28,17 +28,50 @@ public class ForcesOnFlight
     /// <summary>
     /// The calulated resistance to forward thrust (a backwards acting force) determined by the speed at which the aircraft is moving through the air.
     /// </summary>
-    public float Drag
-    { get; set; } = 0;
+    public Vector3 Drag
+    { get; set; }
 
-    public static float CalculateThrust(float throttleValue, float maximumThrust)
+    /// <summary>
+    /// Calculate the thrust force output from the inputted throttle value and the maximum available thrust.
+    /// </summary>
+    /// <param name="throttleValue"></param>
+    /// <param name="maximumThrust"></param>
+    /// <returns></returns>
+    public static float CalculateThrustForce(float throttleValue, float maximumThrust)
     {
         // Converting the throttle value to the thrust output.
         return throttleValue * maximumThrust;
     }
 
-    public static float CalculateDrag()
+    /// <summary>
+    /// Calculate the drag on the given transform object based on it's current world velocity 
+    /// </summary>
+    /// <param name="planeTransform"></param>
+    /// <param name="currentWorldVelocity"></param>
+    /// <returns></returns>
+    public static Vector3 CalculateDragVelocity(Transform planeTransform, Vector3 currentWorldVelocity, DragCoefficient dragCoefficient)
     {
-        return default(float);
+        Vector3 localVelocity = planeTransform.InverseTransformDirection(currentWorldVelocity);
+
+        Vector3 dragForceLocal = new Vector3(
+            localVelocity.x * ((localVelocity.x > 0) ? dragCoefficient.AxisX_Pos : dragCoefficient.AxisX_Neg),
+            localVelocity.y * ((localVelocity.y > 0) ? dragCoefficient.AxisY_Pos : dragCoefficient.AxisY_Neg),
+            localVelocity.z * ((localVelocity.z > 0) ? dragCoefficient.AxisZ_Pos : dragCoefficient.AxisZ_Neg)
+        );
+
+        float dragForceLength = dragForceLocal.magnitude;
+
+        if (dragForceLength < 0.0001f)
+        {
+            return Vector3.zero;
+        }
+
+        Vector3 dragDirectionLocal = -dragForceLocal / dragForceLength;
+        float dragMagnitude = dragForceLocal.sqrMagnitude; // more stable than v^3
+
+        Vector3 dragDirectionWorld = planeTransform.TransformDirection(dragDirectionLocal);
+        Vector3 totalDragForce = dragDirectionWorld * dragMagnitude;
+
+        return totalDragForce;
     }
 }

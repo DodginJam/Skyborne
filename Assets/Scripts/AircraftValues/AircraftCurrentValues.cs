@@ -5,7 +5,7 @@ using UnityEngine;
 public class AircraftCurrentValues : MonoBehaviour
 {
     /// <summary>
-    /// The values if the aircraft being used for the flight calculations.
+    /// The values of the aircraft being used for the flight calculations.
     /// </summary>
     [field: SerializeField]
     public AircraftBaseValues BaseValues
