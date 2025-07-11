@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(AircraftCurrentValues)), RequireComponent(typeof(AircraftInput))]
 public class AircraftController : MonoBehaviour
@@ -72,7 +73,17 @@ public class AircraftController : MonoBehaviour
 
         flightControls.ThrottleValue = Mathf.Clamp01(newThrottleValue);
 
-        // Debug.Log($"Throttle Value:{flightControls.ThrottleValue}");
+        // Calculating the elevator normalised angles of degrees.
+        flightControls.ElevatorDegree = PrimaryFlightControls.CalculateCurrentRotation(inputControls.ElevatorInput, CurrentValues.FlightControls.ElevatorDegree, CurrentValues.BaseValues.ElevatorDegreeLimit, CurrentValues.BaseValues.ElevatorSpeedOfRotation);
+
+        // Calculating the aileron normalised angles of degrees.
+        flightControls.AileronDegree_Left = PrimaryFlightControls.CalculateCurrentRotation(inputControls.AileronInput, CurrentValues.FlightControls.AileronDegree_Left, CurrentValues.BaseValues.AileronDegreeLimit, CurrentValues.BaseValues.AileronSpeedOfRotation);
+        flightControls.AileronDegree_Right = -flightControls.AileronDegree_Left;
+
+        // Calculating the rudder normalised angles of degrees.
+        flightControls.RudderDegree = PrimaryFlightControls.CalculateCurrentRotation(inputControls.RudderInput, CurrentValues.FlightControls.RudderDegree, CurrentValues.BaseValues.RudderDegreeLimit, CurrentValues.BaseValues.RudderSpeedOfRotation);
+
+        Debug.Log($"Elevator Degrees: {flightControls.ElevatorDegree}\tAlerion Degrees: Left:{flightControls.AileronDegree_Left}\tRight: {flightControls.AileronDegree_Right}\tRudder Degress: {flightControls.RudderDegree}");
     }
 
     /// <summary>
@@ -85,10 +96,8 @@ public class AircraftController : MonoBehaviour
         // Converting the throttle value to the thrust output.
         flightForces.Thrust = ForcesOnFlight.CalculateThrustForce(flightControls.ThrottleValue, CurrentValues.BaseValues.ThrustMax);
 
+        // Converting the current plane velocity based on the thrust through a to a drag equation
         flightForces.Drag = ForcesOnFlight.CalculateDragVelocity(PlaneRigidBody.transform, PlaneRigidBody.velocity, CurrentValues.BaseValues.DragCoefficientValues);
-
-        Debug.Log($"Thrust Value:{flightForces.Thrust}");
-        Debug.Log($"Drag Value:{flightForces.Drag}");
     }
 
     /// <summary>
@@ -102,6 +111,6 @@ public class AircraftController : MonoBehaviour
         rigidBody.AddForce(transform.forward * flightForces.Thrust, ForceMode.Force);
         rigidBody.AddForce(flightForces.Drag, ForceMode.Force);
 
-        Debug.Log(rigidBody.velocity.magnitude);
+        // Debug.Log(rigidBody.velocity.magnitude);
     }
 }

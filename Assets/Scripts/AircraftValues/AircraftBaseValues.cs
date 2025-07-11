@@ -38,6 +38,13 @@ public class AircraftBaseValues : ScriptableObject
     { get; private set; }
 
     /// <summary>
+    /// The rate at which the the Elevator value changes in response to player input.
+    /// </summary>
+    [field: SerializeField, Range(0.1f, 200.0f), Min(0.1f)]
+    public float ElevatorSpeedOfRotation
+    { get; private set; } = 60.0f;
+
+    /// <summary>
     /// The max degree of rotation the aileron can be turned (absolute value).
     /// </summary>
     [field: SerializeField]
@@ -45,11 +52,25 @@ public class AircraftBaseValues : ScriptableObject
     { get; private set; }
 
     /// <summary>
+    /// The rate at which the the aileron value changes in response to player input.
+    /// </summary>
+    [field: SerializeField, Range(0.1f, 200.0f), Min(0.1f)]
+    public float AileronSpeedOfRotation
+    { get; private set; } = 60.0f;
+
+    /// <summary>
     /// The max degree of rotation the rudder can be turned (absolute value).
     /// </summary>
     [field: SerializeField]
     public float RudderDegreeLimit
     { get; private set; }
+
+    /// <summary>
+    /// The rate at which the the Rudder value changes in response to player input.
+    /// </summary>
+    [field: SerializeField, Range(0.1f, 200.0f), Min(0.1f)]
+    public float RudderSpeedOfRotation
+    { get; private set; } = 60.0f;
 
     /// <summary>
     /// The drag coefficent values for the aircraft axis - ideally forward (z positive) should provide the least amount of drag, with the other values providing increased drag.

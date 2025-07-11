@@ -36,4 +36,14 @@ public class PrimaryFlightControls
     /// </summary>
     public float ThrottleValue
     { get; set; } = 0;
+
+    public static float CalculateCurrentRotation(float normalisedInput, float currentElevatorDegrees, float degreeLimitOfRotation, float speedOfRotation)
+    {
+        // Calculating the elevator normalised angles of degrees.
+        float newDegreeTarget = normalisedInput * degreeLimitOfRotation;
+
+        float newCurrentDegree = Mathf.MoveTowardsAngle(currentElevatorDegrees, newDegreeTarget, speedOfRotation * Time.fixedDeltaTime);
+
+        return newCurrentDegree;
+    }
 }
