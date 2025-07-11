@@ -16,9 +16,11 @@ MonoBehaviour:
   <ThrottleSpeedOfChange>k__BackingField: 1
   <Weight>k__BackingField: 800
   <ElevatorDegreeLimit>k__BackingField: 30
-  <ElevatorSpeedOfChange>k__BackingField: 60
+  <ElevatorSpeedOfRotation>k__BackingField: 60
   <AileronDegreeLimit>k__BackingField: 30
+  <AileronSpeedOfRotation>k__BackingField: 60
   <RudderDegreeLimit>k__BackingField: 30
+  <RudderSpeedOfRotation>k__BackingField: 60
   <DragCoefficientValues>k__BackingField:
     <AxisX_Pos>k__BackingField: 2
     <AxisX_Neg>k__BackingField: 2

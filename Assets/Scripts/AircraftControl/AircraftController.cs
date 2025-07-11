@@ -76,14 +76,14 @@ public class AircraftController : MonoBehaviour
         // Calculating the elevator normalised angles of degrees.
         flightControls.ElevatorDegree = PrimaryFlightControls.CalculateCurrentRotation(inputControls.ElevatorInput, CurrentValues.FlightControls.ElevatorDegree, CurrentValues.BaseValues.ElevatorDegreeLimit, CurrentValues.BaseValues.ElevatorSpeedOfRotation);
 
-        // Calculating the aileron normalised angles of degrees.
+        // Calculating the ailerons normalised angles of degrees.
         flightControls.AileronDegree_Left = PrimaryFlightControls.CalculateCurrentRotation(inputControls.AileronInput, CurrentValues.FlightControls.AileronDegree_Left, CurrentValues.BaseValues.AileronDegreeLimit, CurrentValues.BaseValues.AileronSpeedOfRotation);
         flightControls.AileronDegree_Right = -flightControls.AileronDegree_Left;
 
         // Calculating the rudder normalised angles of degrees.
         flightControls.RudderDegree = PrimaryFlightControls.CalculateCurrentRotation(inputControls.RudderInput, CurrentValues.FlightControls.RudderDegree, CurrentValues.BaseValues.RudderDegreeLimit, CurrentValues.BaseValues.RudderSpeedOfRotation);
 
-        Debug.Log($"Elevator Degrees: {flightControls.ElevatorDegree}\tAlerion Degrees: Left:{flightControls.AileronDegree_Left}\tRight: {flightControls.AileronDegree_Right}\tRudder Degress: {flightControls.RudderDegree}");
+        // Debug.Log($"Elevator Degrees: {flightControls.ElevatorDegree}\tAlerion Degrees: Left:{flightControls.AileronDegree_Left}\tRight: {flightControls.AileronDegree_Right}\tRudder Degress: {flightControls.RudderDegree}");
     }
 
     /// <summary>
@@ -111,6 +111,6 @@ public class AircraftController : MonoBehaviour
         rigidBody.AddForce(transform.forward * flightForces.Thrust, ForceMode.Force);
         rigidBody.AddForce(flightForces.Drag, ForceMode.Force);
 
-        // Debug.Log(rigidBody.velocity.magnitude);
+        Debug.Log(rigidBody.velocity.magnitude);
     }
 }
