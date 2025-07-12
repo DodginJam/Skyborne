@@ -125,6 +125,6 @@ public class AircraftController : MonoBehaviour
         rigidBody.AddForce(transform.forward * flightForces.Thrust, ForceMode.Force);
         rigidBody.AddForce(flightForces.Drag, ForceMode.Force);
 
-        // Debug.Log(rigidBody.velocity.magnitude);
+        Debug.Log(rigidBody.velocity.magnitude);
     }
 }
