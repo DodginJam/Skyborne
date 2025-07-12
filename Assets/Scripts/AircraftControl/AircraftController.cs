@@ -68,10 +68,24 @@ public class AircraftController : MonoBehaviour
     /// <param name="flightControls"></param>
     public void InputToFlightControls(AircraftInput inputControls, PrimaryFlightControls flightControls)
     {
-        // Calculating the throttles values after any changes in input by the player.
-        float newThrottleValue = flightControls.ThrottleValue + (inputControls.ThrottleInput * Time.fixedDeltaTime * CurrentValues.BaseValues.ThrottleSpeedOfChange);
+        // Check for the current throttle usage from either joystick or not due to different processing of value.
+        if (InputControls.IsJoytickControl == true)
+        {
+            // Normalise the Joystick input and then set the throttle value to move towards the normalised input value directly.
+            float normalisedJoystickInput = (inputControls.ThrottleInput + 1f) / 2f;
 
-        flightControls.ThrottleValue = Mathf.Clamp01(newThrottleValue);
+            float newThrottleValue = Mathf.MoveTowards(flightControls.ThrottleValue, normalisedJoystickInput, Time.fixedDeltaTime * CurrentValues.BaseValues.ThrottleSpeedOfChange);
+
+            flightControls.ThrottleValue = newThrottleValue;
+        }
+        else
+        {
+            // Calculating the throttles values after any changes in input by the player.
+            float newThrottleValue = flightControls.ThrottleValue + (inputControls.ThrottleInput * Time.fixedDeltaTime * CurrentValues.BaseValues.ThrottleSpeedOfChange);
+            flightControls.ThrottleValue = Mathf.Clamp01(newThrottleValue);
+        }
+
+        // Debug.Log($"{flightControls.ThrottleValue}");
 
         // Calculating the elevator normalised angles of degrees.
         flightControls.ElevatorDegree = PrimaryFlightControls.CalculateCurrentRotation(inputControls.ElevatorInput, CurrentValues.FlightControls.ElevatorDegree, CurrentValues.BaseValues.ElevatorDegreeLimit, CurrentValues.BaseValues.ElevatorSpeedOfRotation);
@@ -111,6 +125,6 @@ public class AircraftController : MonoBehaviour
         rigidBody.AddForce(transform.forward * flightForces.Thrust, ForceMode.Force);
         rigidBody.AddForce(flightForces.Drag, ForceMode.Force);
 
-        Debug.Log(rigidBody.velocity.magnitude);
+        // Debug.Log(rigidBody.velocity.magnitude);
     }
 }

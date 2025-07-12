@@ -55,11 +55,20 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Throttle"",
+                    ""name"": ""Throttle [Composite]"",
                     ""type"": ""Value"",
                     ""id"": ""bb9fcda5-9583-4e37-9a1e-4026e3364517"",
                     ""expectedControlType"": ""Axis"",
                     ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Throttle [Slider]"",
+                    ""type"": ""Value"",
+                    ""id"": ""7492d861-82cf-48c5-84e8-4ccaacab3b6b"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": ""Invert"",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 }
@@ -147,7 +156,7 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
                     ""id"": ""3ea4d645-4504-4529-b061-ab81934c3752"",
                     ""path"": ""<Joystick>/stick"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""StickDeadzone(min=0.175,max=0.925)"",
                     ""groups"": ""Joystick"",
                     ""action"": ""PitchAndRoll"",
                     ""isComposite"": false,
@@ -178,7 +187,7 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
                 {
                     ""name"": """",
                     ""id"": ""3e5f5442-8668-4b27-a940-df99bad7e831"",
-                    ""path"": ""<Joystick>/{Hatswitch}"",
+                    ""path"": ""<HID::Logitech Extreme 3D pro>/hat"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Joystick"",
@@ -253,13 +262,24 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
                     ""isPartOfComposite"": true
                 },
                 {
+                    ""name"": """",
+                    ""id"": ""e469f441-10c7-4c05-aba0-1b7d85dfe0e4"",
+                    ""path"": ""<HID::Logitech Extreme 3D pro>/rz"",
+                    ""interactions"": """",
+                    ""processors"": ""AxisDeadzone(min=0.175,max=0.925)"",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""Yaw"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
                     ""name"": ""ZX [Keyboard]"",
                     ""id"": ""72fb0798-2332-4b6f-9501-edf11a3b7772"",
                     ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Throttle"",
+                    ""action"": ""Throttle [Composite]"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -270,7 +290,7 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Throttle"",
+                    ""action"": ""Throttle [Composite]"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -281,7 +301,7 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Throttle"",
+                    ""action"": ""Throttle [Composite]"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -292,7 +312,7 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Throttle"",
+                    ""action"": ""Throttle [Composite]"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -303,7 +323,7 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""Throttle"",
+                    ""action"": ""Throttle [Composite]"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -314,9 +334,20 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""Throttle"",
+                    ""action"": ""Throttle [Composite]"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""64035e84-4689-445a-8dbe-c0a00ac138c2"",
+                    ""path"": ""<HID::Logitech Extreme 3D pro>/slider"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""Throttle [Slider]"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -905,7 +936,8 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
         m_Aircraft_PitchAndRoll = m_Aircraft.FindAction("PitchAndRoll", throwIfNotFound: true);
         m_Aircraft_Look = m_Aircraft.FindAction("Look", throwIfNotFound: true);
         m_Aircraft_Yaw = m_Aircraft.FindAction("Yaw", throwIfNotFound: true);
-        m_Aircraft_Throttle = m_Aircraft.FindAction("Throttle", throwIfNotFound: true);
+        m_Aircraft_ThrottleComposite = m_Aircraft.FindAction("Throttle [Composite]", throwIfNotFound: true);
+        m_Aircraft_ThrottleSlider = m_Aircraft.FindAction("Throttle [Slider]", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -982,7 +1014,8 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
     private readonly InputAction m_Aircraft_PitchAndRoll;
     private readonly InputAction m_Aircraft_Look;
     private readonly InputAction m_Aircraft_Yaw;
-    private readonly InputAction m_Aircraft_Throttle;
+    private readonly InputAction m_Aircraft_ThrottleComposite;
+    private readonly InputAction m_Aircraft_ThrottleSlider;
     public struct AircraftActions
     {
         private @InputActions_Skyborne m_Wrapper;
@@ -990,7 +1023,8 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
         public InputAction @PitchAndRoll => m_Wrapper.m_Aircraft_PitchAndRoll;
         public InputAction @Look => m_Wrapper.m_Aircraft_Look;
         public InputAction @Yaw => m_Wrapper.m_Aircraft_Yaw;
-        public InputAction @Throttle => m_Wrapper.m_Aircraft_Throttle;
+        public InputAction @ThrottleComposite => m_Wrapper.m_Aircraft_ThrottleComposite;
+        public InputAction @ThrottleSlider => m_Wrapper.m_Aircraft_ThrottleSlider;
         public InputActionMap Get() { return m_Wrapper.m_Aircraft; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1009,9 +1043,12 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
             @Yaw.started += instance.OnYaw;
             @Yaw.performed += instance.OnYaw;
             @Yaw.canceled += instance.OnYaw;
-            @Throttle.started += instance.OnThrottle;
-            @Throttle.performed += instance.OnThrottle;
-            @Throttle.canceled += instance.OnThrottle;
+            @ThrottleComposite.started += instance.OnThrottleComposite;
+            @ThrottleComposite.performed += instance.OnThrottleComposite;
+            @ThrottleComposite.canceled += instance.OnThrottleComposite;
+            @ThrottleSlider.started += instance.OnThrottleSlider;
+            @ThrottleSlider.performed += instance.OnThrottleSlider;
+            @ThrottleSlider.canceled += instance.OnThrottleSlider;
         }
 
         private void UnregisterCallbacks(IAircraftActions instance)
@@ -1025,9 +1062,12 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
             @Yaw.started -= instance.OnYaw;
             @Yaw.performed -= instance.OnYaw;
             @Yaw.canceled -= instance.OnYaw;
-            @Throttle.started -= instance.OnThrottle;
-            @Throttle.performed -= instance.OnThrottle;
-            @Throttle.canceled -= instance.OnThrottle;
+            @ThrottleComposite.started -= instance.OnThrottleComposite;
+            @ThrottleComposite.performed -= instance.OnThrottleComposite;
+            @ThrottleComposite.canceled -= instance.OnThrottleComposite;
+            @ThrottleSlider.started -= instance.OnThrottleSlider;
+            @ThrottleSlider.performed -= instance.OnThrottleSlider;
+            @ThrottleSlider.canceled -= instance.OnThrottleSlider;
         }
 
         public void RemoveCallbacks(IAircraftActions instance)
@@ -1213,7 +1253,8 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
         void OnPitchAndRoll(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnYaw(InputAction.CallbackContext context);
-        void OnThrottle(InputAction.CallbackContext context);
+        void OnThrottleComposite(InputAction.CallbackContext context);
+        void OnThrottleSlider(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

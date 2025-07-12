@@ -33,11 +33,20 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Throttle",
+                    "name": "Throttle [Composite]",
                     "type": "Value",
                     "id": "bb9fcda5-9583-4e37-9a1e-4026e3364517",
                     "expectedControlType": "Axis",
                     "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Throttle [Slider]",
+                    "type": "Value",
+                    "id": "7492d861-82cf-48c5-84e8-4ccaacab3b6b",
+                    "expectedControlType": "Axis",
+                    "processors": "Invert",
                     "interactions": "",
                     "initialStateCheck": true
                 }
@@ -125,7 +134,7 @@
                     "id": "3ea4d645-4504-4529-b061-ab81934c3752",
                     "path": "<Joystick>/stick",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "StickDeadzone(min=0.175,max=0.925)",
                     "groups": "Joystick",
                     "action": "PitchAndRoll",
                     "isComposite": false,
@@ -156,7 +165,7 @@
                 {
                     "name": "",
                     "id": "3e5f5442-8668-4b27-a940-df99bad7e831",
-                    "path": "<Joystick>/{Hatswitch}",
+                    "path": "<HID::Logitech Extreme 3D pro>/hat",
                     "interactions": "",
                     "processors": "",
                     "groups": "Joystick",
@@ -231,13 +240,24 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "",
+                    "id": "e469f441-10c7-4c05-aba0-1b7d85dfe0e4",
+                    "path": "<HID::Logitech Extreme 3D pro>/rz",
+                    "interactions": "",
+                    "processors": "AxisDeadzone(min=0.175,max=0.925)",
+                    "groups": "Joystick",
+                    "action": "Yaw",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "ZX [Keyboard]",
                     "id": "72fb0798-2332-4b6f-9501-edf11a3b7772",
                     "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Throttle",
+                    "action": "Throttle [Composite]",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -248,7 +268,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Throttle",
+                    "action": "Throttle [Composite]",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -259,7 +279,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Throttle",
+                    "action": "Throttle [Composite]",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -270,7 +290,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Throttle",
+                    "action": "Throttle [Composite]",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -281,7 +301,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Throttle",
+                    "action": "Throttle [Composite]",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -292,9 +312,20 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Throttle",
+                    "action": "Throttle [Composite]",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "64035e84-4689-445a-8dbe-c0a00ac138c2",
+                    "path": "<HID::Logitech Extreme 3D pro>/slider",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Joystick",
+                    "action": "Throttle [Slider]",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
