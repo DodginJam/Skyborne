@@ -15,6 +15,7 @@ MonoBehaviour:
   <ThrustMax>k__BackingField: 5000
   <ThrottleSpeedOfChange>k__BackingField: 1
   <Weight>k__BackingField: 800
+  <LiftPower>k__BackingField: 20
   <ElevatorDegreeLimit>k__BackingField: 30
   <ElevatorSpeedOfRotation>k__BackingField: 60
   <AileronDegreeLimit>k__BackingField: 30
@@ -30,7 +31,43 @@ MonoBehaviour:
     <AxisZ_Neg>k__BackingField: 2
   <LiftCurve>k__BackingField:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: -90
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: -30
+      value: -1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 30
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 90
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4

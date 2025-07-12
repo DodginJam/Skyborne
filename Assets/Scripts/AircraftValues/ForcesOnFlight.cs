@@ -16,8 +16,8 @@ public class ForcesOnFlight
     /// <summary>
     /// The calcualted lift the aircraft experiances as a result of calculated airflow under the wings.
     /// </summary>
-    public float Lift
-    { get; set; } = 0;
+    public Vector3 Lift
+    { get; set; }
 
     /// <summary>
     /// The calulated forward force produced by the engine.
@@ -73,5 +73,20 @@ public class ForcesOnFlight
         Vector3 totalDragForce = dragDirectionWorld * dragMagnitude;
 
         return totalDragForce;
+    }
+
+    public static Vector3 CalculateLift(float angleOfAttack, Vector3 rightAxis, float liftPower, AnimationCurve angleOfAttackCurve, Transform planeTransform, Vector3 currentWorldVelocity)
+    {
+        Vector3 localVelocity = planeTransform.InverseTransformDirection(currentWorldVelocity);
+
+        Vector3 liftVelocity = Vector3.ProjectOnPlane(localVelocity, rightAxis);
+        float liftSquared = liftVelocity.sqrMagnitude;
+
+        float liftCoefficent = angleOfAttackCurve.Evaluate(Mathf.Clamp(angleOfAttack * Mathf.Rad2Deg, -90f, 90f));
+        float liftForce = liftSquared * liftCoefficent * liftPower;
+
+        Vector3 lifeDirection = Vector3.Cross(liftVelocity.normalized, rightAxis);
+
+        return lifeDirection * liftForce;
     }
 }

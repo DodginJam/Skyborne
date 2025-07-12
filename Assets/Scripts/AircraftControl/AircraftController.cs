@@ -90,6 +90,8 @@ public class AircraftController : MonoBehaviour
         // Calculating the elevator normalised angles of degrees.
         flightControls.ElevatorDegree = PrimaryFlightControls.CalculateCurrentRotation(inputControls.ElevatorInput, CurrentValues.FlightControls.ElevatorDegree, CurrentValues.BaseValues.ElevatorDegreeLimit, CurrentValues.BaseValues.ElevatorSpeedOfRotation);
 
+        Debug.Log($"{flightControls.ElevatorDegree}");
+
         // Calculating the ailerons normalised angles of degrees.
         flightControls.AileronDegree_Left = PrimaryFlightControls.CalculateCurrentRotation(inputControls.AileronInput, CurrentValues.FlightControls.AileronDegree_Left, CurrentValues.BaseValues.AileronDegreeLimit, CurrentValues.BaseValues.AileronSpeedOfRotation);
         flightControls.AileronDegree_Right = -flightControls.AileronDegree_Left;
@@ -97,7 +99,7 @@ public class AircraftController : MonoBehaviour
         // Calculating the rudder normalised angles of degrees.
         flightControls.RudderDegree = PrimaryFlightControls.CalculateCurrentRotation(inputControls.RudderInput, CurrentValues.FlightControls.RudderDegree, CurrentValues.BaseValues.RudderDegreeLimit, CurrentValues.BaseValues.RudderSpeedOfRotation);
 
-        // Debug.Log($"Elevator Degrees: {flightControls.ElevatorDegree}\tAlerion Degrees: Left:{flightControls.AileronDegree_Left}\tRight: {flightControls.AileronDegree_Right}\tRudder Degress: {flightControls.RudderDegree}");
+        // Debug.Log($"Elevator Degrees: {flightControls.ElevatorDegree}\tAlerion Degrees: Left:{flightControls.AileronDegree_Left}\tRight: {flightControls.AileronDegree_Right}\tRudder Degress: {flightControls.RudderDegree}");      
     }
 
     /// <summary>
@@ -112,6 +114,27 @@ public class AircraftController : MonoBehaviour
 
         // Converting the current plane velocity based on the thrust through a to a drag equation
         flightForces.Drag = ForcesOnFlight.CalculateDragVelocity(PlaneRigidBody.transform, PlaneRigidBody.velocity, CurrentValues.BaseValues.DragCoefficientValues);
+
+
+        // Redo lift calculation
+
+        Quaternion invRotation = Quaternion.Inverse(PlaneRigidBody.rotation);
+        Vector3 velocity = PlaneRigidBody.velocity;
+        Vector3 localVelocity = invRotation * velocity;
+        Vector3 localAngularVelocity = invRotation * PlaneRigidBody.angularVelocity;
+
+        float angleOfAttack = 0;
+        float angleOfAttackYaw = 0;
+
+        if (localVelocity.sqrMagnitude >= 0.1f)
+        {
+            angleOfAttack = Mathf.Atan2(-localVelocity.y, localVelocity.z);
+            angleOfAttackYaw = Mathf.Atan2(localVelocity.x, localVelocity.z);
+        }
+
+        flightForces.Lift = ForcesOnFlight.CalculateLift(angleOfAttack, Vector3.right, CurrentValues.BaseValues.LiftPower, CurrentValues.BaseValues.LiftCurve, PlaneRigidBody.transform, PlaneRigidBody.velocity);
+
+        Debug.Log($"LiftPower: {flightForces.Lift}");
     }
 
     /// <summary>
@@ -124,6 +147,7 @@ public class AircraftController : MonoBehaviour
         // Applying the thrust value to the aircraft rigidbody.
         rigidBody.AddForce(transform.forward * flightForces.Thrust, ForceMode.Force);
         rigidBody.AddForce(flightForces.Drag, ForceMode.Force);
+        rigidBody.AddForce(flightForces.Lift, ForceMode.Force);
 
         Debug.Log(rigidBody.velocity.magnitude);
     }

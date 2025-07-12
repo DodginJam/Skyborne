@@ -31,6 +31,13 @@ public class AircraftBaseValues : ScriptableObject
     { get; private set; }
 
     /// <summary>
+    /// The life power of the plane.
+    /// </summary>
+    [field: SerializeField, Min(0.1f)]
+    public float LiftPower
+    { get; private set; } = 20.0f;
+
+    /// <summary>
     /// The max degree of rotation the elevator can be turned (absolute value).
     /// </summary>
     [field: SerializeField]
