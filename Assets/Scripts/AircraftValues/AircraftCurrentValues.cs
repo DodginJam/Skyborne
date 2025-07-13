@@ -23,6 +23,12 @@ public class AircraftCurrentValues : MonoBehaviour
     public PrimaryFlightControls FlightControls
     { get; private set; }
 
+    /// <summary>
+    /// Container for the various required calculated values used and reference multiple times in update loop.
+    /// </summary>
+    public AircraftValuesHolder ValuesHolder
+    { get; private set; }
+
     private void Awake()
     {
         InitialiseAircraftValues();
@@ -53,6 +59,23 @@ public class AircraftCurrentValues : MonoBehaviour
 
         if (FlightControls == null) FlightControls = new PrimaryFlightControls();
 
+        if (ValuesHolder == null) ValuesHolder = new AircraftValuesHolder();
+
         FlightForces.Weight = BaseValues.Weight;
     }
+}
+
+public class AircraftValuesHolder
+{
+    /// <summary>
+    /// Reference of the current Angle Of Attack of the aircraft.
+    /// </summary>
+    public float AngleOfAttack
+    { get; set; }
+
+    /// <summary>
+    /// The velocity of the aircraft in local space.
+    /// </summary>
+    public Vector3 CurrentVelocityLocal
+    { get; set; }
 }

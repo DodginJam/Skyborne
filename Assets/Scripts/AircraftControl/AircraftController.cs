@@ -56,9 +56,20 @@ public class AircraftController : MonoBehaviour
 
     public void FixedUpdate()
     {
+        UpdatePlaneState(CurrentValues.ValuesHolder);
         InputToFlightControls(InputControls, CurrentValues.FlightControls);
         FlightControlsToForces(CurrentValues.FlightControls, CurrentValues.FlightForces);
         ForcesToRigidBody(CurrentValues.FlightForces, PlaneRigidBody);
+    }
+
+    /// <summary>
+    /// Called every frame, it updates the class dedicated to holding information used to calculate information used accross multiple methods.
+    /// </summary>
+    /// <param name="valuesHolder"></param>
+    public void UpdatePlaneState(AircraftValuesHolder valuesHolder)
+    {
+        valuesHolder.CurrentVelocityLocal = PlaneRigidBody.transform.InverseTransformDirection(PlaneRigidBody.velocity);
+        valuesHolder.AngleOfAttack = 0;
     }
 
     /// <summary>
@@ -90,8 +101,6 @@ public class AircraftController : MonoBehaviour
         // Calculating the elevator normalised angles of degrees.
         flightControls.ElevatorDegree = PrimaryFlightControls.CalculateCurrentRotation(inputControls.ElevatorInput, CurrentValues.FlightControls.ElevatorDegree, CurrentValues.BaseValues.ElevatorDegreeLimit, CurrentValues.BaseValues.ElevatorSpeedOfRotation);
 
-        Debug.Log($"{flightControls.ElevatorDegree}");
-
         // Calculating the ailerons normalised angles of degrees.
         flightControls.AileronDegree_Left = PrimaryFlightControls.CalculateCurrentRotation(inputControls.AileronInput, CurrentValues.FlightControls.AileronDegree_Left, CurrentValues.BaseValues.AileronDegreeLimit, CurrentValues.BaseValues.AileronSpeedOfRotation);
         flightControls.AileronDegree_Right = -flightControls.AileronDegree_Left;
@@ -113,28 +122,10 @@ public class AircraftController : MonoBehaviour
         flightForces.Thrust = ForcesOnFlight.CalculateThrustForce(flightControls.ThrottleValue, CurrentValues.BaseValues.ThrustMax);
 
         // Converting the current plane velocity based on the thrust through a to a drag equation
-        flightForces.Drag = ForcesOnFlight.CalculateDragVelocity(PlaneRigidBody.transform, PlaneRigidBody.velocity, CurrentValues.BaseValues.DragCoefficientValues);
+        flightForces.Drag = ForcesOnFlight.CalculateDragVelocity(PlaneRigidBody.transform, PlaneRigidBody.velocity, CurrentValues.BaseValues.DragCoefficientValues, CurrentValues.ValuesHolder);
 
-
-        // Redo lift calculation
-
-        Quaternion invRotation = Quaternion.Inverse(PlaneRigidBody.rotation);
-        Vector3 velocity = PlaneRigidBody.velocity;
-        Vector3 localVelocity = invRotation * velocity;
-        Vector3 localAngularVelocity = invRotation * PlaneRigidBody.angularVelocity;
-
-        float angleOfAttack = 0;
-        float angleOfAttackYaw = 0;
-
-        if (localVelocity.sqrMagnitude >= 0.1f)
-        {
-            angleOfAttack = Mathf.Atan2(-localVelocity.y, localVelocity.z);
-            angleOfAttackYaw = Mathf.Atan2(localVelocity.x, localVelocity.z);
-        }
-
-        flightForces.Lift = ForcesOnFlight.CalculateLift(angleOfAttack, Vector3.right, CurrentValues.BaseValues.LiftPower, CurrentValues.BaseValues.LiftCurve, PlaneRigidBody.transform, PlaneRigidBody.velocity);
-
-        Debug.Log($"LiftPower: {flightForces.Lift}");
+        // Converting the planes current velocity and angle of attack to the lift being generated.
+        // flightForces.Lift = ForcesOnFlight.CalculateLift();
     }
 
     /// <summary>

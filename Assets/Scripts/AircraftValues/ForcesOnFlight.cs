@@ -49,14 +49,12 @@ public class ForcesOnFlight
     /// <param name="planeTransform"></param>
     /// <param name="currentWorldVelocity"></param>
     /// <returns></returns>
-    public static Vector3 CalculateDragVelocity(Transform planeTransform, Vector3 currentWorldVelocity, DragCoefficient dragCoefficient)
+    public static Vector3 CalculateDragVelocity(Transform planeTransform, Vector3 currentWorldVelocity, DragCoefficient dragCoefficient, AircraftValuesHolder valuesHolder)
     {
-        Vector3 localVelocity = planeTransform.InverseTransformDirection(currentWorldVelocity);
-
         Vector3 dragForceLocal = new Vector3(
-            localVelocity.x * ((localVelocity.x > 0) ? dragCoefficient.AxisX_Pos : dragCoefficient.AxisX_Neg),
-            localVelocity.y * ((localVelocity.y > 0) ? dragCoefficient.AxisY_Pos : dragCoefficient.AxisY_Neg),
-            localVelocity.z * ((localVelocity.z > 0) ? dragCoefficient.AxisZ_Pos : dragCoefficient.AxisZ_Neg)
+            valuesHolder.CurrentVelocityLocal.x * ((valuesHolder.CurrentVelocityLocal.x > 0) ? dragCoefficient.AxisX_Pos : dragCoefficient.AxisX_Neg),
+            valuesHolder.CurrentVelocityLocal.y * ((valuesHolder.CurrentVelocityLocal.y > 0) ? dragCoefficient.AxisY_Pos : dragCoefficient.AxisY_Neg),
+            valuesHolder.CurrentVelocityLocal.z * ((valuesHolder.CurrentVelocityLocal.z > 0) ? dragCoefficient.AxisZ_Pos : dragCoefficient.AxisZ_Neg)
         );
 
         float dragForceLength = dragForceLocal.magnitude;
@@ -75,11 +73,9 @@ public class ForcesOnFlight
         return totalDragForce;
     }
 
-    public static Vector3 CalculateLift(float angleOfAttack, Vector3 rightAxis, float liftPower, AnimationCurve angleOfAttackCurve, Transform planeTransform, Vector3 currentWorldVelocity)
+    public static Vector3 CalculateLift(float angleOfAttack, Vector3 rightAxis, float liftPower, AnimationCurve angleOfAttackCurve, Transform planeTransform, Vector3 currentWorldVelocity, AircraftValuesHolder valuesHolder)
     {
-        Vector3 localVelocity = planeTransform.InverseTransformDirection(currentWorldVelocity);
-
-        Vector3 liftVelocity = Vector3.ProjectOnPlane(localVelocity, rightAxis);
+        Vector3 liftVelocity = Vector3.ProjectOnPlane(valuesHolder.CurrentVelocityLocal, rightAxis);
         float liftSquared = liftVelocity.sqrMagnitude;
 
         float liftCoefficent = angleOfAttackCurve.Evaluate(Mathf.Clamp(angleOfAttack * Mathf.Rad2Deg, -90f, 90f));
