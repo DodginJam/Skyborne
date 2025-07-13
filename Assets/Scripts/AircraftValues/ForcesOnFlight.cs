@@ -73,8 +73,9 @@ public class ForcesOnFlight
         return totalDragForce;
     }
 
-    public static Vector3 CalculateLift(float angleOfAttack, Vector3 rightAxis, float liftPower, AnimationCurve angleOfAttackCurve, Transform planeTransform, Vector3 currentWorldVelocity, AircraftValuesHolder valuesHolder)
+    public static Vector3 CalculateLift(Vector3 rightAxis, float liftPower, AnimationCurve angleOfAttackCurve, Transform planeTransform, AircraftValuesHolder valuesHolder)
     {
+        /*
         Vector3 liftVelocity = Vector3.ProjectOnPlane(valuesHolder.CurrentVelocityLocal, rightAxis);
         float liftSquared = liftVelocity.sqrMagnitude;
 
@@ -84,5 +85,14 @@ public class ForcesOnFlight
         Vector3 lifeDirection = Vector3.Cross(liftVelocity.normalized, rightAxis);
 
         return lifeDirection * liftForce;
+        */
+
+        float cl = angleOfAttackCurve.Evaluate(Mathf.Clamp(valuesHolder.AngleOfAttack, -30f, 30f));
+        float liftForce = 0.5f * cl * valuesHolder.CurrentVelocityLocal.sqrMagnitude * liftPower;
+
+        Vector3 liftDir = Vector3.Cross(valuesHolder.CurrentVelocityLocal.normalized, planeTransform.right);
+        Vector3 lift = liftDir.normalized * liftForce;
+
+        return lift;
     }
 }

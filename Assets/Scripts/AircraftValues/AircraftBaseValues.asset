@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42cd5ab830c28de4db7b0bd151f935f0, type: 3}
   m_Name: AircraftBaseValues
   m_EditorClassIdentifier: 
-  <ThrustMax>k__BackingField: 5000
+  <ThrustMax>k__BackingField: 21420
   <ThrottleSpeedOfChange>k__BackingField: 1
   <Weight>k__BackingField: 800
   <LiftPower>k__BackingField: 65.7

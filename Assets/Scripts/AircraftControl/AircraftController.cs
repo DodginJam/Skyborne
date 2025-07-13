@@ -69,7 +69,17 @@ public class AircraftController : MonoBehaviour
     public void UpdatePlaneState(AircraftValuesHolder valuesHolder)
     {
         valuesHolder.CurrentVelocityLocal = PlaneRigidBody.transform.InverseTransformDirection(PlaneRigidBody.velocity);
-        valuesHolder.AngleOfAttack = 0;
+
+        if (valuesHolder.CurrentVelocityLocal.sqrMagnitude < 0.1f)
+        {
+            valuesHolder.AngleOfAttack = 0;
+        }
+        else
+        {
+            valuesHolder.AngleOfAttack = Mathf.Rad2Deg * Mathf.Atan2(-valuesHolder.CurrentVelocityLocal.y, valuesHolder.CurrentVelocityLocal.z);
+        }
+
+        Debug.Log($"Angle Of Attack: {valuesHolder.AngleOfAttack}");
     }
 
     /// <summary>
