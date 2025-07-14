@@ -87,7 +87,7 @@ public class ForcesOnFlight
         return lifeDirection * liftForce;
         */
 
-        float cl = angleOfAttackCurve.Evaluate(Mathf.Clamp(valuesHolder.AngleOfAttack, -30f, 30f));
+        float cl = angleOfAttackCurve.Evaluate(Mathf.Clamp(valuesHolder.AngleOfAttack, -90f, 90f));
         float liftForce = 0.5f * cl * valuesHolder.CurrentVelocityLocal.sqrMagnitude * liftPower;
 
         Vector3 liftDir = Vector3.Cross(valuesHolder.CurrentVelocityLocal.normalized, planeTransform.right);
