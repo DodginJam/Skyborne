@@ -73,6 +73,15 @@ public class ForcesOnFlight
         return totalDragForce;
     }
 
+    /// <summary>
+    /// Calculating the lift through taking the calculated AngleOfAttack and sampling it's position on the aircrafts starting values AngleOfAttack to Lift Coefficent Animation Curve.
+    /// </summary>
+    /// <param name="rightAxis"></param>
+    /// <param name="liftPower"></param>
+    /// <param name="angleOfAttackCurve"></param>
+    /// <param name="planeTransform"></param>
+    /// <param name="valuesHolder"></param>
+    /// <returns></returns>
     public static Vector3 CalculateLift(Vector3 rightAxis, float liftPower, AnimationCurve angleOfAttackCurve, Transform planeTransform, AircraftValuesHolder valuesHolder)
     {
         /*
@@ -87,6 +96,8 @@ public class ForcesOnFlight
         return lifeDirection * liftForce;
         */
 
+        // Last working implementation.
+        /*
         float cl = angleOfAttackCurve.Evaluate(Mathf.Clamp(valuesHolder.AngleOfAttack, -90f, 90f));
         float liftForce = 0.5f * cl * valuesHolder.CurrentVelocityLocal.sqrMagnitude * liftPower;
 
@@ -94,5 +105,20 @@ public class ForcesOnFlight
         Vector3 lift = liftDir.normalized * liftForce;
 
         return lift;
+        */
+
+        // Project velocity onto plane perpendicular to the wing
+        Vector3 liftVelocity = Vector3.ProjectOnPlane(valuesHolder.CurrentVelocityLocal, rightAxis);
+
+        // Evaluation of the animation curve taking place - clamped in the region of possible degrees of rotation in a given direction.
+        float cl = angleOfAttackCurve.Evaluate(Mathf.Clamp(valuesHolder.AngleOfAttack, -90f, 90f));
+
+        // The lift equation here calculates the force being generated from lift.
+        float liftForce = 0.5f * cl * liftVelocity.sqrMagnitude * liftPower;
+
+        // The lift direction is applied correctly.
+        Vector3 liftDir = Vector3.Cross(liftVelocity.normalized, rightAxis);
+
+        return liftDir.normalized * liftForce;
     }
 }

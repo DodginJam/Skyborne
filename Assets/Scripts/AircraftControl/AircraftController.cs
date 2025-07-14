@@ -135,7 +135,7 @@ public class AircraftController : MonoBehaviour
         flightForces.Drag = ForcesOnFlight.CalculateDragVelocity(PlaneRigidBody.transform, PlaneRigidBody.velocity, CurrentValues.BaseValues.DragCoefficientValues, CurrentValues.ValuesHolder);
 
         // Converting the planes current velocity and angle of attack to the lift being generated.
-        // flightForces.Lift = ForcesOnFlight.CalculateLift();
+        flightForces.Lift = ForcesOnFlight.CalculateLift(Vector3.right, CurrentValues.BaseValues.LiftPower, CurrentValues.BaseValues.LiftCurve, PlaneRigidBody.transform, CurrentValues.ValuesHolder);
     }
 
     /// <summary>
