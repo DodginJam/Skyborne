@@ -955,7 +955,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 125
-  angle: 80
+  angle: 10
   minDistanceFromPlayer: 125
   spawnDelay: 0
   playerRef: {fileID: 1631559961}
