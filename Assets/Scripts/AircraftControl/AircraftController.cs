@@ -60,6 +60,8 @@ public class AircraftController : MonoBehaviour
         InputToFlightControls(InputControls, CurrentValues.FlightControls);
         FlightControlsToForces(CurrentValues.FlightControls, CurrentValues.FlightForces);
         ForcesToRigidBody(CurrentValues.FlightForces, PlaneRigidBody);
+
+        Debug.DrawLine(transform.position, transform.position + PlaneRigidBody.velocity.normalized * 10f, Color.blue);
     }
 
     /// <summary>
@@ -68,7 +70,7 @@ public class AircraftController : MonoBehaviour
     /// <param name="valuesHolder"></param>
     public void UpdatePlaneState(AircraftValuesHolder valuesHolder)
     {
-        valuesHolder.CurrentVelocityLocal = PlaneRigidBody.transform.InverseTransformDirection(PlaneRigidBody.velocity);
+        CurrentValues.ValuesHolder.CurrentVelocityLocal = Quaternion.Inverse(PlaneRigidBody.transform.rotation) * PlaneRigidBody.velocity;
 
         if (valuesHolder.CurrentVelocityLocal.sqrMagnitude < 0.1f)
         {
@@ -79,7 +81,6 @@ public class AircraftController : MonoBehaviour
             valuesHolder.AngleOfAttack = Mathf.Rad2Deg * Mathf.Atan2(-valuesHolder.CurrentVelocityLocal.y, valuesHolder.CurrentVelocityLocal.z);
         }
 
-        Debug.Log($"Angle Of Attack: {valuesHolder.AngleOfAttack}");
     }
 
     /// <summary>
@@ -106,8 +107,6 @@ public class AircraftController : MonoBehaviour
             flightControls.ThrottleValue = Mathf.Clamp01(newThrottleValue);
         }
 
-        // Debug.Log($"{flightControls.ThrottleValue}");
-
         // Calculating the elevator normalised angles of degrees.
         flightControls.ElevatorDegree = PrimaryFlightControls.CalculateCurrentRotation(inputControls.ElevatorInput, CurrentValues.FlightControls.ElevatorDegree, CurrentValues.BaseValues.ElevatorDegreeLimit, CurrentValues.BaseValues.ElevatorSpeedOfRotation);
 
@@ -117,8 +116,6 @@ public class AircraftController : MonoBehaviour
 
         // Calculating the rudder normalised angles of degrees.
         flightControls.RudderDegree = PrimaryFlightControls.CalculateCurrentRotation(inputControls.RudderInput, CurrentValues.FlightControls.RudderDegree, CurrentValues.BaseValues.RudderDegreeLimit, CurrentValues.BaseValues.RudderSpeedOfRotation);
-
-        // Debug.Log($"Elevator Degrees: {flightControls.ElevatorDegree}\tAlerion Degrees: Left:{flightControls.AileronDegree_Left}\tRight: {flightControls.AileronDegree_Right}\tRudder Degress: {flightControls.RudderDegree}");      
     }
 
     /// <summary>
@@ -135,7 +132,12 @@ public class AircraftController : MonoBehaviour
         flightForces.Drag = ForcesOnFlight.CalculateDragVelocity(PlaneRigidBody.transform, PlaneRigidBody.velocity, CurrentValues.BaseValues.DragCoefficientValues, CurrentValues.ValuesHolder);
 
         // Converting the planes current velocity and angle of attack to the lift being generated.
-        flightForces.Lift = ForcesOnFlight.CalculateLift(Vector3.right, CurrentValues.BaseValues.LiftPower, CurrentValues.BaseValues.LiftCurve, PlaneRigidBody.transform, CurrentValues.ValuesHolder);
+        // flightForces.Lift = ForcesOnFlight.CalculateLift(PlaneRigidBody.transform.right, CurrentValues.BaseValues.LiftPower, CurrentValues.BaseValues.LiftCurve, PlaneRigidBody.transform, CurrentValues.ValuesHolder);
+
+        if (CurrentValues.ValuesHolder.CurrentVelocityLocal.sqrMagnitude >= 1f)
+        {
+            flightForces.Lift = ForcesOnFlight.CalculateLift(CurrentValues.ValuesHolder.AngleOfAttack, Vector3.right, CurrentValues.BaseValues.LiftPower, CurrentValues.BaseValues.LiftCurve, CurrentValues.ValuesHolder);
+        }
     }
 
     /// <summary>
@@ -148,8 +150,12 @@ public class AircraftController : MonoBehaviour
         // Applying the thrust value to the aircraft rigidbody.
         rigidBody.AddForce(transform.forward * flightForces.Thrust, ForceMode.Force);
         rigidBody.AddForce(flightForces.Drag, ForceMode.Force);
-        rigidBody.AddForce(flightForces.Lift, ForceMode.Force);
+        rigidBody.AddRelativeForce(flightForces.Lift, ForceMode.Force);
 
-        Debug.Log(rigidBody.velocity.magnitude);
+        Debug.Log($"Thrust: {transform.forward * flightForces.Thrust}\tDrag: {flightForces.Drag}");
+        Debug.Log($"Lift: {flightForces.Lift}\tGravity Newtons: {flightForces.Weight * Physics.gravity}");
+
+        float indicatedAirspeed = Mathf.Max(0f, Vector3.Dot(rigidBody.velocity, transform.forward));
+        Debug.Log($"indicatedAirspeed: {indicatedAirspeed}");
     }
 }

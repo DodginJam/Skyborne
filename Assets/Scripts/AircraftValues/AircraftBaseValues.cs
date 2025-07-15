@@ -101,28 +101,28 @@ public class AircraftBaseValues : ScriptableObject
 public class DragCoefficient
 {
     [field: SerializeField]
-    public float AxisX_Pos
-    { get; private set; } = 2;
+    public AnimationCurve AxisX_Pos
+    { get; private set; }
 
     [field: SerializeField]
-    public float AxisX_Neg
-    { get; private set; } = 2;
-
-
-    [field: SerializeField]
-    public float AxisY_Pos
-    { get; private set; } = 2;
-
-    [field: SerializeField]
-    public float AxisY_Neg
-    { get; private set; } = 2;
+    public AnimationCurve AxisX_Neg
+    { get; private set; }
 
 
     [field: SerializeField]
-    public float AxisZ_Pos
-    { get; private set; } = 1;
+    public AnimationCurve AxisY_Pos
+    { get; private set; }
 
     [field: SerializeField]
-    public float AxisZ_Neg
-    { get; private set; } = 2;
+    public AnimationCurve AxisY_Neg
+    { get; private set; }
+
+
+    [field: SerializeField]
+    public AnimationCurve AxisZ_Pos
+    { get; private set; }
+
+    [field: SerializeField]
+    public AnimationCurve AxisZ_Neg
+    { get; private set; }
 }

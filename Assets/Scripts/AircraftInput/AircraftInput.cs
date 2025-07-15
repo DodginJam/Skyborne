@@ -112,7 +112,5 @@ public class AircraftInput : MonoBehaviour
         ElevatorInput = AircraftActionMap.PitchAndRoll.ReadValue<Vector2>().y;
         AileronInput = -AircraftActionMap.PitchAndRoll.ReadValue<Vector2>().x;
         RudderInput = AircraftActionMap.Yaw.ReadValue<float>();
-
-        // Debug.Log($"Throttle: {ThrottleInput}\tElevator: {ElevatorInput}\tAileron:{AileronInput}\tRudder: {RudderInput}");
     }
 }
