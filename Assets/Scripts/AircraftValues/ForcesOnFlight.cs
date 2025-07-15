@@ -73,61 +73,17 @@ public class ForcesOnFlight
         return totalDragForce;
     }
 
+
     /// <summary>
     /// Calculating the lift through taking the calculated AngleOfAttack and sampling it's position on the aircrafts starting values AngleOfAttack to Lift Coefficent Animation Curve.
     /// </summary>
+    /// <param name="angleOfAttack"></param>
     /// <param name="rightAxis"></param>
     /// <param name="liftPower"></param>
     /// <param name="angleOfAttackCurve"></param>
-    /// <param name="planeTransform"></param>
     /// <param name="valuesHolder"></param>
     /// <returns></returns>
-    public static Vector3 CalculateLift(Vector3 rightAxis, float liftPower, AnimationCurve angleOfAttackCurve, Transform planeTransform, AircraftValuesHolder valuesHolder)
-    {
-        /*
-        if (Mathf.Abs(valuesHolder.AngleOfAttack) > 25f)
-            return Vector3.zero;
-
-        // Project velocity onto plane perpendicular to the wing
-        Vector3 liftVelocity = Vector3.ProjectOnPlane(valuesHolder.CurrentVelocityLocal, rightAxis);
-
-        // Evaluation of the animation curve taking place - clamped in the region of possible degrees of rotation in a given direction.
-        float cl = angleOfAttackCurve.Evaluate(Mathf.Clamp(valuesHolder.AngleOfAttack, -90f, 90f));
-
-        // THIS IS THE PREVENTION FOR EXPOTENTIALLY SPEED DURING HIGH OR LOW PITCH NEARING 90 DEGREES
-
-        // Get component of velocity in forward direction (local X or Z depending on your setup)
-        float forwardSpeed = Vector3.Dot(valuesHolder.CurrentVelocityLocal, planeTransform.forward);
-        forwardSpeed = Mathf.Max(forwardSpeed, 0f); // no negative speed lift
-
-        // The lift equation here calculates the force being generated from lift.
-        float liftForce = 0.5f * cl * (forwardSpeed * forwardSpeed) * liftPower;
-        // The old implementation where sqrMagnitude was causing issues.     float liftForce = 0.5f * cl * liftVelocity.sqrMagnitude * liftPower;
-
-        // The lift direction is applied correctly.
-        Vector3 liftDir = Vector3.Cross(liftVelocity.normalized, rightAxis);
-
-        Debug.DrawRay(planeTransform.position, liftDir.normalized * 10.0f, Color.yellow);
-
-        return liftDir.normalized * liftForce;
-        */
-
-        var liftVelocity = Vector3.ProjectOnPlane(valuesHolder.CurrentVelocityLocal, rightAxis);    //project velocity onto YZ plane
-        var v2 = liftVelocity.sqrMagnitude;                                     //square of velocity
-
-        //lift = velocity^2 * coefficient * liftPower
-        //coefficient varies with AOA
-        var liftCoefficient = angleOfAttackCurve.Evaluate(valuesHolder.AngleOfAttack * Mathf.Rad2Deg);
-        var liftForce = v2 * liftCoefficient * liftPower;
-
-        //lift is perpendicular to velocity
-        var liftDirection = Vector3.Cross(liftVelocity.normalized, rightAxis);
-        var lift = liftDirection * liftForce;
-
-        return lift;
-    }
-
-    public static Vector3 CalculateLift(float angleOfAttack, Vector3 rightAxis, float liftPower, AnimationCurve aoaCurve, AircraftValuesHolder valuesHolder)
+    public static Vector3 CalculateLiftVector(float angleOfAttack, Vector3 rightAxis, float liftPower, AnimationCurve angleOfAttackCurve, AircraftValuesHolder valuesHolder)
     {
         // Project velocity onto YZ plane
         var liftVelocity = Vector3.ProjectOnPlane(valuesHolder.CurrentVelocityLocal, rightAxis);
@@ -137,7 +93,7 @@ public class ForcesOnFlight
 
         //lift = velocity^2 * coefficient * liftPower
         //coefficient varies with AOA
-        var liftCoefficient = aoaCurve.Evaluate(angleOfAttack);
+        var liftCoefficient = angleOfAttackCurve.Evaluate(angleOfAttack);
         var liftForce = v2 * liftCoefficient * liftPower;
 
         // Lift is perpendicular to velocity

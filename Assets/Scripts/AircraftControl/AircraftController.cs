@@ -58,7 +58,7 @@ public class AircraftController : MonoBehaviour
     {
         UpdatePlaneState(CurrentValues.ValuesHolder);
         InputToFlightControls(InputControls, CurrentValues.FlightControls);
-        FlightControlsToForces(CurrentValues.FlightControls, CurrentValues.FlightForces);
+        ForcesAndFlightControlsToForces(CurrentValues.FlightControls, CurrentValues.FlightForces);
         ForcesToRigidBody(CurrentValues.FlightForces, PlaneRigidBody);
 
         Debug.DrawLine(transform.position, transform.position + PlaneRigidBody.velocity.normalized * 10f, Color.blue);
@@ -123,7 +123,7 @@ public class AircraftController : MonoBehaviour
     /// </summary>
     /// <param name="flightControls"></param>
     /// <param name="flightForces"></param>
-    public void FlightControlsToForces(PrimaryFlightControls flightControls, ForcesOnFlight flightForces)
+    public void ForcesAndFlightControlsToForces(PrimaryFlightControls flightControls, ForcesOnFlight flightForces)
     {
         // Converting the throttle value to the thrust output.
         flightForces.Thrust = ForcesOnFlight.CalculateThrustForce(flightControls.ThrottleValue, CurrentValues.BaseValues.ThrustMax);
@@ -132,11 +132,11 @@ public class AircraftController : MonoBehaviour
         flightForces.Drag = ForcesOnFlight.CalculateDragVelocity(PlaneRigidBody.transform, PlaneRigidBody.velocity, CurrentValues.BaseValues.DragCoefficientValues, CurrentValues.ValuesHolder);
 
         // Converting the planes current velocity and angle of attack to the lift being generated.
-        // flightForces.Lift = ForcesOnFlight.CalculateLift(PlaneRigidBody.transform.right, CurrentValues.BaseValues.LiftPower, CurrentValues.BaseValues.LiftCurve, PlaneRigidBody.transform, CurrentValues.ValuesHolder);
+        // flightForces.Lift = ForcesOnFlight.CalculateLiftVector(PlaneRigidBody.transform.right, CurrentValues.BaseValues.LiftPower, CurrentValues.BaseValues.LiftCurve, PlaneRigidBody.transform, CurrentValues.ValuesHolder);
 
         if (CurrentValues.ValuesHolder.CurrentVelocityLocal.sqrMagnitude >= 1f)
         {
-            flightForces.Lift = ForcesOnFlight.CalculateLift(CurrentValues.ValuesHolder.AngleOfAttack, Vector3.right, CurrentValues.BaseValues.LiftPower, CurrentValues.BaseValues.LiftCurve, CurrentValues.ValuesHolder);
+            flightForces.Lift = ForcesOnFlight.CalculateLiftVector(CurrentValues.ValuesHolder.AngleOfAttack, Vector3.right, CurrentValues.BaseValues.LiftPower, CurrentValues.BaseValues.LiftCurve, CurrentValues.ValuesHolder);
         }
     }
 
