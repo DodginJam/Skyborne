@@ -236,3 +236,132 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  <ElevatorTurnSpeedCurve>k__BackingField:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.01
+      outSlope: 0.01
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 100
+      value: 1
+      inSlope: 0.000037987742
+      outSlope: 0.000037987742
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.6108612
+    - serializedVersion: 3
+      time: 200.21957
+      value: 0.59858924
+      inSlope: -0.005735753
+      outSlope: -0.005735753
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.21972997
+    - serializedVersion: 3
+      time: 300
+      value: 0.1
+      inSlope: -0.004996864
+      outSlope: -0.004996864
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  <AileronTurnSpeedCurve>k__BackingField:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.01
+      outSlope: 0.01
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 100
+      value: 1
+      inSlope: 0.000037987742
+      outSlope: 0.000037987742
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.6108612
+    - serializedVersion: 3
+      time: 200.21957
+      value: 0.59858924
+      inSlope: -0.005735753
+      outSlope: -0.005735753
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.21972997
+    - serializedVersion: 3
+      time: 300
+      value: 0.1
+      inSlope: -0.004996864
+      outSlope: -0.004996864
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  <RudderTurnSpeedCurve>k__BackingField:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.01
+      outSlope: 0.01
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 100
+      value: 1
+      inSlope: 0.000037987742
+      outSlope: 0.000037987742
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.6108612
+    - serializedVersion: 3
+      time: 200.21957
+      value: 0.59858924
+      inSlope: -0.005735753
+      outSlope: -0.005735753
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.21972997
+    - serializedVersion: 3
+      time: 300
+      value: 0.1
+      inSlope: -0.004996864
+      outSlope: -0.004996864
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  <TurnSpeed>k__BackingField: 150
+  <AccelerationOfTurn>k__BackingField: {x: 100, y: 30, z: 100}
+  <SteeringPower>k__BackingField: 100

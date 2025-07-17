@@ -1,5 +1,6 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -29,6 +30,12 @@ public class ForcesOnFlight
     /// The calulated resistance to forward thrust (a backwards acting force) determined by the speed at which the aircraft is moving through the air.
     /// </summary>
     public Vector3 Drag
+    { get; set; }
+
+    /// <summary>
+    /// The force of the angularRotation applied the aircraft from the control surfaces simulating lift to their respective areas of the aircraft.
+    /// </summary>
+    public Vector3 AngularRotationForce
     { get; set; }
 
     /// <summary>
@@ -147,5 +154,31 @@ public class ForcesOnFlight
         var lift = liftDirection * liftForce;
 
         return lift;
+    }
+
+    public static Vector3 CalculateAngularRotationForce(AircraftValuesHolder valuesHolder, AircraftInput controlInputs, AircraftCurrentValues currentValues)
+    {
+        float CalculateSteering(float dt, float angularVelocity, float targetVelocity, float acceleration)
+        {
+            var error = targetVelocity - angularVelocity;
+            var accel = acceleration * dt;
+            return Mathf.Clamp(error, -accel, accel);
+        }
+
+        var speed = Mathf.Max(0, currentValues.ValuesHolder.CurrentVelocityLocal.z);
+        var steeringPower = currentValues.BaseValues.ElevatorTurnSpeedCurve.Evaluate(speed);
+
+        var targetAV = Vector3.Scale(new Vector3(controlInputs.ElevatorInput, controlInputs.RudderInput, controlInputs.AileronInput), new Vector3(currentValues.BaseValues.TurnSpeed, currentValues.BaseValues.TurnSpeed, currentValues.BaseValues.TurnSpeed) * steeringPower);
+        var av = currentValues.ValuesHolder.CurrentAngularVelocityLocal * Mathf.Rad2Deg;
+        var correction = new Vector3(
+            CalculateSteering(Time.deltaTime, av.x, targetAV.x, currentValues.BaseValues.AccelerationOfTurn.x * steeringPower),
+            CalculateSteering(Time.deltaTime, av.y, targetAV.y, currentValues.BaseValues.AccelerationOfTurn.y * steeringPower),
+            CalculateSteering(Time.deltaTime, av.z, targetAV.z, currentValues.BaseValues.AccelerationOfTurn.z * steeringPower)
+        );
+
+        return correction * Mathf.Deg2Rad;    //ignore rigidbody mass
+
+
+        return default(Vector3);
     }
 }

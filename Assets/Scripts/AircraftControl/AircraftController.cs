@@ -70,8 +70,13 @@ public class AircraftController : MonoBehaviour
     /// <param name="valuesHolder"></param>
     public void UpdatePlaneState(AircraftValuesHolder valuesHolder)
     {
-        CurrentValues.ValuesHolder.CurrentVelocityLocal = Quaternion.Inverse(PlaneRigidBody.transform.rotation) * PlaneRigidBody.velocity;
+        // Local velocity and angular velocity values stored in value holder.
+        Quaternion invRotation = Quaternion.Inverse(PlaneRigidBody.rotation);
 
+        CurrentValues.ValuesHolder.CurrentVelocityLocal = invRotation * PlaneRigidBody.velocity;
+        CurrentValues.ValuesHolder.CurrentAngularVelocityLocal = invRotation * PlaneRigidBody.angularVelocity;
+
+        // Angle of attack calculation.
         if (valuesHolder.CurrentVelocityLocal.sqrMagnitude < 0.1f)
         {
             valuesHolder.AngleOfAttack = 0;
@@ -80,7 +85,6 @@ public class AircraftController : MonoBehaviour
         {
             valuesHolder.AngleOfAttack = Mathf.Rad2Deg * Mathf.Atan2(-valuesHolder.CurrentVelocityLocal.y, valuesHolder.CurrentVelocityLocal.z);
         }
-
     }
 
     /// <summary>
@@ -125,13 +129,15 @@ public class AircraftController : MonoBehaviour
     /// <param name="flightForces"></param>
     public void FlightControlsToForces(PrimaryFlightControls flightControls, ForcesOnFlight flightForces)
     {
+        // Calculate the rotation of the aircraft based upon the control surfaces simulation.
+        flightForces.AngularRotationForce = ForcesOnFlight.CalculateAngularRotationForce(CurrentValues.ValuesHolder, InputControls, CurrentValues);
         // Converting the throttle value to the thrust output.
         flightForces.Thrust = ForcesOnFlight.CalculateThrustForce(flightControls.ThrottleValue, CurrentValues.BaseValues.ThrustMax);
 
         // Converting the current plane velocity based on the thrust through a to a drag equation
         flightForces.Drag = ForcesOnFlight.CalculateDragVelocity(PlaneRigidBody.transform, PlaneRigidBody.velocity, CurrentValues.BaseValues.DragCoefficientValues, CurrentValues.ValuesHolder);
 
-        // Converting the planes current velocity and angle of attack to the lift being generated.
+        // OLD FUNCTION CALL - Converting the planes current velocity and angle of attack to the lift being generated.
         // flightForces.Lift = ForcesOnFlight.CalculateLift(PlaneRigidBody.transform.right, CurrentValues.BaseValues.LiftPower, CurrentValues.BaseValues.LiftCurve, PlaneRigidBody.transform, CurrentValues.ValuesHolder);
 
         if (CurrentValues.ValuesHolder.CurrentVelocityLocal.sqrMagnitude >= 1f)
@@ -147,7 +153,8 @@ public class AircraftController : MonoBehaviour
     /// <param name="rigidBody"></param>
     public void ForcesToRigidBody(ForcesOnFlight flightForces, Rigidbody rigidBody)
     {
-        // Applying the thrust value to the aircraft rigidbody.
+        // Applying the forces value to the aircraft rigidbody.
+        rigidBody.AddRelativeTorque(flightForces.AngularRotationForce, ForceMode.VelocityChange);
         rigidBody.AddForce(transform.forward * flightForces.Thrust, ForceMode.Force);
         rigidBody.AddForce(flightForces.Drag, ForceMode.Force);
         rigidBody.AddRelativeForce(flightForces.Lift, ForceMode.Force);
