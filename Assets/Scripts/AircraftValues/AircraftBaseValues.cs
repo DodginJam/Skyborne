@@ -92,6 +92,52 @@ public class AircraftBaseValues : ScriptableObject
     [field: SerializeField]
     public AnimationCurve LiftCurve
     { get; private set; }
+
+    /// <summary>
+    /// Animation Curve used to represent the turning force applied on the Elevator axis tied to the current velocity / angle of attack.
+    /// </summary>
+    [field: SerializeField]
+    public AnimationCurve ElevatorTurnSpeedCurve
+    { get; private set; }
+
+    /// <summary>
+    /// Animation Curve used to represent the turning force applied on the Aileron axis tied to the current velocity / angle of attack.
+    /// </summary>
+    [field: SerializeField]
+    public AnimationCurve AileronTurnSpeedCurve
+    { get; private set; }
+
+    /// <summary>
+    /// Animation Curve used to represent the turning force applied on the Rudder axis tied to the current velocity / angle of attack.
+    /// </summary>
+    [field: SerializeField]
+    public AnimationCurve RudderTurnSpeedCurve
+    { get; private set; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    [field: SerializeField, Min(0.1f)]
+    public float TurnSpeed
+    { get; private set; }
+
+    [field: SerializeField]
+    public Vector3 AccelerationOfTurn
+    { get; private set; }
+
+    [field: SerializeField, Min(0.1f)]
+    public float SteeringPower
+    { get; private set; }
 }
 
 /// <summary>

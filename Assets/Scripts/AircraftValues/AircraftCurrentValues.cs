@@ -78,4 +78,10 @@ public class AircraftValuesHolder
     /// </summary>
     public Vector3 CurrentVelocityLocal
     { get; set; }
+
+    /// <summary>
+    /// The angular velocity of the aircraft in local space.
+    /// </summary>
+    public Vector3 CurrentAngularVelocityLocal
+    { get; set; }
 }
