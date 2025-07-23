@@ -7,6 +7,8 @@ public class GateSpawning : MonoBehaviour
     public float radius = 125f;
     [Range(10, 80)]
     public float angle = 10f;
+    [Range(10, 80)]
+    public float startingAngle = 10f;
     public float minDistanceFromPlayer = 50f;
 
     [Header("Timing Settings")]
@@ -15,6 +17,7 @@ public class GateSpawning : MonoBehaviour
     [Header("References")]
     public Transform playerRef;
     public GameObject gateRef;
+    public Score playerScore;
 
     private void Start()
     {
@@ -28,6 +31,15 @@ public class GateSpawning : MonoBehaviour
             }
         }
         StartCoroutine(GateRoutine());
+    }
+
+    private void FixedUpdate()
+    {
+        angle = startingAngle + (playerScore.score * 5f); // Temporary method of increasing angle
+        if (angle > 80f)
+        {
+            angle = 80f;
+        }
     }
 
     private IEnumerator GateRoutine()

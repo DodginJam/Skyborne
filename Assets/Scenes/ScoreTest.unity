@@ -956,10 +956,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 125
   angle: 10
+  startingAngle: 10
   minDistanceFromPlayer: 125
   spawnDelay: 0
   playerRef: {fileID: 1631559961}
   gateRef: {fileID: 1129871365}
+  playerScore: {fileID: 1172335987}
 --- !u!4 &1631559961 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4040713316492821883, guid: 7b82bb532206fde468345883997c8e03,
