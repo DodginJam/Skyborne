@@ -27,20 +27,6 @@ public class GateSpawning : MonoBehaviour
                 return;
             }
         }
-
-        /*
-        if (playerRef == null)
-        {
-            playerRef = GameObject.FindGameObjectWithTag("Player")?.transform;
-            if (playerRef == null)
-            {
-                Debug.LogError("Player reference not assigned or found!");
-                return;
-            }
-        }
-        */
-
-
         StartCoroutine(GateRoutine());
     }
 
