@@ -74,6 +74,12 @@ public class AircraftValuesHolder
     { get; set; }
 
     /// <summary>
+    /// Reference of the current Angle Of Attack of the aircraft.
+    /// </summary>
+    public float AngleOfAttackYaw
+    { get; set; }
+
+    /// <summary>
     /// The velocity of the aircraft in local space.
     /// </summary>
     public Vector3 CurrentVelocityLocal
