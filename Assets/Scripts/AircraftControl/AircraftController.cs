@@ -80,10 +80,12 @@ public class AircraftController : MonoBehaviour
         if (valuesHolder.CurrentVelocityLocal.sqrMagnitude < 0.1f)
         {
             valuesHolder.AngleOfAttack = 0;
+            valuesHolder.AngleOfAttackYaw = 0;
         }
         else
         {
             valuesHolder.AngleOfAttack = Mathf.Rad2Deg * Mathf.Atan2(-valuesHolder.CurrentVelocityLocal.y, valuesHolder.CurrentVelocityLocal.z);
+            valuesHolder.AngleOfAttackYaw = Mathf.Rad2Deg * Mathf.Atan2(valuesHolder.CurrentVelocityLocal.x, valuesHolder.CurrentVelocityLocal.z);
         }
     }
 
@@ -131,10 +133,11 @@ public class AircraftController : MonoBehaviour
     {
         // Calculate the rotation of the aircraft based upon the control surfaces simulation.
         flightForces.AngularRotationForce = ForcesOnFlight.CalculateAngularRotationForce(CurrentValues.ValuesHolder, InputControls, CurrentValues);
+
         // Converting the throttle value to the thrust output.
         flightForces.Thrust = ForcesOnFlight.CalculateThrustForce(flightControls.ThrottleValue, CurrentValues.BaseValues.ThrustMax);
 
-        // Converting the current plane velocity based on the thrust through a to a drag equation
+        // Converting the current.0 plane velocity based on the thrust through a to a drag equation
         flightForces.Drag = ForcesOnFlight.CalculateDragVelocity(PlaneRigidBody.transform, PlaneRigidBody.velocity, CurrentValues.BaseValues.DragCoefficientValues, CurrentValues.ValuesHolder);
 
         // OLD FUNCTION CALL - Converting the planes current velocity and angle of attack to the lift being generated.
@@ -143,6 +146,7 @@ public class AircraftController : MonoBehaviour
         if (CurrentValues.ValuesHolder.CurrentVelocityLocal.sqrMagnitude >= 1f)
         {
             flightForces.Lift = ForcesOnFlight.CalculateLiftVector(CurrentValues.ValuesHolder.AngleOfAttack, Vector3.right, CurrentValues.BaseValues.LiftPower, CurrentValues.BaseValues.LiftCurve, CurrentValues.ValuesHolder);
+            flightForces.Lift += ForcesOnFlight.CalculateLiftVector(CurrentValues.ValuesHolder.AngleOfAttackYaw, Vector3.up, CurrentValues.BaseValues.LiftPowerVertical, CurrentValues.BaseValues.LiftCurveVertical, CurrentValues.ValuesHolder);
         }
     }
 
