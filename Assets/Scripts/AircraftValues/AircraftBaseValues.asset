@@ -16,6 +16,7 @@ MonoBehaviour:
   <ThrottleSpeedOfChange>k__BackingField: 1
   <Weight>k__BackingField: 800
   <LiftPower>k__BackingField: 60
+  <LiftPowerVertical>k__BackingField: 20
   <ElevatorDegreeLimit>k__BackingField: 30
   <ElevatorSpeedOfRotation>k__BackingField: 60
   <AileronDegreeLimit>k__BackingField: 30
@@ -236,6 +237,75 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  <LiftCurveVertical>k__BackingField:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -90
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: -21.4
+      value: -0.2142857
+      inSlope: -0.0072463728
+      outSlope: -0.0072463728
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.067055404
+      outWeight: 0.5453999
+    - serializedVersion: 3
+      time: -10
+      value: -1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.1
+      outSlope: 0.1
+      tangentMode: 69
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 10
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 21.400002
+      value: 0.21428572
+      inSlope: -0.0115646245
+      outSlope: -0.0115646245
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.6140352
+      outWeight: 0.11449417
+    - serializedVersion: 3
+      time: 90
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   <ElevatorTurnSpeedCurve>k__BackingField:
     serializedVersion: 2
     m_Curve:
@@ -363,5 +433,5 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   <TurnSpeed>k__BackingField: 150
-  <AccelerationOfTurn>k__BackingField: {x: 100, y: 30, z: 100}
+  <AccelerationOfTurn>k__BackingField: {x: 100, y: 15, z: 100}
   <SteeringPower>k__BackingField: 100

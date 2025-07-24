@@ -38,6 +38,13 @@ public class AircraftBaseValues : ScriptableObject
     { get; private set; } = 20.0f;
 
     /// <summary>
+    /// The life power of the plane.
+    /// </summary>
+    [field: SerializeField, Min(0.1f)]
+    public float LiftPowerVertical
+    { get; private set; } = 20.0f;
+
+    /// <summary>
     /// The max degree of rotation the elevator can be turned (absolute value).
     /// </summary>
     [field: SerializeField]
@@ -94,6 +101,13 @@ public class AircraftBaseValues : ScriptableObject
     { get; private set; }
 
     /// <summary>
+    /// Animation Curve used to represent the Lift coefficent relationship with the angle of attack of the plane.
+    /// </summary>
+    [field: SerializeField]
+    public AnimationCurve LiftCurveVertical
+    { get; private set; }
+
+    /// <summary>
     /// Animation Curve used to represent the turning force applied on the Elevator axis tied to the current velocity / angle of attack.
     /// </summary>
     [field: SerializeField]
@@ -113,8 +127,6 @@ public class AircraftBaseValues : ScriptableObject
     [field: SerializeField]
     public AnimationCurve RudderTurnSpeedCurve
     { get; private set; }
-
-
 
 
 
