@@ -163,10 +163,10 @@ public class AircraftController : MonoBehaviour
         rigidBody.AddForce(flightForces.Drag, ForceMode.Force);
         rigidBody.AddRelativeForce(flightForces.Lift, ForceMode.Force);
 
-        Debug.Log($"Thrust: {transform.forward * flightForces.Thrust}\tDrag: {flightForces.Drag}");
-        Debug.Log($"Lift: {flightForces.Lift}\tGravity Newtons: {flightForces.Weight * Physics.gravity}");
+        // Debug.Log($"Thrust: {transform.forward * flightForces.Thrust}\tDrag: {flightForces.Drag}");
+        // Debug.Log($"Lift: {flightForces.Lift}\tGravity Newtons: {flightForces.Weight * Physics.gravity}");
 
         float indicatedAirspeed = Mathf.Max(0f, Vector3.Dot(rigidBody.velocity, transform.forward));
-        Debug.Log($"indicatedAirspeed: {indicatedAirspeed}");
+        // Debug.Log($"indicatedAirspeed: {indicatedAirspeed}");
     }
 }

@@ -134,7 +134,7 @@
                     "id": "3ea4d645-4504-4529-b061-ab81934c3752",
                     "path": "<Joystick>/stick",
                     "interactions": "",
-                    "processors": "StickDeadzone(min=0.175,max=0.925)",
+                    "processors": "StickDeadzone(min=0.125,max=0.925)",
                     "groups": "Joystick",
                     "action": "PitchAndRoll",
                     "isComposite": false,
