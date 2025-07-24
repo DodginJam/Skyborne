@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 
 public class GateSpawning : MonoBehaviour
@@ -17,6 +18,7 @@ public class GateSpawning : MonoBehaviour
     [Header("References")]
     public Transform playerRef;
     public GameObject gateRef;
+    public Gate gate;
     public Score playerScore;
 
     private void Start()
@@ -42,6 +44,19 @@ public class GateSpawning : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (gate.missed == true)
+        {
+            gate.missed = false;
+            angle -= 10f;
+            if (angle < 10f)
+            {
+                angle = 10f;
+            }
+        }
+    }
+
     private IEnumerator GateRoutine()
     {
         while (true)
@@ -52,8 +67,10 @@ public class GateSpawning : MonoBehaviour
 
                 Vector3 newPos = FindValidSpawnPos();
                 gateRef.transform.position = newPos;
+                //gateRef.transform.rotation = playerRef.rotation;
                 gateRef.SetActive(true);
             }
+            //gateRef.transform.rotation = playerRef.rotation;
             yield return null;
         }
     }
