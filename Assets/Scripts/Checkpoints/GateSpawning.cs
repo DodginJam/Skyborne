@@ -67,10 +67,9 @@ public class GateSpawning : MonoBehaviour
 
                 Vector3 newPos = FindValidSpawnPos();
                 gateRef.transform.position = newPos;
-                //gateRef.transform.rotation = playerRef.rotation;
+                gateRef.transform.rotation = playerRef.rotation;
                 gateRef.SetActive(true);
             }
-            //gateRef.transform.rotation = playerRef.rotation;
             yield return null;
         }
     }
