@@ -11,23 +11,39 @@ public class PrimaryFlightControls
     /// The angle at which the elevator is set to.
     /// </summary>
     public float ElevatorDegree
-    { get; private set; }
+    { get; set; } = 0;
 
     /// <summary>
     /// The angle at which the elevator is set to.
     /// </summary>
     public float AileronDegree_Left
-    { get; private set; }
+    { get; set; } = 0;
 
     /// <summary>
     /// The angle at which the elevator is set to.
     /// </summary>
     public float AileronDegree_Right
-    { get; private set; }
+    { get; set; } = 0;
 
     /// <summary>
     /// The angle at which the elevator is set to.
     /// </summary>
     public float RudderDegree
-    { get; private set; }
+    { get; set; } = 0;
+
+    /// <summary>
+    /// The value of the throttle which directs the power sent to the engine.
+    /// </summary>
+    public float ThrottleValue
+    { get; set; } = 0;
+
+    public static float CalculateCurrentRotation(float normalisedInput, float currentElevatorDegrees, float degreeLimitOfRotation, float speedOfRotation)
+    {
+        // Calculating the elevator normalised angles of degrees.
+        float newDegreeTarget = normalisedInput * degreeLimitOfRotation;
+
+        float newCurrentDegree = Mathf.MoveTowardsAngle(currentElevatorDegrees, newDegreeTarget, speedOfRotation * Time.fixedDeltaTime);
+
+        return newCurrentDegree;
+    }
 }

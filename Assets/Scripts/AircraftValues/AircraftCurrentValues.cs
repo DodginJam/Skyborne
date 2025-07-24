@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class AircraftCurrentValues : MonoBehaviour
 {
+    /// <summary>
+    /// The values of the aircraft being used for the flight calculations.
+    /// </summary>
     [field: SerializeField]
-    public AircraftStartingValues StartingValues
+    public AircraftBaseValues BaseValues
     {  get; private set; }
 
     /// <summary>
@@ -20,33 +23,21 @@ public class AircraftCurrentValues : MonoBehaviour
     public PrimaryFlightControls FlightControls
     { get; private set; }
 
-    [field: SerializeField]
-    public float ThrustSpeed
-    { get; set; } = 1.0f;
-
-    [field: SerializeField]
-    public float PitchSpeed
-    { get; set; } = 1.0f;
-
-    [field: SerializeField]
-    public float RollSpeed
-    { get; set; } = 1.0f;
-
-    [field: SerializeField]
-    public float YawSpeed
-    { get; set; } = 1.0f;
+    /// <summary>
+    /// Container for the various required calculated values used and reference multiple times in update loop.
+    /// </summary>
+    public AircraftValuesHolder ValuesHolder
+    { get; private set; }
 
     private void Awake()
     {
-        InitialiseStartingValues();
-        FlightForces = new ForcesOnFlight();
-        FlightControls = new PrimaryFlightControls();
+        InitialiseAircraftValues();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -55,11 +46,48 @@ public class AircraftCurrentValues : MonoBehaviour
         
     }
 
-    public void InitialiseStartingValues()
+    public void InitialiseAircraftValues()
     {
-        ThrustSpeed = StartingValues.ThrustMaxSpeed;
-        PitchSpeed = StartingValues.PitchSpeed;
-        RollSpeed = StartingValues.RollSpeed;
-        YawSpeed = StartingValues.YawSpeed;
+        // Null checks.
+        if (BaseValues == null)
+        {
+            Debug.LogError("No Aircraft Base Values have been passed through.");
+            return;
+        }
+
+        if (FlightForces == null) FlightForces = new ForcesOnFlight();
+
+        if (FlightControls == null) FlightControls = new PrimaryFlightControls();
+
+        if (ValuesHolder == null) ValuesHolder = new AircraftValuesHolder();
+
+        FlightForces.Weight = BaseValues.Weight;
     }
+}
+
+public class AircraftValuesHolder
+{
+    /// <summary>
+    /// Reference of the current Angle Of Attack of the aircraft.
+    /// </summary>
+    public float AngleOfAttack
+    { get; set; }
+
+    /// <summary>
+    /// Reference of the current Angle Of Attack of the aircraft.
+    /// </summary>
+    public float AngleOfAttackYaw
+    { get; set; }
+
+    /// <summary>
+    /// The velocity of the aircraft in local space.
+    /// </summary>
+    public Vector3 CurrentVelocityLocal
+    { get; set; }
+
+    /// <summary>
+    /// The angular velocity of the aircraft in local space.
+    /// </summary>
+    public Vector3 CurrentAngularVelocityLocal
+    { get; set; }
 }
