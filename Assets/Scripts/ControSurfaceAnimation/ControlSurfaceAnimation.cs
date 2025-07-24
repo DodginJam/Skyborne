@@ -41,7 +41,7 @@ public class ControlSurfaceAnimation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -49,25 +49,25 @@ public class ControlSurfaceAnimation : MonoBehaviour
     {
         foreach (ControlSurface surface in ControlSurfaces)
         {
-            Vector3 newRotation = Vector3.zero;
+            Vector3 euler = surface.ControlSurfaceObject.transform.localEulerAngles;
 
             switch (surface.RotationAxis)
             {
                 case ControlSurface.LocalRotationAxis.X:
-                    newRotation = new Vector3(surface.ReturnSurfaceInputValue(surface, FlightControls), surface.ControlSurfaceObject.transform.localRotation.y, surface.ControlSurfaceObject.transform.localRotation.z);
+                    euler.x = surface.ReturnSurfaceInputValue(surface, FlightControls);
                     break;
                 case ControlSurface.LocalRotationAxis.Y:
-                    newRotation = new Vector3(surface.ControlSurfaceObject.transform.localRotation.x, surface.ReturnSurfaceInputValue(surface, FlightControls), surface.ControlSurfaceObject.transform.localRotation.z);
+                    euler.y = surface.ReturnSurfaceInputValue(surface, FlightControls);
                     break;
                 case ControlSurface.LocalRotationAxis.Z:
-                    newRotation = new Vector3(surface.ControlSurfaceObject.transform.localRotation.x, surface.ControlSurfaceObject.transform.localRotation.y, surface.ReturnSurfaceInputValue(surface, FlightControls));
+                    euler.z = surface.ReturnSurfaceInputValue(surface, FlightControls);
                     break;
                 default:
                     Debug.LogWarning("Default used");
                     break;
             }
 
-            surface.ControlSurfaceObject.transform.localRotation = Quaternion.Euler(newRotation);
+            surface.ControlSurfaceObject.transform.localRotation = Quaternion.Euler(euler);
         }
     }
 }
