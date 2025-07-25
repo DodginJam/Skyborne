@@ -90,4 +90,10 @@ public class AircraftValuesHolder
     /// </summary>
     public Vector3 CurrentAngularVelocityLocal
     { get; set; }
+
+    /// <summary>
+    /// The airspeed of the aircraft in the direction of travel.
+    /// </summary>
+    public float AirSpeed
+    { get; set; }
 }

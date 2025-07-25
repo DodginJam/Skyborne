@@ -60,6 +60,7 @@ public class AircraftController : MonoBehaviour
         InputToFlightControls(InputControls, CurrentValues.FlightControls);
         ForcesAndFlightControlsToForces(CurrentValues.FlightControls, CurrentValues.FlightForces);
         ForcesToRigidBody(CurrentValues.FlightForces, PlaneRigidBody);
+        UpdateDisplayInformation(CurrentValues.ValuesHolder);
 
         Debug.DrawLine(transform.position, transform.position + PlaneRigidBody.velocity.normalized * 10f, Color.blue);
     }
@@ -165,8 +166,12 @@ public class AircraftController : MonoBehaviour
 
         // Debug.Log($"Thrust: {transform.forward * flightForces.Thrust}\tDrag: {flightForces.Drag}");
         // Debug.Log($"Lift: {flightForces.Lift}\tGravity Newtons: {flightForces.Weight * Physics.gravity}");
-
-        float indicatedAirspeed = Mathf.Max(0f, Vector3.Dot(rigidBody.velocity, transform.forward));
-        // Debug.Log($"indicatedAirspeed: {indicatedAirspeed}");
     }
+
+    public void UpdateDisplayInformation(AircraftValuesHolder valuesHolder)
+    {
+        // Updating display information.
+        valuesHolder.AirSpeed = Mathf.Max(0f, Vector3.Dot(PlaneRigidBody.velocity, transform.forward));
+    }
+
 }
