@@ -71,6 +71,15 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
                     ""processors"": ""Invert"",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""CameraToggle"",
+                    ""type"": ""Button"",
+                    ""id"": ""114358ac-4f8b-421e-ac2d-c04bc44d2be8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -346,6 +355,39 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
                     ""processors"": """",
                     ""groups"": ""Joystick"",
                     ""action"": ""Throttle [Slider]"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b1335c84-a185-4213-95e6-4361dc7ce26d"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""CameraToggle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dafb0923-8939-4718-8a45-22e75f1d0dd6"",
+                    ""path"": ""<Gamepad>/rightStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""CameraToggle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""26e0aa1f-70a5-4f1e-9ddf-e0e85d253b73"",
+                    ""path"": ""<HID::Logitech Extreme 3D pro>/button2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""CameraToggle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -938,6 +980,7 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
         m_Aircraft_Yaw = m_Aircraft.FindAction("Yaw", throwIfNotFound: true);
         m_Aircraft_ThrottleComposite = m_Aircraft.FindAction("Throttle [Composite]", throwIfNotFound: true);
         m_Aircraft_ThrottleSlider = m_Aircraft.FindAction("Throttle [Slider]", throwIfNotFound: true);
+        m_Aircraft_CameraToggle = m_Aircraft.FindAction("CameraToggle", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1016,6 +1059,7 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
     private readonly InputAction m_Aircraft_Yaw;
     private readonly InputAction m_Aircraft_ThrottleComposite;
     private readonly InputAction m_Aircraft_ThrottleSlider;
+    private readonly InputAction m_Aircraft_CameraToggle;
     public struct AircraftActions
     {
         private @InputActions_Skyborne m_Wrapper;
@@ -1025,6 +1069,7 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
         public InputAction @Yaw => m_Wrapper.m_Aircraft_Yaw;
         public InputAction @ThrottleComposite => m_Wrapper.m_Aircraft_ThrottleComposite;
         public InputAction @ThrottleSlider => m_Wrapper.m_Aircraft_ThrottleSlider;
+        public InputAction @CameraToggle => m_Wrapper.m_Aircraft_CameraToggle;
         public InputActionMap Get() { return m_Wrapper.m_Aircraft; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1049,6 +1094,9 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
             @ThrottleSlider.started += instance.OnThrottleSlider;
             @ThrottleSlider.performed += instance.OnThrottleSlider;
             @ThrottleSlider.canceled += instance.OnThrottleSlider;
+            @CameraToggle.started += instance.OnCameraToggle;
+            @CameraToggle.performed += instance.OnCameraToggle;
+            @CameraToggle.canceled += instance.OnCameraToggle;
         }
 
         private void UnregisterCallbacks(IAircraftActions instance)
@@ -1068,6 +1116,9 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
             @ThrottleSlider.started -= instance.OnThrottleSlider;
             @ThrottleSlider.performed -= instance.OnThrottleSlider;
             @ThrottleSlider.canceled -= instance.OnThrottleSlider;
+            @CameraToggle.started -= instance.OnCameraToggle;
+            @CameraToggle.performed -= instance.OnCameraToggle;
+            @CameraToggle.canceled -= instance.OnCameraToggle;
         }
 
         public void RemoveCallbacks(IAircraftActions instance)
@@ -1255,6 +1306,7 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
         void OnYaw(InputAction.CallbackContext context);
         void OnThrottleComposite(InputAction.CallbackContext context);
         void OnThrottleSlider(InputAction.CallbackContext context);
+        void OnCameraToggle(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

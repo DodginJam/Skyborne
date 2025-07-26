@@ -39,6 +39,9 @@ public class AircraftInput : MonoBehaviour
     public PlayerInput PlayerInputComponent
     { get; private set; }
 
+    public bool CameraTogglePressed
+    { get; set; }
+
 
     private void Awake()
     {
@@ -61,6 +64,8 @@ public class AircraftInput : MonoBehaviour
         {
             Debug.LogError("Unable to locate a player input component");
         }
+
+        SetUpInputListeners(AircraftActionMap);
     }
 
     // Start is called before the first frame update
@@ -112,5 +117,18 @@ public class AircraftInput : MonoBehaviour
         ElevatorInput = AircraftActionMap.PitchAndRoll.ReadValue<Vector2>().y;
         AileronInput = -AircraftActionMap.PitchAndRoll.ReadValue<Vector2>().x;
         RudderInput = AircraftActionMap.Yaw.ReadValue<float>();
+    }
+
+    void SetUpInputListeners(InputActions_Skyborne.AircraftActions aircraftActions)
+    {
+        aircraftActions.CameraToggle.started += context =>
+        {
+            OnCameraToggle(context);
+        };
+    }
+
+    public void OnCameraToggle(InputAction.CallbackContext context)
+    {
+        CameraTogglePressed = context.ReadValueAsButton();
     }
 }

@@ -68,7 +68,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.05
   far clip plane: 10000
   field of view: 70
   orthographic: 0
@@ -237,10 +237,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33c0f5946b22ce844a6ffb56d6745144, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <PlayerCamera>k__BackingField: {fileID: 5563084283286401106}
+  <CurrentPlayerCamera>k__BackingField: {fileID: 0}
   <AssignedTarget>k__BackingField: {fileID: 0}
-  <CameraPositionalOffset>k__BackingField: {x: 0, y: 0.5, z: 0.69}
+  <CameraPositionalOffset>k__BackingField: {x: -0.25, y: 0.11, z: 0.9}
   <CameraLerpSpeed>k__BackingField: 500
+  <CameraDataList>k__BackingField:
+  - <CameraDataName>k__BackingField: First Person
+    <PositionalOffset>k__BackingField: {x: -0.25, y: 0.11, z: 0.9}
+    <RotationalOffset>k__BackingField: {x: 0, y: 0, z: 0}
+  - <CameraDataName>k__BackingField: Third Person
+    <PositionalOffset>k__BackingField: {x: 0, y: 1.5, z: -8}
+    <RotationalOffset>k__BackingField: {x: 0, y: 0, z: 0}
 --- !u!114 &4798817245014726878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,7 +361,7 @@ VisualEffect:
         m_Overridden: 1
       - m_Value: {x: 0.25, y: 0.35}
         m_Name: YScaleRange
-        m_Overridden: 1
+        m_Overridden: 0
       - m_Value: {x: 6, y: 10}
         m_Name: XScaleRange
         m_Overridden: 1
