@@ -77,7 +77,7 @@ public class CameraEffects : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        SpeedLines.enabled = true;
     }
 
     // Update is called once per frame
