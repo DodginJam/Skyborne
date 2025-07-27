@@ -42,6 +42,9 @@ public class AircraftInput : MonoBehaviour
     public bool CameraTogglePressed
     { get; set; }
 
+    public Vector2 CameraInput
+    { get; private set; }
+
 
     private void Awake()
     {
@@ -117,6 +120,9 @@ public class AircraftInput : MonoBehaviour
         ElevatorInput = AircraftActionMap.PitchAndRoll.ReadValue<Vector2>().y;
         AileronInput = -AircraftActionMap.PitchAndRoll.ReadValue<Vector2>().x;
         RudderInput = AircraftActionMap.Yaw.ReadValue<float>();
+
+        // Process the input for the camera controls.
+        CameraInput = AircraftActionMap.Look.ReadValue<Vector2>();
     }
 
     void SetUpInputListeners(InputActions_Skyborne.AircraftActions aircraftActions)

@@ -24,7 +24,7 @@ RenderSettings:
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 4
+  m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
@@ -1200,6 +1200,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &963867924 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3756041816939242692, guid: 7b82bb532206fde468345883997c8e03,
+    type: 3}
+  m_PrefabInstance: {fileID: 4406453735467669109}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &992857497
 GameObject:
   m_ObjectHideFlags: 0
@@ -2855,6 +2861,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 590838476083247528, guid: 94ffa1a4244b5ef4f888a7c799456e0e,
+        type: 3}
+      propertyPath: <CameraHolder>k__BackingField
+      value: 
+      objectReference: {fileID: 963867924}
     - target: {fileID: 590838476083247528, guid: 94ffa1a4244b5ef4f888a7c799456e0e,
         type: 3}
       propertyPath: <InputControls>k__BackingField
