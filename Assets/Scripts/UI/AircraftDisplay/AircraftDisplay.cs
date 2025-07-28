@@ -65,7 +65,7 @@ public class AircraftDisplay : MonoBehaviour
                 // Speed Display.
                 if (SpeedDisplay != null)
                 {
-                    SpeedDisplay.text = PlayerAircraftScript.CurrentValues.ValuesHolder.AirSpeed.ToString();
+                    SpeedDisplay.text = Mathf.RoundToInt(PlayerAircraftScript.CurrentValues.ValuesHolder.AirSpeed).ToString();
                 }
                 else
                 {
@@ -75,7 +75,7 @@ public class AircraftDisplay : MonoBehaviour
                 // Altitude Display
                 if (AltitudeDisplay != null)
                 {
-                    AltitudeDisplay.text = PlayerAircraftScript.CurrentValues.ValuesHolder.HeightAboveSeaLevel.ToString();
+                    AltitudeDisplay.text = Mathf.RoundToInt(PlayerAircraftScript.CurrentValues.ValuesHolder.HeightAboveSeaLevel).ToString();
                 }
                 else
                 {
@@ -95,6 +95,6 @@ public class AircraftDisplay : MonoBehaviour
 
     public void UpdateScoreDisplay(int newValueToDisplay)
     {
-        ScoreDisplay.text = newValueToDisplay.ToString();
+        ScoreDisplay.text = Mathf.RoundToInt(newValueToDisplay).ToString();
     }
 }
