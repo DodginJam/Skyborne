@@ -56,6 +56,8 @@ public class AircraftInput : MonoBehaviour
     public Vector2 CameraInput
     { get; private set; }
 
+    public bool IsFiring
+    { get; private set; }
 
     private void Awake()
     {
@@ -163,11 +165,33 @@ public class AircraftInput : MonoBehaviour
         {
             OnCameraToggle(context);
         };
+
+        aircraftActions.Fire.started += context =>
+        {
+            OnFire(context);
+        };
+
+        aircraftActions.Fire.canceled += context =>
+        {
+            OnFire(context);
+        };
     }
 
     public void OnCameraToggle(InputAction.CallbackContext context)
     {
         CameraTogglePressed = context.ReadValueAsButton();
+    }
+
+    public void OnFire(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            IsFiring = true;
+        }
+        else if (context.canceled)
+        {
+            IsFiring = false;
+        }
     }
 
     public enum ControlInputType

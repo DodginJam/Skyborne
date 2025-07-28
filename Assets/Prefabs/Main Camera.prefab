@@ -237,7 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33c0f5946b22ce844a6ffb56d6745144, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <PlayerCamera>k__BackingField: {fileID: 0}
+  <PlayerCamera>k__BackingField: {fileID: 5563084283286401106}
   <AssignedTarget>k__BackingField: {fileID: 0}
   <CameraLerpSpeed>k__BackingField: 500
   <CameraDataList>k__BackingField:
