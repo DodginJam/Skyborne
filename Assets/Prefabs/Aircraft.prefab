@@ -667,14 +667,14 @@ MonoBehaviour:
       type: 3}
     <FireRatePerSecond>k__BackingField: 10
     <Lifetime>k__BackingField: 2.5
-    <LaunchForce>k__BackingField: 50
+    <LaunchForce>k__BackingField: 100
   - <Name>k__BackingField: Bullet2
     <BarrelTransformAndPoolingParent>k__BackingField: {fileID: 6608462600680142492}
     <AmmoPrefab>k__BackingField: {fileID: 6760200179865299152, guid: b289eb48a10233f489c18279931be571,
       type: 3}
     <FireRatePerSecond>k__BackingField: 10
     <Lifetime>k__BackingField: 2.5
-    <LaunchForce>k__BackingField: 50
+    <LaunchForce>k__BackingField: 100
 --- !u!1 &6195229005367474578
 GameObject:
   m_ObjectHideFlags: 0
