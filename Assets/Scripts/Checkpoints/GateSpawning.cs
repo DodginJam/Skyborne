@@ -81,8 +81,8 @@ public class GateSpawning : MonoBehaviour
             float randAngle = Random.Range(-angle / 2f, angle / 2f);
             float randDistance = Random.Range(minDistanceFromPlayer, radius); // Might change to fixed distance later
 
-            Vector3 direction = Quaternion.Euler(0, randAngle, 0) * transform.forward;
-            Vector3 potentialPos = transform.position + direction.normalized * randDistance;
+            Vector3 direction = Quaternion.Euler(0, randAngle, 0) * playerRef.transform.forward;
+            Vector3 potentialPos = playerRef.transform.position + direction.normalized * randDistance;
 
             float playerDistance = Vector3.Distance(potentialPos, playerRef.position);
             if (playerDistance >= minDistanceFromPlayer)
@@ -91,21 +91,21 @@ public class GateSpawning : MonoBehaviour
             }
         }
         Debug.LogWarning("Could not find valid spawn position after 30 attempts, using fallback.");
-        return transform.position + transform.forward * minDistanceFromPlayer;
+        return playerRef.transform.position + playerRef.transform.forward * minDistanceFromPlayer;
     }
 
     //Gizmos for viewing gate spawn area in editor
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, radius);
+        Gizmos.DrawWireSphere(playerRef.transform.position, radius);
 
-        Vector3 forward = transform.forward * radius;
+        Vector3 forward = playerRef.transform.forward * radius;
         Vector3 leftBoundary = Quaternion.Euler(0, -angle / 2, 0) * forward;
         Vector3 rightBoundary = Quaternion.Euler(0, angle / 2, 0) * forward;
 
         Gizmos.color = Color.green;
-        Gizmos.DrawRay(transform.position, leftBoundary);
-        Gizmos.DrawRay(transform.position, rightBoundary);
+        Gizmos.DrawRay(playerRef.transform.position, leftBoundary);
+        Gizmos.DrawRay(playerRef.transform.position, rightBoundary);
     }
 }

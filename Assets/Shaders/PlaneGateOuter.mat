@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PlaneGate
+  m_Name: PlaneGateOuter
   m_Shader: {fileID: -6465566751694194690, guid: 0118d86a4ae6b394e91e736a278542e5,
     type: 3}
   m_Parent: {fileID: 0}
@@ -98,9 +98,9 @@ Material:
     m_Colors:
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _FresnelColour: {r: 1.1345878, g: 31.698112, b: 0, a: 1}
+    - _FresnelColour: {r: 18.6556, g: 0, b: 2.539504, a: 1}
     - _ScanLineTiling: {r: 0.21, g: -0.07, b: 0, a: 0}
-    - _ScanLinesColour: {r: 0.8176284, g: 6.023529, b: 0, a: 1}
+    - _ScanLinesColour: {r: 2.9588065, g: 0, b: 0.0562203, a: 1}
     - _Tiling: {r: -3.63, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &3865220243606636734
