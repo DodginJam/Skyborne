@@ -59,6 +59,9 @@ public class AircraftInput : MonoBehaviour
     public bool IsFiring
     { get; private set; }
 
+    public bool FireSafetyDisabled
+    { get; private set; }
+
     private void Awake()
     {
         InputActions = new InputActions_Skyborne();
@@ -175,6 +178,11 @@ public class AircraftInput : MonoBehaviour
         {
             OnFire(context);
         };
+
+        aircraftActions.FireSafety.started += context =>
+        {
+            OnFireSafety(context);
+        };
     }
 
     public void OnCameraToggle(InputAction.CallbackContext context)
@@ -191,6 +199,14 @@ public class AircraftInput : MonoBehaviour
         else if (context.canceled)
         {
             IsFiring = false;
+        }
+    }
+
+    public void OnFireSafety(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            FireSafetyDisabled = !FireSafetyDisabled;
         }
     }
 

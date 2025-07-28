@@ -58,7 +58,7 @@ public class ArmamentsManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (InputControls.IsFiring == true)
+        if (InputControls.IsFiring == true && InputControls.FireSafetyDisabled)
         {
             // Cycle through all the armaments for firing checks.
             foreach (ArmamentData armData in ArmamentDatas)

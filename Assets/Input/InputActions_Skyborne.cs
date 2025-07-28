@@ -89,6 +89,15 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
                     ""processors"": """",
                     ""interactions"": ""Hold"",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""FireSafety"",
+                    ""type"": ""Button"",
+                    ""id"": ""746fe60c-0bc0-4772-8c08-ec4d71311049"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -430,6 +439,39 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cd743ab3-50e7-410a-867d-3a2066d92f2d"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""FireSafety"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""072b03ad-1f90-404f-b632-455c7e080f2b"",
+                    ""path"": ""<HID::Logitech Extreme 3D pro>/button3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""FireSafety"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0f3aecc6-ec9c-4d40-bb17-a01b108ed92e"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""FireSafety"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1024,6 +1066,7 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
         m_Aircraft_ThrottleSlider = m_Aircraft.FindAction("Throttle [Slider]", throwIfNotFound: true);
         m_Aircraft_CameraToggle = m_Aircraft.FindAction("CameraToggle", throwIfNotFound: true);
         m_Aircraft_Fire = m_Aircraft.FindAction("Fire", throwIfNotFound: true);
+        m_Aircraft_FireSafety = m_Aircraft.FindAction("FireSafety", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1104,6 +1147,7 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
     private readonly InputAction m_Aircraft_ThrottleSlider;
     private readonly InputAction m_Aircraft_CameraToggle;
     private readonly InputAction m_Aircraft_Fire;
+    private readonly InputAction m_Aircraft_FireSafety;
     public struct AircraftActions
     {
         private @InputActions_Skyborne m_Wrapper;
@@ -1115,6 +1159,7 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
         public InputAction @ThrottleSlider => m_Wrapper.m_Aircraft_ThrottleSlider;
         public InputAction @CameraToggle => m_Wrapper.m_Aircraft_CameraToggle;
         public InputAction @Fire => m_Wrapper.m_Aircraft_Fire;
+        public InputAction @FireSafety => m_Wrapper.m_Aircraft_FireSafety;
         public InputActionMap Get() { return m_Wrapper.m_Aircraft; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1145,6 +1190,9 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
             @Fire.started += instance.OnFire;
             @Fire.performed += instance.OnFire;
             @Fire.canceled += instance.OnFire;
+            @FireSafety.started += instance.OnFireSafety;
+            @FireSafety.performed += instance.OnFireSafety;
+            @FireSafety.canceled += instance.OnFireSafety;
         }
 
         private void UnregisterCallbacks(IAircraftActions instance)
@@ -1170,6 +1218,9 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
             @Fire.started -= instance.OnFire;
             @Fire.performed -= instance.OnFire;
             @Fire.canceled -= instance.OnFire;
+            @FireSafety.started -= instance.OnFireSafety;
+            @FireSafety.performed -= instance.OnFireSafety;
+            @FireSafety.canceled -= instance.OnFireSafety;
         }
 
         public void RemoveCallbacks(IAircraftActions instance)
@@ -1359,6 +1410,7 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
         void OnThrottleSlider(InputAction.CallbackContext context);
         void OnCameraToggle(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
+        void OnFireSafety(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
