@@ -41,7 +41,10 @@ public class ControlSurfaceAnimation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        foreach (ControlSurface surface in ControlSurfaces)
+        {
+            surface.InitialLocalRotation = surface.ControlSurfaceObject.transform.localRotation;
+        }
     }
 
     // Update is called once per frame
@@ -49,49 +52,32 @@ public class ControlSurfaceAnimation : MonoBehaviour
     {
         foreach (ControlSurface surface in ControlSurfaces)
         {
-            Vector3 euler = surface.ControlSurfaceObject.transform.localEulerAngles;
+            float input = surface.ReturnInputValue(surface, FlightControls);
+
+            Vector3 axis = GetAxisVector(surface.RotationAxis);
 
             if (surface.RotationSettingMode == ControlSurface.RotationSetType.HardSet)
             {
-                switch (surface.RotationAxis)
-                {
-                    case ControlSurface.LocalRotationAxis.X:
-                        euler.x = surface.ReturnInputValue(surface, FlightControls);
-                        break;
-                    case ControlSurface.LocalRotationAxis.Y:
-                        euler.y = surface.ReturnInputValue(surface, FlightControls);
-                        break;
-                    case ControlSurface.LocalRotationAxis.Z:
-                        euler.z = surface.ReturnInputValue(surface, FlightControls);
-                        break;
-                    default:
-                        Debug.LogWarning("Default used");
-                        break;
-                }
-
-                surface.ControlSurfaceObject.transform.localRotation = Quaternion.Euler(euler);
+                Quaternion rotationOffset = Quaternion.AngleAxis(input, axis);
+                surface.ControlSurfaceObject.transform.localRotation = surface.InitialLocalRotation * rotationOffset;
             }
             else if (surface.RotationSettingMode == ControlSurface.RotationSetType.CumulativeSet)
             {
-                switch (surface.RotationAxis)
-                {
-                    case ControlSurface.LocalRotationAxis.X:
-                        euler.x = surface.ReturnInputValue(surface, FlightControls);
-                        break;
-                    case ControlSurface.LocalRotationAxis.Y:
-                        euler.y = surface.ReturnInputValue(surface, FlightControls);
-                        break;
-                    case ControlSurface.LocalRotationAxis.Z:
-                        euler.z = surface.ReturnInputValue(surface, FlightControls);
-                        break;
-                    default:
-                        Debug.LogWarning("Default used");
-                        break;
-                }
-
-                surface.ControlSurfaceObject.transform.localRotation *= Quaternion.Euler(euler);
+                Quaternion delta = Quaternion.AngleAxis(input, axis);
+                surface.ControlSurfaceObject.transform.localRotation *= delta;
             }
         }
+    }
+
+    private Vector3 GetAxisVector(ControlSurface.LocalRotationAxis axis)
+    {
+        return axis switch
+        {
+            ControlSurface.LocalRotationAxis.X => Vector3.right,
+            ControlSurface.LocalRotationAxis.Y => Vector3.up,
+            ControlSurface.LocalRotationAxis.Z => Vector3.forward,
+            _ => Vector3.zero
+        };
     }
 }
 
@@ -117,6 +103,10 @@ public class ControlSurface
     [field: SerializeField]
     public RotationSetType RotationSettingMode
     { get; private set; }
+
+    [field: SerializeField]
+    public Quaternion InitialLocalRotation
+    { get; set; }
 
     /// <summary>
     /// Returns the angle of degress that a control surface is rotated to.
