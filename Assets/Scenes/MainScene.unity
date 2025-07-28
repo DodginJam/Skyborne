@@ -638,6 +638,18 @@ MonoBehaviour:
   m_PointlightHDType: 0
   m_SpotLightShape: 0
   m_AreaLightShape: 0
+--- !u!114 &194982470 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1190922854235062149, guid: 0d7ad5f5787aa6748b01f51534bcfb79,
+    type: 3}
+  m_PrefabInstance: {fileID: 3970619201057513842}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05c976b5433c4a646adaefaf359fba56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &197437369
 GameObject:
   m_ObjectHideFlags: 0
@@ -2300,6 +2312,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4406453735467669109}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1631559966 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4875903697253658785, guid: 7b82bb532206fde468345883997c8e03,
+    type: 3}
+  m_PrefabInstance: {fileID: 4406453735467669109}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631559950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae1a9f9d746affe41828493d27cf56c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1691012005
 GameObject:
   m_ObjectHideFlags: 0
@@ -3029,7 +3053,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: 0
-  <DisplayToUpdate>k__BackingField: {fileID: 0}
+  <DisplayToUpdate>k__BackingField: {fileID: 194982470}
 --- !u!4 &2120286415
 Transform:
   m_ObjectHideFlags: 0
@@ -3296,6 +3320,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7655543416590406897, guid: af09cd4986eb95a4490be2bee83581cc,
         type: 3}
+      propertyPath: spawner
+      value: 
+      objectReference: {fileID: 278777789}
+    - target: {fileID: 7655543416590406897, guid: af09cd4986eb95a4490be2bee83581cc,
+        type: 3}
       propertyPath: playerScore
       value: 
       objectReference: {fileID: 2120286414}
@@ -3444,7 +3473,7 @@ PrefabInstance:
         type: 3}
       propertyPath: <PlayerAircraftScript>k__BackingField
       value: 
-      objectReference: {fileID: 4406453735467669110}
+      objectReference: {fileID: 1631559966}
     - target: {fileID: 2686663241838126665, guid: 0d7ad5f5787aa6748b01f51534bcfb79,
         type: 3}
       propertyPath: m_Name
@@ -3606,12 +3635,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b82bb532206fde468345883997c8e03, type: 3}
---- !u!4 &4406453735467669110 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3535909367166027902, guid: 7b82bb532206fde468345883997c8e03,
-    type: 3}
-  m_PrefabInstance: {fileID: 4406453735467669109}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
