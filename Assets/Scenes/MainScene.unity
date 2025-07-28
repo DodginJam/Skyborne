@@ -735,6 +735,59 @@ Transform:
   m_Children: []
   m_Father: {fileID: 102311685}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &278777788
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 278777790}
+  - component: {fileID: 278777789}
+  m_Layer: 0
+  m_Name: CheckpointManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &278777789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 278777788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bc43b19ab22eb04bb1be3b9144ec39d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 125
+  angle: 10
+  startingAngle: 10
+  minDistanceFromPlayer: 50
+  spawnDelay: 5
+  playerRef: {fileID: 1631559962}
+  gateRef: {fileID: 3001175055099753074}
+  gate: {fileID: 3001175055099753077}
+  playerScore: {fileID: 2120286414}
+--- !u!4 &278777790
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 278777788}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &432432459
 GameObject:
   m_ObjectHideFlags: 0
@@ -2158,27 +2211,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4406453735467669109}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1631559969
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1631559950}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bc43b19ab22eb04bb1be3b9144ec39d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radius: 125
-  angle: 10
-  startingAngle: 10
-  minDistanceFromPlayer: 50
-  spawnDelay: 5
-  playerRef: {fileID: 1631559962}
-  gateRef: {fileID: 3001175055099753074}
-  gate: {fileID: 3001175055099753077}
-  playerScore: {fileID: 2120286414}
 --- !u!1 &1691012005
 GameObject:
   m_ObjectHideFlags: 0
@@ -3231,7 +3263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerScore: {fileID: 2120286414}
   playerTransform: {fileID: 1631559962}
-  spawner: {fileID: 1631559969}
+  spawner: {fileID: 0}
   missed: 0
   missedCount: 0
 --- !u!1001 &3983955888634642069
@@ -3423,11 +3455,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4895237626668929585, guid: 7b82bb532206fde468345883997c8e03,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1631559969}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b82bb532206fde468345883997c8e03, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
@@ -3442,3 +3470,4 @@ SceneRoots:
   - {fileID: 102311685}
   - {fileID: 3001175055099753073}
   - {fileID: 2120286415}
+  - {fileID: 278777790}
