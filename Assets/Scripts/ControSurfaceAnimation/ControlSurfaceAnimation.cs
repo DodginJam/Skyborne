@@ -51,23 +51,46 @@ public class ControlSurfaceAnimation : MonoBehaviour
         {
             Vector3 euler = surface.ControlSurfaceObject.transform.localEulerAngles;
 
-            switch (surface.RotationAxis)
+            if (surface.RotationSettingMode == ControlSurface.RotationSetType.HardSet)
             {
-                case ControlSurface.LocalRotationAxis.X:
-                    euler.x = surface.ReturnSurfaceInputValue(surface, FlightControls);
-                    break;
-                case ControlSurface.LocalRotationAxis.Y:
-                    euler.y = surface.ReturnSurfaceInputValue(surface, FlightControls);
-                    break;
-                case ControlSurface.LocalRotationAxis.Z:
-                    euler.z = surface.ReturnSurfaceInputValue(surface, FlightControls);
-                    break;
-                default:
-                    Debug.LogWarning("Default used");
-                    break;
-            }
+                switch (surface.RotationAxis)
+                {
+                    case ControlSurface.LocalRotationAxis.X:
+                        euler.x = surface.ReturnInputValue(surface, FlightControls);
+                        break;
+                    case ControlSurface.LocalRotationAxis.Y:
+                        euler.y = surface.ReturnInputValue(surface, FlightControls);
+                        break;
+                    case ControlSurface.LocalRotationAxis.Z:
+                        euler.z = surface.ReturnInputValue(surface, FlightControls);
+                        break;
+                    default:
+                        Debug.LogWarning("Default used");
+                        break;
+                }
 
-            surface.ControlSurfaceObject.transform.localRotation = Quaternion.Euler(euler);
+                surface.ControlSurfaceObject.transform.localRotation = Quaternion.Euler(euler);
+            }
+            else if (surface.RotationSettingMode == ControlSurface.RotationSetType.CumulativeSet)
+            {
+                switch (surface.RotationAxis)
+                {
+                    case ControlSurface.LocalRotationAxis.X:
+                        euler.x = surface.ReturnInputValue(surface, FlightControls);
+                        break;
+                    case ControlSurface.LocalRotationAxis.Y:
+                        euler.y = surface.ReturnInputValue(surface, FlightControls);
+                        break;
+                    case ControlSurface.LocalRotationAxis.Z:
+                        euler.z = surface.ReturnInputValue(surface, FlightControls);
+                        break;
+                    default:
+                        Debug.LogWarning("Default used");
+                        break;
+                }
+
+                surface.ControlSurfaceObject.transform.localRotation *= Quaternion.Euler(euler);
+            }
         }
     }
 }
@@ -91,7 +114,17 @@ public class ControlSurface
     public ControlSurfaceType SurfaceType
     { get; private set; }
 
-    public float ReturnSurfaceInputValue(ControlSurface surfaceType, PrimaryFlightControls flightControls)
+    [field: SerializeField]
+    public RotationSetType RotationSettingMode
+    { get; private set; }
+
+    /// <summary>
+    /// Returns the angle of degress that a control surface is rotated to.
+    /// </summary>
+    /// <param name="surfaceType"></param>
+    /// <param name="flightControls"></param>
+    /// <returns></returns>
+    public float ReturnInputValue(ControlSurface surfaceType, PrimaryFlightControls flightControls)
     {
         float rotationValue = 0;
 
@@ -118,6 +151,10 @@ public class ControlSurface
             case ControlSurfaceType.Throttle:
                 rotationValue = flightControls.ThrottleValue;
                 break;
+            case ControlSurfaceType.Propeller:
+                // Convert RPS to degrees per frame
+                rotationValue = flightControls.PropellerRotationsPerSecond * 360f * Time.deltaTime; 
+                break;
             default:
                 Debug.LogWarning("Default used");
                 break;
@@ -137,6 +174,13 @@ public class ControlSurface
         Aileron_Left,
         Aileron_Right,
         Rudder,
-        Throttle
+        Throttle,
+        Propeller
+    }
+
+    public enum RotationSetType
+    {
+        HardSet,
+        CumulativeSet
     }
 }

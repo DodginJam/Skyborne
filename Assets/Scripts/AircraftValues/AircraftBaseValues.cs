@@ -23,6 +23,10 @@ public class AircraftBaseValues : ScriptableObject
     public float ThrottleSpeedOfChange
     { get; private set; } = 1.0f;
 
+    [field: SerializeField]
+    public float PropellerRotationPerSecondAtMaxThrottle
+    { get; private set; }
+
     /// <summary>
     /// The weight of the plane.
     /// </summary>

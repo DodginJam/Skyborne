@@ -38,6 +38,12 @@ public class PrimaryFlightControls
     public float ThrottleValue
     { get; set; } = 0;
 
+    /// <summary>
+    /// The rate of which the propeller should rotate per second.
+    /// </summary>
+    public float PropellerRotationsPerSecond
+    { get; set; } = 0;
+
     public static float CalculateCurrentRotation(float normalisedInput, float currentElevatorDegrees, float degreeLimitOfRotation, float speedOfRotation)
     {
         // Calculating the elevator normalised angles of degrees.

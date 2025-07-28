@@ -401,7 +401,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4764890307620197624}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -564,18 +564,27 @@ MonoBehaviour:
     <ControlSurfaceObject>k__BackingField: {fileID: 6088456578375523513}
     <RotationAxis>k__BackingField: 2
     <SurfaceType>k__BackingField: 3
+    <RotationSettingMode>k__BackingField: 0
   - <NameOfSurface>k__BackingField: Elevator
     <ControlSurfaceObject>k__BackingField: {fileID: 4593053277617274722}
     <RotationAxis>k__BackingField: 0
     <SurfaceType>k__BackingField: 0
+    <RotationSettingMode>k__BackingField: 0
   - <NameOfSurface>k__BackingField: Aileron_Left
     <ControlSurfaceObject>k__BackingField: {fileID: 4558467077221146008}
     <RotationAxis>k__BackingField: 0
     <SurfaceType>k__BackingField: 1
+    <RotationSettingMode>k__BackingField: 0
   - <NameOfSurface>k__BackingField: Aileron_Right
     <ControlSurfaceObject>k__BackingField: {fileID: 2088015945510630290}
     <RotationAxis>k__BackingField: 0
     <SurfaceType>k__BackingField: 2
+    <RotationSettingMode>k__BackingField: 0
+  - <NameOfSurface>k__BackingField: Propeller
+    <ControlSurfaceObject>k__BackingField: {fileID: 7188458239926560806}
+    <RotationAxis>k__BackingField: 1
+    <SurfaceType>k__BackingField: 5
+    <RotationSettingMode>k__BackingField: 1
 --- !u!54 &3087151800478988568
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -709,10 +718,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 335374101947038973}
-    - targetCorrespondingSourceObject: {fileID: 2731307598474601212, guid: 272bbf036e394764199f620bb24204f9,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 825109734767705809}
   m_SourcePrefab: {fileID: 100100000, guid: 272bbf036e394764199f620bb24204f9, type: 3}
 --- !u!1 &2088015945510630290 stripped
 GameObject:
@@ -778,18 +783,3 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5054452087252454106}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &825109734767705809
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7188458239926560806}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d20f2d1de44551479aa7f167b14c5b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotX: 0
-  rotY: 20
-  rotZ: 0

@@ -123,6 +123,12 @@ public class AircraftController : MonoBehaviour
 
         // Calculating the rudder normalised angles of degrees.
         flightControls.RudderDegree = PrimaryFlightControls.CalculateCurrentRotation(inputControls.RudderInput, CurrentValues.FlightControls.RudderDegree, CurrentValues.BaseValues.RudderDegreeLimit, CurrentValues.BaseValues.RudderSpeedOfRotation);
+
+
+
+
+        // Properller spin value is based on the current throttle level (a normalised value) multiplied by the max rotations per second allowed.
+        flightControls.PropellerRotationsPerSecond = flightControls.ThrottleValue * CurrentValues.BaseValues.PropellerRotationPerSecondAtMaxThrottle;
     }
 
     /// <summary>
