@@ -252,7 +252,7 @@ MonoBehaviour:
     <CameraDistanceFromTarget>k__BackingField: -10
     <RotationType>k__BackingField: 1
   <InputControls>k__BackingField: {fileID: 0}
-  <CameraSensitivity>k__BackingField: 5
+  <CameraSensitivity>k__BackingField: 10
   <CameraHolder>k__BackingField: {fileID: 0}
 --- !u!114 &4798817245014726878
 MonoBehaviour:

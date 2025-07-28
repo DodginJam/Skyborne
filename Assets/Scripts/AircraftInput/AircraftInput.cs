@@ -29,12 +29,23 @@ public class AircraftInput : MonoBehaviour
     { get; private set; }
 
 
-    public int JoystickID
-    { get; private set; }
+
+    private static int JoystickID
+    { get; set; }
+
+    private static int GamepadID
+    { get; set; }
+
+    private static int MouseKeyboardID
+    { get; set; }
+
 
 
     public bool IsJoytickControl
     { get; private set; } = false;
+
+    public ControlInputType CurrentInputType
+    { get; private set; }
 
     public PlayerInput PlayerInputComponent
     { get; private set; }
@@ -75,6 +86,8 @@ public class AircraftInput : MonoBehaviour
     void Start()
     {
         JoystickID = Animator.StringToHash("Joystick");
+        GamepadID = Animator.StringToHash("Gamepad");
+        MouseKeyboardID = Animator.StringToHash("Keyboard&Mouse");
     }
 
     public void OnEnable()
@@ -94,6 +107,25 @@ public class AircraftInput : MonoBehaviour
         if (CurrentControlSchemeID != Animator.StringToHash(PlayerInputComponent.currentControlScheme))
         {
             CurrentControlSchemeID = Animator.StringToHash(PlayerInputComponent.currentControlScheme);
+
+            // Update the control type enum to reflect the current input when it has switched.
+            switch (CurrentControlSchemeID)
+            {
+                case var value when value == MouseKeyboardID:
+                    CurrentInputType = ControlInputType.MouseKeyboard;
+                    break;
+                case var value when value == JoystickID:
+                    CurrentInputType = ControlInputType.Joystick;
+                    break;
+                case var value when value == GamepadID:
+                    CurrentInputType = ControlInputType.Gamepad;
+                    break;
+                default:
+                    CurrentInputType = ControlInputType.None;
+                    break;
+            }
+
+            Debug.Log($"Input has switched to: {CurrentInputType.ToString()}");
         }
 
         // Check for joystick being used as control so that throttle input can be swapped to a different binding setup.
@@ -136,5 +168,13 @@ public class AircraftInput : MonoBehaviour
     public void OnCameraToggle(InputAction.CallbackContext context)
     {
         CameraTogglePressed = context.ReadValueAsButton();
+    }
+
+    public enum ControlInputType
+    {
+        None,
+        Gamepad,
+        Joystick,
+        MouseKeyboard
     }
 }

@@ -53,7 +53,7 @@ public class CameraManager : MonoBehaviour
     public AircraftInput InputControls
     { get; private set; }
 
-    [field: SerializeField, Range(0.1f, 10f)]
+    [field: SerializeField, Range(0.1f, 20f)]
     public float CameraSensitivity
     { get; private set; } = 5.0f;
 
@@ -143,8 +143,8 @@ public class CameraManager : MonoBehaviour
         {
             // Orbit mode camera uses a seperate 
 
-            currentCameraData.CameraPitchAngle += -(InputControls.CameraInput.y * Time.deltaTime * CameraSensitivity);
-            currentCameraData.CameraYawAngle += (InputControls.CameraInput.x * Time.deltaTime * CameraSensitivity);
+            currentCameraData.CameraPitchAngle += -(InputControls.CameraInput.y * Time.deltaTime * ProcessSensitivity(InputControls.CurrentInputType));
+            currentCameraData.CameraYawAngle += (InputControls.CameraInput.x * Time.deltaTime * ProcessSensitivity(InputControls.CurrentInputType));
 
             Quaternion baseRotation = AssignedTarget.transform.rotation;
 
@@ -175,8 +175,8 @@ public class CameraManager : MonoBehaviour
     {
         if (rotationMode == CameraData.RotationMode.POV)
         {
-            CurrentCameraData.CameraPitchAngle += -(InputControls.CameraInput.y * Time.deltaTime * CameraSensitivity);
-            CurrentCameraData.CameraYawAngle += (InputControls.CameraInput.x * Time.deltaTime * CameraSensitivity);
+            CurrentCameraData.CameraPitchAngle += -(InputControls.CameraInput.y * Time.deltaTime * ProcessSensitivity(InputControls.CurrentInputType));
+            CurrentCameraData.CameraYawAngle += (InputControls.CameraInput.x * Time.deltaTime * ProcessSensitivity(InputControls.CurrentInputType));
 
             Quaternion baseRotation = assignedTarget.rotation;
 
@@ -218,6 +218,29 @@ public class CameraManager : MonoBehaviour
             CurrentCameraData.CameraPitchAngle = 0;
             CurrentCameraData.CameraYawAngle = 0;
         }
+    }
+
+    float ProcessSensitivity(AircraftInput.ControlInputType controlType)
+    {
+        float sensitivityLevel = 0;
+
+        switch (controlType)
+        {
+            case AircraftInput.ControlInputType.MouseKeyboard:
+                sensitivityLevel = CameraSensitivity;
+                break;
+            case AircraftInput.ControlInputType.Joystick:
+                sensitivityLevel = Mathf.Pow(CameraSensitivity, 2);
+                break;
+            case AircraftInput.ControlInputType.Gamepad:
+                sensitivityLevel = Mathf.Pow(CameraSensitivity, 2);
+                break;
+            default:
+                sensitivityLevel = CameraSensitivity;
+                break;
+        }
+
+        return sensitivityLevel;
     }
 }
 
