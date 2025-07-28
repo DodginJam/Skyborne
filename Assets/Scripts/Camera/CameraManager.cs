@@ -111,8 +111,8 @@ public class CameraManager : MonoBehaviour
         Cursor.visible = false;
 
         // Ensure that the camera is facing the same direction as the plane by setting the camera pitch and yaw angles.
-        CameraPitchAngle = AssignedTarget.transform.rotation.x;
-        CameraYawAngle = AssignedTarget.transform.rotation.y;
+        CurrentCameraData.CameraPitchAngle = AssignedTarget.transform.rotation.x;
+        CurrentCameraData.CameraYawAngle = AssignedTarget.transform.rotation.y;
     }
 
     void Update()
@@ -138,31 +138,34 @@ public class CameraManager : MonoBehaviour
 
             // Smoothly move the camera toward that position
             CalculatedCameraPosition = Vector3.Lerp(PlayerCamera.transform.position, desiredPosition, CameraLerpSpeed * Time.deltaTime);
-            PlayerCamera.transform.position = CalculatedCameraPosition;
         }
         else if (currentCameraData.RotationType == CameraData.RotationMode.Orbit)
         {
-            CameraPitchAngle += -(InputControls.CameraInput.y * Time.deltaTime * CameraSensitivity);
-            CameraYawAngle += (InputControls.CameraInput.x * Time.deltaTime * CameraSensitivity);
+            // Orbit mode camera uses a seperate 
+
+            currentCameraData.CameraPitchAngle += -(InputControls.CameraInput.y * Time.deltaTime * CameraSensitivity);
+            currentCameraData.CameraYawAngle += (InputControls.CameraInput.x * Time.deltaTime * CameraSensitivity);
 
             Quaternion baseRotation = AssignedTarget.transform.rotation;
 
-            Quaternion pitchRotation = Quaternion.AngleAxis(CameraPitchAngle, AssignedTarget.transform.right);
+            Quaternion pitchRotation = Quaternion.Euler(-currentCameraData.CameraPitchAngle, 0, 0);
 
-            Quaternion yawRotation = Quaternion.AngleAxis(CameraYawAngle, AssignedTarget.transform.up);
+            Quaternion yawRotation = Quaternion.Euler(0, currentCameraData.CameraYawAngle, 0);
 
-            Quaternion finalRotation = yawRotation * pitchRotation * baseRotation;
+            Quaternion finalRotation = yawRotation * pitchRotation;
 
-            CameraHolder.rotation = finalRotation;
+            CameraHolder.transform.rotation = finalRotation;
 
+            CalculatedCameraPosition = CameraHolder.transform.position + (-CameraHolder.transform.forward * CurrentCameraData.CameraDistanceFromTarget);
 
-
-
-            // Calculate the desired position relative to the plane's rotation
-            CalculatedCameraPosition = CameraHolder.transform.position + CameraHolder.TransformDirection(currentCameraData.PositionalOffset);
-
-            PlayerCamera.transform.position = CalculatedCameraPosition;
+            Debug.DrawLine(CameraHolder.transform.position, CalculatedCameraPosition);
         }
+        else
+        {
+            Debug.Log("Unable to assign position update to camera");
+        }
+
+        PlayerCamera.transform.position = CalculatedCameraPosition;
     }
 
     /// <summary>
@@ -172,14 +175,14 @@ public class CameraManager : MonoBehaviour
     {
         if (rotationMode == CameraData.RotationMode.POV)
         {
-            CameraPitchAngle += -(InputControls.CameraInput.y * Time.deltaTime * CameraSensitivity);
-            CameraYawAngle += (InputControls.CameraInput.x * Time.deltaTime * CameraSensitivity);
+            CurrentCameraData.CameraPitchAngle += -(InputControls.CameraInput.y * Time.deltaTime * CameraSensitivity);
+            CurrentCameraData.CameraYawAngle += (InputControls.CameraInput.x * Time.deltaTime * CameraSensitivity);
 
             Quaternion baseRotation = assignedTarget.rotation;
 
-            Quaternion pitchRotation = Quaternion.AngleAxis(CameraPitchAngle, assignedTarget.right);
+            Quaternion pitchRotation = Quaternion.AngleAxis(CurrentCameraData.CameraPitchAngle, assignedTarget.right);
 
-            Quaternion yawRotation = Quaternion.AngleAxis(CameraYawAngle, assignedTarget.up);
+            Quaternion yawRotation = Quaternion.AngleAxis(CurrentCameraData.CameraYawAngle, assignedTarget.up);
 
             Quaternion finalRotation = yawRotation * pitchRotation * baseRotation;
 
@@ -187,7 +190,7 @@ public class CameraManager : MonoBehaviour
         }
         else if (rotationMode == CameraData.RotationMode.Orbit)
         {
-            PlayerCamera.transform.LookAt(AssignedTarget.transform.position);
+            PlayerCamera.transform.LookAt(AssignedTarget.transform.position + CurrentCameraData.PositionalOffset);
         }
     }
 
@@ -210,10 +213,18 @@ public class CameraManager : MonoBehaviour
             CurrentCameraData = CameraDataList[newIndex];
 
             aircraftInput.CameraTogglePressed = false;
+
+            // Need to get the cameras pitch and yaw angles to get the camera to face the direction the plane is going when switching to oribt type camera.
+            CurrentCameraData.CameraPitchAngle = 0;
+            CurrentCameraData.CameraYawAngle = 0;
         }
     }
 }
 
+
+/// <summary>
+/// Data type for the current usage of the player camera.
+/// </summary>
 [Serializable]
 public class CameraData
 {
@@ -233,8 +244,18 @@ public class CameraData
     { get; private set; }
 
     [field: SerializeField]
+    public float CameraDistanceFromTarget
+    { get; private set; }
+
+    [field: SerializeField]
     public RotationMode RotationType
     { get; private set; }
+
+    public float CameraPitchAngle
+    { get; set; }
+
+    public float CameraYawAngle
+    { get; set; }
 
     public enum RotationMode
     {

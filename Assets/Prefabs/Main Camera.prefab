@@ -244,13 +244,16 @@ MonoBehaviour:
   - <CameraDataName>k__BackingField: First Person
     <PositionalOffset>k__BackingField: {x: -0.25, y: 0.11, z: 0.9}
     <RotationalOffset>k__BackingField: {x: 0, y: 0, z: 0}
+    <CameraDistanceFromTarget>k__BackingField: 0
     <RotationType>k__BackingField: 0
   - <CameraDataName>k__BackingField: Third Person
-    <PositionalOffset>k__BackingField: {x: 0, y: 1.5, z: -8}
+    <PositionalOffset>k__BackingField: {x: 0, y: 1.5, z: 0}
     <RotationalOffset>k__BackingField: {x: 0, y: 0, z: 0}
+    <CameraDistanceFromTarget>k__BackingField: -10
     <RotationType>k__BackingField: 1
   <InputControls>k__BackingField: {fileID: 0}
   <CameraSensitivity>k__BackingField: 5
+  <CameraHolder>k__BackingField: {fileID: 0}
 --- !u!114 &4798817245014726878
 MonoBehaviour:
   m_ObjectHideFlags: 0
