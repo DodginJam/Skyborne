@@ -5,10 +5,13 @@ using UnityEngine;
 public class Gate : MonoBehaviour
 {
     public Score playerScore;
+    public ScoreUpdate scoreUI;
     public Transform playerTransform;
     public GateSpawning spawner;
     public bool missed = false;
     public int missedCount = 0;
+    //public GameObject playerRef; 
+
 
     // Start is called before the first frame update
     void Start()
@@ -38,8 +41,16 @@ public class Gate : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
-        playerScore.score += 1;
-        gameObject.SetActive(false);
+        if (other.gameObject.CompareTag("Player"))
+        {
+            playerScore.score += 1;
+            gameObject.SetActive(false);
+            scoreUI.updateScore();
+        }
+        else
+        {
+            Debug.Log("Collided with " + other);
+        }
+        
     }
 }
