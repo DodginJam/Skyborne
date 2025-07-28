@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[DefaultExecutionOrder(100)]
 public class LockRotation : MonoBehaviour
 {
 
@@ -11,7 +12,7 @@ public class LockRotation : MonoBehaviour
     public Vector3 followpostion;
 
     // Update is called once per frame
-    void LateUpdate()
+    void FixedUpdate()
     {
         transform.rotation = Quaternion.identity;
 
