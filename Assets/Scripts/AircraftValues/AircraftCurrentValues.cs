@@ -96,4 +96,10 @@ public class AircraftValuesHolder
     /// </summary>
     public float AirSpeed
     { get; set; }
+
+    /// <summary>
+    /// The height of the aircraft in altitude.
+    /// </summary>
+    public float HeightAboveSeaLevel
+    { get; set; }
 }

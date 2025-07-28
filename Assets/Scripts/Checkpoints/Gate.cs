@@ -38,8 +38,7 @@ public class Gate : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
-        playerScore.score += 1;
+        playerScore.IncreaseScore(1);
         gameObject.SetActive(false);
     }
 }

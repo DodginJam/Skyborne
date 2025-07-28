@@ -88,6 +88,9 @@ public class AircraftController : MonoBehaviour
             valuesHolder.AngleOfAttack = Mathf.Rad2Deg * Mathf.Atan2(-valuesHolder.CurrentVelocityLocal.y, valuesHolder.CurrentVelocityLocal.z);
             valuesHolder.AngleOfAttackYaw = Mathf.Rad2Deg * Mathf.Atan2(valuesHolder.CurrentVelocityLocal.x, valuesHolder.CurrentVelocityLocal.z);
         }
+
+        // Updating display information for player to read.
+        valuesHolder.HeightAboveSeaLevel = PlaneRigidBody.transform.position.y;
     }
 
     /// <summary>
