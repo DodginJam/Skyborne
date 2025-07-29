@@ -69,10 +69,6 @@ public class Ammo : MonoBehaviour
         {
             UpdateFromArmamentManager(AssociatedArmamentData);
         }
-        else
-        {
-            Debug.LogWarning("No armament data provided to bullet.");
-        }
     }
 
     private void OnCollisionEnter(Collision collision)

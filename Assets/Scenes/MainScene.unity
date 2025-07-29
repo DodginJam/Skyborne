@@ -3474,10 +3474,20 @@ PrefabInstance:
       propertyPath: <PlayerAircraftScript>k__BackingField
       value: 
       objectReference: {fileID: 1631559966}
+    - target: {fileID: 2424544008996305759, guid: 0d7ad5f5787aa6748b01f51534bcfb79,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2686663241838126665, guid: 0d7ad5f5787aa6748b01f51534bcfb79,
         type: 3}
       propertyPath: m_Name
       value: UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5371871453299535970, guid: 0d7ad5f5787aa6748b01f51534bcfb79,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3494,11 +3504,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 590838476083247528, guid: 94ffa1a4244b5ef4f888a7c799456e0e,
         type: 3}
-      propertyPath: <CameraHolder>k__BackingField
-      value: 
-      objectReference: {fileID: 963867924}
-    - target: {fileID: 590838476083247528, guid: 94ffa1a4244b5ef4f888a7c799456e0e,
-        type: 3}
       propertyPath: <InputControls>k__BackingField
       value: 
       objectReference: {fileID: 1631559955}
@@ -3507,6 +3512,11 @@ PrefabInstance:
       propertyPath: <AssignedTarget>k__BackingField
       value: 
       objectReference: {fileID: 1631559950}
+    - target: {fileID: 590838476083247528, guid: 94ffa1a4244b5ef4f888a7c799456e0e,
+        type: 3}
+      propertyPath: <OrbitCameraHolder>k__BackingField
+      value: 
+      objectReference: {fileID: 963867924}
     - target: {fileID: 1464635468210289577, guid: 94ffa1a4244b5ef4f888a7c799456e0e,
         type: 3}
       propertyPath: m_Name

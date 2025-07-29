@@ -1,7 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+using static AircraftDisplay;
 
 public class AircraftDisplay : MonoBehaviour
 {
@@ -14,15 +18,19 @@ public class AircraftDisplay : MonoBehaviour
     { get; private set; }
 
     [field: SerializeField, Header("Display Elements")]
-    public TextMeshProUGUI ScoreDisplay
+    public UIAndCachedDisplay<TextMeshProUGUI, int> ScoreDisplay
     { get; private set; }
 
     [field: SerializeField]
-    public TextMeshProUGUI SpeedDisplay
+    public UIAndCachedDisplay<TextMeshProUGUI, int> SpeedDisplay
     { get; private set; }
 
     [field: SerializeField]
-    public TextMeshProUGUI AltitudeDisplay
+    public UIAndCachedDisplay<TextMeshProUGUI, int> AltitudeDisplay
+    { get; private set; }
+
+    [field: SerializeField] 
+    public UIAndCachedDisplay<Slider, float> ThrottleDisplay
     { get; private set; }
 
     private void Awake()
@@ -65,7 +73,11 @@ public class AircraftDisplay : MonoBehaviour
                 // Speed Display.
                 if (SpeedDisplay != null)
                 {
-                    SpeedDisplay.text = Mathf.RoundToInt(PlayerAircraftScript.CurrentValues.ValuesHolder.AirSpeed).ToString();
+                    if (SpeedDisplay.CompareDataToDisplayCache(Mathf.RoundToInt(PlayerAircraftScript.CurrentValues.ValuesHolder.AirSpeed), out int data))
+                    {
+                        SpeedDisplay.UpdateCachedData(data);
+                        SpeedDisplay.UpdateDisplayElement();
+                    }
                 }
                 else
                 {
@@ -75,11 +87,24 @@ public class AircraftDisplay : MonoBehaviour
                 // Altitude Display
                 if (AltitudeDisplay != null)
                 {
-                    AltitudeDisplay.text = Mathf.RoundToInt(PlayerAircraftScript.CurrentValues.ValuesHolder.HeightAboveSeaLevel).ToString();
+                    if (AltitudeDisplay.CompareDataToDisplayCache(Mathf.RoundToInt(PlayerAircraftScript.CurrentValues.ValuesHolder.HeightAboveSeaLevel), out int data))
+                    {
+                        AltitudeDisplay.UpdateCachedData(data);
+                        AltitudeDisplay.UpdateDisplayElement();
+                    }
                 }
                 else
                 {
                     Debug.LogError("AltitudeDisplay not assigned.");
+                }
+
+                if (ThrottleDisplay != null)
+                {
+                    if (ThrottleDisplay.CompareDataToDisplayCache(PlayerAircraftScript.CurrentValues.FlightControls.ThrottleValue, out float data))
+                    {
+                        ThrottleDisplay.UpdateCachedData(data);
+                        ThrottleDisplay.UpdateDisplayElement();
+                    }
                 }
             }
             else
@@ -99,6 +124,53 @@ public class AircraftDisplay : MonoBehaviour
     /// <param name="newValueToDisplay"></param>
     public void UpdateScoreDisplay(int newValueToDisplay)
     {
-        ScoreDisplay.text = Mathf.RoundToInt(newValueToDisplay).ToString();
+        ScoreDisplay.UpdateCachedData(Mathf.RoundToInt(newValueToDisplay));
+        ScoreDisplay.UpdateDisplayElement();
+    }
+
+    [Serializable]
+    public class UIAndCachedDisplay<UiType, CachedDataType>
+    {
+        [field: SerializeField]
+        public UiType UIElement
+        { get; private set; }
+
+        public CachedDataType CachedDisplayElement
+        { get; private set; }
+
+        public bool CompareDataToDisplayCache(CachedDataType newData, out CachedDataType newDataReturn)
+        {
+            newDataReturn = newData;
+
+            return !EqualityComparer<CachedDataType>.Default.Equals(newData, CachedDisplayElement);
+        }
+
+        public void UpdateCachedData(CachedDataType newData)
+        {
+            CachedDisplayElement = newData;
+        }
+
+        public void UpdateDisplayElement()
+        {
+            if (UIElement is TextMeshProUGUI textMeshProDisplay)
+            {
+                textMeshProDisplay.text = CachedDisplayElement.ToString();
+            }
+            else if (UIElement is Slider sliderDisplay)
+            {
+                if (CachedDisplayElement is int newDataInt)
+                {
+                    sliderDisplay.value = newDataInt;
+                }
+                else if (CachedDisplayElement is float newDataFloat)
+                {
+                    sliderDisplay.value = newDataFloat;
+                }
+                else
+                {
+                    Debug.LogWarning("Unable to pass data type to the slider value.");
+                }
+            }
+        }
     }
 }
