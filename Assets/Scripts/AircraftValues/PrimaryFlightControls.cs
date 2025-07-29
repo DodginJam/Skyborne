@@ -44,6 +44,14 @@ public class PrimaryFlightControls
     public float PropellerRotationsPerSecond
     { get; set; } = 0;
 
+    /// <summary>
+    /// Calculates the rotation a control surface should be at when provied with a normalised value representing how much the rotation should be towards maximum rotation value.
+    /// </summary>
+    /// <param name="normalisedInput"></param>
+    /// <param name="currentElevatorDegrees"></param>
+    /// <param name="degreeLimitOfRotation"></param>
+    /// <param name="speedOfRotation"></param>
+    /// <returns></returns>
     public static float CalculateCurrentRotation(float normalisedInput, float currentElevatorDegrees, float degreeLimitOfRotation, float speedOfRotation)
     {
         // Calculating the elevator normalised angles of degrees.

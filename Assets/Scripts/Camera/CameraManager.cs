@@ -53,18 +53,18 @@ public class CameraManager : MonoBehaviour
     public AircraftInput InputControls
     { get; private set; }
 
+    /// <summary>
+    /// The sensitivity multiplyer used by the player camera/
+    /// </summary>
     [field: SerializeField, Range(0.1f, 20f)]
     public float CameraSensitivity
     { get; private set; } = 5.0f;
 
-    public float CameraPitchAngle 
-    { get; private set; } = 0;
-
-    public float CameraYawAngle
-    { get; private set; } = 0;
-
+    /// <summary>
+    /// The transform component to be rotated for controlling the ThirdPerson / Orbit cameras orbit around the assigned target.
+    /// </summary>
     [field: SerializeField]
-    public Transform CameraHolder
+    public Transform OrbitCameraHolder
     { get; private set; }
 
     private void Awake()
@@ -154,11 +154,11 @@ public class CameraManager : MonoBehaviour
 
             Quaternion finalRotation = yawRotation * pitchRotation;
 
-            CameraHolder.transform.rotation = finalRotation;
+            OrbitCameraHolder.transform.rotation = finalRotation;
 
-            CalculatedCameraPosition = CameraHolder.transform.position + (-CameraHolder.transform.forward * CurrentCameraData.CameraDistanceFromTarget);
+            CalculatedCameraPosition = OrbitCameraHolder.transform.position + (-OrbitCameraHolder.transform.forward * CurrentCameraData.CameraDistanceFromTarget);
 
-            Debug.DrawLine(CameraHolder.transform.position, CalculatedCameraPosition);
+            Debug.DrawLine(OrbitCameraHolder.transform.position, CalculatedCameraPosition);
         }
         else
         {
@@ -220,6 +220,11 @@ public class CameraManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Controls the current applied sensitvity to the current control type - makes up for difference in using M&K, GamePad and joysticks inherient sensitivity differences.
+    /// </summary>
+    /// <param name="controlType"></param>
+    /// <returns></returns>
     float ProcessSensitivity(AircraftInput.ControlInputType controlType)
     {
         float sensitivityLevel = 0;
@@ -251,6 +256,9 @@ public class CameraManager : MonoBehaviour
 [Serializable]
 public class CameraData
 {
+    /// <summary>
+    /// The name of the camera - for Unity Editor.
+    /// </summary>
     [field: SerializeField]
     public string CameraDataName
     { get; private set; }
@@ -262,24 +270,35 @@ public class CameraData
     public Vector3 PositionalOffset
     { get; private set; }
 
-    [field: SerializeField]
-    public Vector3 RotationalOffset
-    { get; private set; }
-
+    /// <summary>
+    /// The distance that the camera should be spaced from the current assigned target.
+    /// </summary>
     [field: SerializeField]
     public float CameraDistanceFromTarget
     { get; private set; }
 
+    /// <summary>
+    /// Controls the type of rotation applied to the camera controls.
+    /// </summary>
     [field: SerializeField]
     public RotationMode RotationType
     { get; private set; }
 
+    /// <summary>
+    /// The currently tracked pitch angle that the current camera should be set to - provided through calculation.
+    /// </summary>
     public float CameraPitchAngle
     { get; set; }
 
+    /// <summary>
+    /// The currently tracked yaw angle that the current camera should be set to - provided through calculation.
+    /// </summary>
     public float CameraYawAngle
     { get; set; }
 
+    /// <summary>
+    /// Rotation mode options.
+    /// </summary>
     public enum RotationMode
     {
         POV,

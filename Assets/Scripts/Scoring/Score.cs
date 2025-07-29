@@ -7,6 +7,9 @@ public class Score : MonoBehaviour
 {
     public int score;
 
+    /// <summary>
+    /// The HUD UI element for the aircraft display.
+    /// </summary>
     [field: SerializeField]
     public AircraftDisplay DisplayToUpdate
     {  get; set; }
@@ -36,6 +39,10 @@ public class Score : MonoBehaviour
         // Debug.Log(score);
     }
 
+    /// <summary>
+    /// Ensures that all requirements are met when the player score increases.
+    /// </summary>
+    /// <param name="amountToIncrease"></param>
     public void IncreaseScore(int amountToIncrease)
     {
         score += amountToIncrease;

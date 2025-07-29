@@ -50,6 +50,7 @@ public class ControlSurfaceAnimation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Loop through all the control surfaces class items in the list so that each surface can be adjusted for animation purposes.
         foreach (ControlSurface surface in ControlSurfaces)
         {
             float input = surface.ReturnInputValue(surface, FlightControls);
@@ -81,29 +82,50 @@ public class ControlSurfaceAnimation : MonoBehaviour
     }
 }
 
+/// <summary>
+/// Representation of the control surface and how it should be moved to simulate movement of planes surfaces.
+/// </summary>
 [Serializable]
 public class ControlSurface
 {
+    /// <summary>
+    /// The name of the surface for display in the Unity Editor.
+    /// </summary>
     [field: SerializeField]
     public string NameOfSurface
     { get; private set; }
 
+    /// <summary>
+    /// The gameobject of the control surface.
+    /// </summary>
     [field: SerializeField]
     public GameObject ControlSurfaceObject
     { get; set; }
 
+    /// <summary>
+    /// The local axis at which the gameobject should be rotated around.
+    /// </summary>
     [field: SerializeField]
     public LocalRotationAxis RotationAxis
     { get; private set; }
 
+    /// <summary>
+    /// The type of the control surface reflects which part of the plane the rotation should effect.
+    /// </summary>
     [field: SerializeField]
     public ControlSurfaceType SurfaceType
     { get; private set; }
 
+    /// <summary>
+    /// The rotation should either be reset to a new value, or added over time.
+    /// </summary>
     [field: SerializeField]
     public RotationSetType RotationSettingMode
     { get; private set; }
 
+    /// <summary>
+    /// The original rotation of the control surface at game start, so it can be referenced too to revert to it's original rotation when being activilely rotated.
+    /// </summary>
     [field: SerializeField]
     public Quaternion InitialLocalRotation
     { get; set; }

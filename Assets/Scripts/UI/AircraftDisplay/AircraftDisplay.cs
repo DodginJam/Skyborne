@@ -93,6 +93,10 @@ public class AircraftDisplay : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Method to be called to update the score onto the Airacrft UI display.
+    /// </summary>
+    /// <param name="newValueToDisplay"></param>
     public void UpdateScoreDisplay(int newValueToDisplay)
     {
         ScoreDisplay.text = Mathf.RoundToInt(newValueToDisplay).ToString();

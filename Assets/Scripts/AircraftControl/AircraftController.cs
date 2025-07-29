@@ -150,9 +150,7 @@ public class AircraftController : MonoBehaviour
         // Converting the current.0 plane velocity based on the thrust through a to a drag equation
         flightForces.Drag = ForcesOnFlight.CalculateDragVelocity(PlaneRigidBody.transform, PlaneRigidBody.velocity, CurrentValues.BaseValues.DragCoefficientValues, CurrentValues.ValuesHolder);
 
-        // OLD FUNCTION CALL - Converting the planes current velocity and angle of attack to the lift being generated.
-        // flightForces.Lift = ForcesOnFlight.CalculateLift(PlaneRigidBody.transform.right, CurrentValues.BaseValues.LiftPower, CurrentValues.BaseValues.LiftCurve, PlaneRigidBody.transform, CurrentValues.ValuesHolder);
-
+        // Converting the planes current velocity and angle of attack to the lift being generated.
         if (CurrentValues.ValuesHolder.CurrentVelocityLocal.sqrMagnitude >= 1f)
         {
             flightForces.Lift = ForcesOnFlight.CalculateLiftVector(CurrentValues.ValuesHolder.AngleOfAttack, Vector3.right, CurrentValues.BaseValues.LiftPower, CurrentValues.BaseValues.LiftCurve, CurrentValues.ValuesHolder);
@@ -177,6 +175,10 @@ public class AircraftController : MonoBehaviour
         // Debug.Log($"Lift: {flightForces.Lift}\tGravity Newtons: {flightForces.Weight * Physics.gravity}");
     }
 
+    /// <summary>
+    /// Updates the variable containing data simply used for display purposes.
+    /// </summary>
+    /// <param name="valuesHolder"></param>
     public void UpdateDisplayInformation(AircraftValuesHolder valuesHolder)
     {
         // Updating display information.

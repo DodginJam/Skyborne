@@ -90,9 +90,15 @@ public class ArmamentsManager : MonoBehaviour
 
 }
 
+/// <summary>
+/// The class represent a weapon system that fires a ammo type and controls variation of how it should fire.
+/// </summary>
 [Serializable]
 public class ArmamentData
 {
+    /// <summary>
+    /// The name of the class - for Unity Editor.
+    /// </summary>
     [field: SerializeField]
     public string Name
     { get; private set; }

@@ -23,6 +23,9 @@ public class AircraftBaseValues : ScriptableObject
     public float ThrottleSpeedOfChange
     { get; private set; } = 1.0f;
 
+    /// <summary>
+    /// The maximum speed of rotation allowed by the propeller.
+    /// </summary>
     [field: SerializeField]
     public float PropellerRotationPerSecondAtMaxThrottle
     { get; private set; }
