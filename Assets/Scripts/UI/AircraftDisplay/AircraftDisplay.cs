@@ -128,16 +128,33 @@ public class AircraftDisplay : MonoBehaviour
         ScoreDisplay.UpdateDisplayElement();
     }
 
+    /// <summary>
+    /// Class for containing generic data types representing the UI component being used to display a given element of information, and the data that is to be cached for display purposes.
+    /// </summary>
+    /// <typeparam name="UiType"></typeparam>
+    /// <typeparam name="CachedDataType"></typeparam>
     [Serializable]
     public class UIAndCachedDisplay<UiType, CachedDataType>
     {
+        /// <summary>
+        /// The generic type representing the UI elements being displayed via Unity UI canvas.
+        /// </summary>
         [field: SerializeField]
         public UiType UIElement
         { get; private set; }
 
+        /// <summary>
+        /// The data type used to cache the display data, to avoid updates every frame.
+        /// </summary>
         public CachedDataType CachedDisplayElement
         { get; private set; }
 
+        /// <summary>
+        /// Ensures that the data being passed equals the data type of the UIAndCacheDisplay CacheDataType.
+        /// </summary>
+        /// <param name="newData"></param>
+        /// <param name="newDataReturn"></param>
+        /// <returns></returns>
         public bool CompareDataToDisplayCache(CachedDataType newData, out CachedDataType newDataReturn)
         {
             newDataReturn = newData;
@@ -145,11 +162,18 @@ public class AircraftDisplay : MonoBehaviour
             return !EqualityComparer<CachedDataType>.Default.Equals(newData, CachedDisplayElement);
         }
 
+        /// <summary>
+        /// Updates the cached display data to the new passed data.
+        /// </summary>
+        /// <param name="newData"></param>
         public void UpdateCachedData(CachedDataType newData)
         {
             CachedDisplayElement = newData;
         }
 
+        /// <summary>
+        /// Update the display UI element throgh checking the data of the UI element.
+        /// </summary>
         public void UpdateDisplayElement()
         {
             if (UIElement is TextMeshProUGUI textMeshProDisplay)
