@@ -232,9 +232,17 @@ public class CameraManager : MonoBehaviour
 
             aircraftInput.CameraTogglePressed = false;
 
-            // Need to get the cameras pitch and yaw angles to get the camera to face the direction the plane is going when switching to oribt type camera.
-            CurrentCameraData.CameraPitchAngle = 0;
-            CurrentCameraData.CameraYawAngle = 0;
+            // Reset the camera angles to face the direction the aircraft is moving in depending onthe set up of the given rotation mode of the currently used camera data.
+            if (CurrentCameraData.RotationType == CameraData.RotationMode.Orbit)
+            {
+                CurrentCameraData.CameraPitchAngle = AssignedTarget.transform.localEulerAngles.x;
+                CurrentCameraData.CameraYawAngle = AssignedTarget.transform.eulerAngles.y - 180;
+            }
+            else if (CurrentCameraData.RotationType == CameraData.RotationMode.POV)
+            {
+                CurrentCameraData.CameraPitchAngle = 0;
+                CurrentCameraData.CameraYawAngle = 0;
+            }
 
             // Toggle the UI displays to enable the ones intended for the new camera view.
             ToggleUIForCurrentCamera();
