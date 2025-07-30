@@ -14,7 +14,7 @@ public class AircraftDisplay : MonoBehaviour
     {  get; private set; }
 
     [field: SerializeField]
-    public Score ScoreScript
+    public GameManager ScoreScript
     { get; private set; }
 
     [field: SerializeField, Header("Display Elements")]
@@ -60,7 +60,7 @@ public class AircraftDisplay : MonoBehaviour
 
         if (ScoreScript == null)
         {
-            ScoreScript = GameObject.FindAnyObjectByType<Score>();
+            ScoreScript = GameObject.FindAnyObjectByType<GameManager>();
 
             if (ScoreScript == null)
             {
@@ -132,7 +132,7 @@ public class AircraftDisplay : MonoBehaviour
     }
 
     /// <summary>
-    /// Method to be called to update the score onto the Airacrft UI display.
+    /// Method to be called to update the ScoreCount onto the Airacrft UI display.
     /// </summary>
     /// <param name="newValueToDisplay"></param>
     public void UpdateScoreDisplay(int newValueToDisplay)

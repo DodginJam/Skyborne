@@ -101,35 +101,35 @@ public class AircraftBaseValues : ScriptableObject
     { get; private set; }
 
     /// <summary>
-    /// Animation Curve used to represent the Lift coefficent relationship with the angle of attack of the plane.
+    /// Animation Curve used to represent the Lift coefficent relationship with the Angle of attack of the plane.
     /// </summary>
     [field: SerializeField]
     public AnimationCurve LiftCurve
     { get; private set; }
 
     /// <summary>
-    /// Animation Curve used to represent the Lift coefficent relationship with the angle of attack of the plane.
+    /// Animation Curve used to represent the Lift coefficent relationship with the Angle of attack of the plane.
     /// </summary>
     [field: SerializeField]
     public AnimationCurve LiftCurveVertical
     { get; private set; }
 
     /// <summary>
-    /// Animation Curve used to represent the turning force applied on the Elevator axis tied to the current velocity / angle of attack.
+    /// Animation Curve used to represent the turning force applied on the Elevator axis tied to the current velocity / Angle of attack.
     /// </summary>
     [field: SerializeField]
     public AnimationCurve ElevatorTurnSpeedCurve
     { get; private set; }
 
     /// <summary>
-    /// Animation Curve used to represent the turning force applied on the Aileron axis tied to the current velocity / angle of attack.
+    /// Animation Curve used to represent the turning force applied on the Aileron axis tied to the current velocity / Angle of attack.
     /// </summary>
     [field: SerializeField]
     public AnimationCurve AileronTurnSpeedCurve
     { get; private set; }
 
     /// <summary>
-    /// Animation Curve used to represent the turning force applied on the Rudder axis tied to the current velocity / angle of attack.
+    /// Animation Curve used to represent the turning force applied on the Rudder axis tied to the current velocity / Angle of attack.
     /// </summary>
     [field: SerializeField]
     public AnimationCurve RudderTurnSpeedCurve

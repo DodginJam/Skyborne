@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7655543416590406897}
   m_Layer: 0
   m_Name: Checkpoint
-  m_TagString: Untagged
+  m_TagString: Gate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -69,11 +69,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b13d977e2d409dd42966cd03c2453914, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerScore: {fileID: 0}
-  playerTransform: {fileID: 0}
-  spawner: {fileID: 0}
-  missed: 0
-  missedCount: 0
+  <PlayerScore>k__BackingField: {fileID: 0}
+  <PlayerTransform>k__BackingField: {fileID: 0}
+  <GateSpawner>k__BackingField: {fileID: 0}
 --- !u!1001 &462836062128860348
 PrefabInstance:
   m_ObjectHideFlags: 0

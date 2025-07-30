@@ -3,29 +3,51 @@ using UnityEngine;
 
 public class GateSpawning : MonoBehaviour
 {
-    [Header("Spawn Area Settings")]
-    public float radius = 125f;
-    [Range(10, 80)]
-    public float angle = 10f;
-    [Range(10, 80)]
-    public float startingAngle = 10f;
-    public float minDistanceFromPlayer = 50f;
+    [field: SerializeField, Header("Spawn Area Settings")] 
+    public float Radius 
+    { get; private set; } = 125f;
 
-    [Header("Timing Settings")]
-    public float spawnDelay = 5f;
+    [field: SerializeField, Range(10, 80)]
+    public float Angle
+    { get; private set; } = 10f;
 
-    [Header("References")]
-    public Transform playerRef;
-    public GameObject gateRef;
-    public Gate gate;
-    public Score playerScore;
+    [field: SerializeField, Range(10, 80)]
+    public float StartingAngle 
+    { get; private set; } = 10f;
+
+    [field: SerializeField]
+    public float MinDistanceFromPlayer 
+    { get; private set; } = 50f;
+
+
+    [field: SerializeField, Header("Timing Settings")]
+    public float SpawnDelay 
+    { get; private set; } = 5f;
+
+
+    [field: SerializeField, Header("References")]
+    public AircraftController AircraftController
+    { get; private set; }
+
+    [field: SerializeField]
+    public GameObject GateInstance
+    { get; private set; }
+
+    [field: SerializeField]
+    public Gate GateScript
+    { get; private set; }
+
+    [field: SerializeField]
+    public GameManager GameManagerScript
+    { get; private set; }
+
 
     private void Start()
     {
-        if (gateRef == null)
+        if (GateInstance == null)
         {
-            gateRef = GameObject.FindGameObjectWithTag("Gate");
-            if (gateRef == null)
+            GateInstance = GameObject.FindGameObjectWithTag("Gate");
+            if (GateInstance == null)
             {
                 Debug.LogError("Gate reference not assigned or found!");
                 return;
@@ -36,22 +58,22 @@ public class GateSpawning : MonoBehaviour
 
     private void FixedUpdate()
     {
-        angle = startingAngle + (playerScore.score * 5f); // Temporary method of increasing angle
-        if (angle > 80f)
+        Angle = StartingAngle + (GameManagerScript.ScoreCount * 5f); // Temporary method of increasing Angle
+        if (Angle > 80f)
         {
-            angle = 80f;
+            Angle = 80f;
         }
     }
 
     private void Update()
     {
-        if (gate.missed == true)
+        if (GateScript.HasMissed == true)
         {
-            gate.missed = false;
-            angle -= 10f;
-            if (angle < 10f)
+            GateScript.HasMissed = false;
+            Angle -= 10f;
+            if (Angle < 10f)
             {
-                angle = 10f;
+                Angle = 10f;
             }
         }
     }
@@ -60,14 +82,14 @@ public class GateSpawning : MonoBehaviour
     {
         while (true)
         {
-            if (!gateRef.activeSelf)
+            if (!GateInstance.activeSelf)
             {
-                yield return new WaitForSeconds(spawnDelay);
+                yield return new WaitForSeconds(SpawnDelay);
 
                 Vector3 newPos = FindValidSpawnPos();
-                gateRef.transform.position = newPos;
-                gateRef.transform.rotation = playerRef.rotation;
-                gateRef.SetActive(true);
+                GateInstance.transform.position = newPos;
+                GateInstance.transform.rotation = AircraftController.transform.rotation;
+                GateInstance.SetActive(true);
             }
             yield return null;
         }
@@ -77,34 +99,34 @@ public class GateSpawning : MonoBehaviour
     {
         for (int i = 0; i < 30; i++) // Try up to 30 times
         {
-            float randAngle = Random.Range(-angle / 2f, angle / 2f);
-            float randDistance = Random.Range(minDistanceFromPlayer, radius); // Might change to fixed distance later
+            float randAngle = Random.Range(-Angle / 2f, Angle / 2f);
+            float randDistance = Random.Range(MinDistanceFromPlayer, Radius); // Might change to fixed distance later
 
-            Vector3 direction = Quaternion.Euler(0, randAngle, 0) * playerRef.transform.forward;
-            Vector3 potentialPos = playerRef.transform.position + direction.normalized * randDistance;
+            Vector3 direction = Quaternion.Euler(0, randAngle, 0) * AircraftController.transform.forward;
+            Vector3 potentialPos = AircraftController.transform.position + direction.normalized * randDistance;
 
-            float playerDistance = Vector3.Distance(potentialPos, playerRef.position);
-            if (playerDistance >= minDistanceFromPlayer)
+            float playerDistance = Vector3.Distance(potentialPos, AircraftController.transform.position);
+            if (playerDistance >= MinDistanceFromPlayer)
             {
                 return potentialPos;
             }
         }
         Debug.LogWarning("Could not find valid spawn position after 30 attempts, using fallback.");
-        return playerRef.transform.position + playerRef.transform.forward * minDistanceFromPlayer;
+        return AircraftController.transform.position + AircraftController.transform.forward * MinDistanceFromPlayer;
     }
 
-    //Gizmos for viewing gate spawn area in editor
+    //Gizmos for viewing GateScript spawn area in editor
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(playerRef.transform.position, radius);
+        Gizmos.DrawWireSphere(AircraftController.transform.position, Radius);
 
-        Vector3 forward = playerRef.transform.forward * radius;
-        Vector3 leftBoundary = Quaternion.Euler(0, -angle / 2, 0) * forward;
-        Vector3 rightBoundary = Quaternion.Euler(0, angle / 2, 0) * forward;
+        Vector3 forward = AircraftController.transform.forward * Radius;
+        Vector3 leftBoundary = Quaternion.Euler(0, -Angle / 2, 0) * forward;
+        Vector3 rightBoundary = Quaternion.Euler(0, Angle / 2, 0) * forward;
 
         Gizmos.color = Color.green;
-        Gizmos.DrawRay(playerRef.transform.position, leftBoundary);
-        Gizmos.DrawRay(playerRef.transform.position, rightBoundary);
+        Gizmos.DrawRay(AircraftController.transform.position, leftBoundary);
+        Gizmos.DrawRay(AircraftController.transform.position, rightBoundary);
     }
 }

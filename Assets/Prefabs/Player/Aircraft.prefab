@@ -488,7 +488,7 @@ GameObject:
   - component: {fileID: 2071560712038380654}
   m_Layer: 0
   m_Name: Aircraft
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1464,6 +1464,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0.0016479492
+      objectReference: {fileID: 0}
+    - target: {fileID: 7615679540045632137, guid: 0d7ad5f5787aa6748b01f51534bcfb79,
+        type: 3}
+      propertyPath: m_Name
+      value: HUD_WorldSpace
       objectReference: {fileID: 0}
     - target: {fileID: 7942349891690365145, guid: 0d7ad5f5787aa6748b01f51534bcfb79,
         type: 3}

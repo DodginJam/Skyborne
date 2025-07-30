@@ -4,11 +4,20 @@ using UnityEngine;
 
 public class Gate : MonoBehaviour
 {
-    public Score playerScore;
-    public Transform playerTransform;
-    public GateSpawning spawner;
-    public bool missed = false;
-    public int missedCount = 0;
+    [field: SerializeField]
+    public GameManager GameManagerScript
+    {  get; private set; }
+
+    [field: SerializeField]
+    public Transform PlayerTransform 
+    { get; private set; }
+
+    [field: SerializeField]
+    public GateSpawning GateSpawner 
+    { get; private set; }
+
+    public bool HasMissed     
+    {  get; set; }
 
     // Start is called before the first frame update
     void Start()
@@ -20,25 +29,37 @@ public class Gate : MonoBehaviour
     void Update()
     {
         Vector3 forward = transform.TransformDirection(Vector3.back);
-        Vector3 distanceToPlane = Vector3.Normalize(playerTransform.position - transform.position);
+        Vector3 distanceToPlane = Vector3.Normalize(PlayerTransform.position - transform.position);
 
         if (Vector3.Dot(forward, distanceToPlane) < 0)
         {
-            missed = true;
-            Debug.Log("missed");
+            HasMissed = true;
+            GameManagerScript.IncreasePenelty(1);
             gameObject.SetActive(false);
         }
 
-        if (missedCount >= 3f)
+        if (GameManagerScript.PenaltyCounter >= GameManagerScript.PenaltyLimit)
         {
-            Debug.Log("Game Over!");
+            GameManagerScript.SetGameOverState();
         }
     }
 
 
     private void OnTriggerEnter(Collider other)
     {
-        playerScore.IncreaseScore(1);
-        gameObject.SetActive(false);
+        if (other.transform.root.gameObject.CompareTag("Player"))
+        {
+            GameManagerScript.IncreaseScore(1);
+            gameObject.SetActive(false);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.root.gameObject.CompareTag("Player"))
+        {
+            GameManagerScript.IncreaseScore(1);
+            gameObject.SetActive(false);
+        }
     }
 }

@@ -285,13 +285,13 @@ public class CameraData
     { get; private set; }
 
     /// <summary>
-    /// The currently tracked pitch angle that the current camera should be set to - provided through calculation.
+    /// The currently tracked pitch Angle that the current camera should be set to - provided through calculation.
     /// </summary>
     public float CameraPitchAngle
     { get; set; }
 
     /// <summary>
-    /// The currently tracked yaw angle that the current camera should be set to - provided through calculation.
+    /// The currently tracked yaw Angle that the current camera should be set to - provided through calculation.
     /// </summary>
     public float CameraYawAngle
     { get; set; }

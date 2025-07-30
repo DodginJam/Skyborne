@@ -130,7 +130,7 @@ public class ControlSurface
     { get; set; }
 
     /// <summary>
-    /// Returns the angle of degress that a control surface is rotated to.
+    /// Returns the Angle of degress that a control surface is rotated to.
     /// </summary>
     /// <param name="surfaceType"></param>
     /// <param name="flightControls"></param>
