@@ -14,11 +14,22 @@ public class AircraftDisplay : MonoBehaviour
     {  get; private set; }
 
     [field: SerializeField]
-    public GameManager ScoreScript
+    public GameManager GameManagerScript
+    { get; private set; }
+
+    /// <summary>
+    /// Based on the prefence displayed below, this controls whether this aircraft display is displayed to the game world.
+    /// </summary>
+    [field: SerializeField, Header("Display To Camera Mode")]
+    public CameraData.RotationMode CameraTypeDisplay
     { get; private set; }
 
     [field: SerializeField, Header("Display Elements")]
     public UIAndCachedDisplay<TextMeshProUGUI, int> ScoreDisplay
+    { get; private set; }
+
+    [field: SerializeField]
+    public UIAndCachedDisplay<TextMeshProUGUI, string> PenaltyDisplay
     { get; private set; }
 
     [field: SerializeField]
@@ -35,12 +46,15 @@ public class AircraftDisplay : MonoBehaviour
 
     private void Awake()
     {
+
         // Update the UI display to get reference to the player camera if it has not been assigned as the UI render mode is in world space.
         Canvas uiCanvas = transform.root.GetComponentInChildren<Canvas>();
 
         if (uiCanvas != null && uiCanvas.renderMode == RenderMode.WorldSpace)
         {
-            Camera playerCam = FindAnyObjectByType<CameraManager>().PlayerCamera;
+            CameraManager cameraManager = GameObject.FindAnyObjectByType<CameraManager>();
+
+            Camera playerCam = cameraManager.PlayerCamera;
 
             if (playerCam != null)
             {
@@ -58,11 +72,11 @@ public class AircraftDisplay : MonoBehaviour
             }
         }
 
-        if (ScoreScript == null)
+        if (GameManagerScript == null)
         {
-            ScoreScript = GameObject.FindAnyObjectByType<GameManager>();
+            GameManagerScript = GameObject.FindAnyObjectByType<GameManager>();
 
-            if (ScoreScript == null)
+            if (GameManagerScript == null)
             {
                 Debug.LogError("Unable to locate a playable character in the scene.");
             }
@@ -139,6 +153,16 @@ public class AircraftDisplay : MonoBehaviour
     {
         ScoreDisplay.UpdateCachedData(Mathf.RoundToInt(newValueToDisplay));
         ScoreDisplay.UpdateDisplayElement();
+    }
+
+    /// <summary>
+    /// Called when the display for the penalty needs to be updated.
+    /// </summary>
+    /// <param name="newValueToDisplay"></param>
+    public void UpdatePenaltyDisplay(int newValueToDisplay)
+    {
+        PenaltyDisplay.UpdateCachedData($"{newValueToDisplay} / {GameManagerScript.PenaltyLimit}");
+        PenaltyDisplay.UpdateDisplayElement();
     }
 
     /// <summary>

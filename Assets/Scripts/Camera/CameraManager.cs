@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(Camera))]
@@ -67,6 +68,12 @@ public class CameraManager : MonoBehaviour
     public Transform OrbitCameraHolder
     { get; private set; }
 
+    /// <summary>
+    /// The list of available UI displays in the game scene - to be managed when visable upon camera change.
+    /// </summary>
+    public List<AircraftDisplay> AircraftUIDisplays
+    { get; private set; } 
+
     private void Awake()
     {
         // Error checks for the camera exisiting in scene.
@@ -102,6 +109,14 @@ public class CameraManager : MonoBehaviour
             // Assign the first camera data in the list to the current camera data being used.
             CurrentCameraData = CameraDataList[0];
         }
+
+        AircraftUIDisplays = GameObject.FindObjectsByType<AircraftDisplay>(FindObjectsSortMode.None).ToList();
+
+        if (AircraftUIDisplays == null || AircraftUIDisplays.Count() == 0 || AircraftUIDisplays[0] == null)
+        {
+            Debug.LogWarning("Error with the search for the Aircraft Display UI scripts.");
+        }
+
     }
 
     void Start()
@@ -113,6 +128,9 @@ public class CameraManager : MonoBehaviour
         // Ensure that the camera is facing the same direction as the plane by setting the camera pitch and yaw angles.
         CurrentCameraData.CameraPitchAngle = AssignedTarget.transform.rotation.x;
         CurrentCameraData.CameraYawAngle = AssignedTarget.transform.rotation.y;
+
+        // Toggle the UI displays to enable the ones intended for the new camera view.
+        ToggleUIForCurrentCamera();
     }
 
     void Update()
@@ -217,6 +235,31 @@ public class CameraManager : MonoBehaviour
             // Need to get the cameras pitch and yaw angles to get the camera to face the direction the plane is going when switching to oribt type camera.
             CurrentCameraData.CameraPitchAngle = 0;
             CurrentCameraData.CameraYawAngle = 0;
+
+            // Toggle the UI displays to enable the ones intended for the new camera view.
+            ToggleUIForCurrentCamera();
+        }
+    }
+
+    /// <summary>
+    /// Toggle the UI displays to enable the ones intended for the new camera view.
+    /// </summary>
+    public void ToggleUIForCurrentCamera()
+    {
+        // Toggle the UI displays to enable the ones intended for the new camera view.
+        if (AircraftUIDisplays != null && AircraftUIDisplays.Count() > 0)
+        {
+            foreach (AircraftDisplay display in AircraftUIDisplays)
+            {
+                if (display.CameraTypeDisplay == CurrentCameraData.RotationType)
+                {
+                    display.gameObject.SetActive(true);
+                }
+                else
+                {
+                    display.gameObject.SetActive(false);
+                }
+            }
         }
     }
 

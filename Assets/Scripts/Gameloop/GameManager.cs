@@ -120,11 +120,19 @@ public class GameManager : MonoBehaviour
 
         // Increase the penalty counter.
         PenaltyCounter += amountToIncrease;
+
+        if (DisplaysToUpdate != null)
+        {
+            foreach (AircraftDisplay display in DisplaysToUpdate)
+            {
+                display.UpdatePenaltyDisplay(PenaltyCounter);
+            }
+        }
     }
 
     public void SetGameOverState()
     {
         GameState = GameStatus.Failure;
-        Time.timeScale = 0.2f;
+        Debug.LogWarning("Game Over State Set");
     }
 }
