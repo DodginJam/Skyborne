@@ -25,18 +25,30 @@ public class GateSpawning : MonoBehaviour
     { get; private set; } = 5f;
 
 
+    /// <summary>
+    /// Reference to the player controller script and providing access to it's gameobject too.
+    /// </summary>
     [field: SerializeField, Header("References")]
     public AircraftController AircraftController
     { get; private set; }
 
+    /// <summary>
+    /// The instances game object of the gate / checkpoint.
+    /// </summary>
     [field: SerializeField]
     public GameObject GateInstance
     { get; private set; }
 
+    /// <summary>
+    /// The script for the gate.
+    /// </summary>
     [field: SerializeField]
     public Gate GateScript
     { get; private set; }
 
+    /// <summary>
+    /// The game manager script reference which controls gameflow.
+    /// </summary>
     [field: SerializeField]
     public GameManager GameManagerScript
     { get; private set; }

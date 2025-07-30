@@ -9,7 +9,7 @@ public class Gate : MonoBehaviour
     {  get; private set; }
 
     [field: SerializeField]
-    public Transform PlayerTransform 
+    public AircraftController PlayerController 
     { get; private set; }
 
     [field: SerializeField]
@@ -18,6 +18,40 @@ public class Gate : MonoBehaviour
 
     public bool HasMissed     
     {  get; set; }
+
+    private void Awake()
+    {
+        // Initialisation of references.
+        if (GameManagerScript == null)
+        {
+            GameManagerScript = GameObject.FindObjectOfType<GameManager>();
+
+            if (GameManagerScript == null)
+            {
+                Debug.LogError("Unable to locate the game manager script.");
+            }
+        }
+
+        if (GateSpawner == null)
+        {
+            GateSpawner = GameObject.FindObjectOfType<GateSpawning>();
+
+            if (GateSpawner == null)
+            {
+                Debug.LogError("Unable to locate the GateSpawning script.");
+            }
+        }
+
+        if (PlayerController == null)
+        {
+            PlayerController = GameObject.FindObjectOfType<AircraftController>();
+
+            if (PlayerController == null)
+            {
+                Debug.LogError("Unable to locate the AircraftController script.");
+            }
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +63,7 @@ public class Gate : MonoBehaviour
     void Update()
     {
         Vector3 forward = transform.TransformDirection(Vector3.back);
-        Vector3 distanceToPlane = Vector3.Normalize(PlayerTransform.position - transform.position);
+        Vector3 distanceToPlane = Vector3.Normalize(PlayerController.transform.position - transform.position);
 
         if (Vector3.Dot(forward, distanceToPlane) < 0)
         {

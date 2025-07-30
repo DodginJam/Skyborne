@@ -2241,12 +2241,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9bfbd90cc4ed2549b5c62979196e23d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &1631559962 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 9179970687835517652, guid: 7b82bb532206fde468345883997c8e03,
-    type: 3}
-  m_PrefabInstance: {fileID: 4406453735467669109}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1631559966 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4875903697253658785, guid: 7b82bb532206fde468345883997c8e03,
@@ -3244,14 +3238,14 @@ PrefabInstance:
       objectReference: {fileID: 2120286417}
     - target: {fileID: 7655543416590406897, guid: af09cd4986eb95a4490be2bee83581cc,
         type: 3}
-      propertyPath: <PlayerScore>k__BackingField
+      propertyPath: <PlayerController>k__BackingField
       value: 
-      objectReference: {fileID: 2120286416}
+      objectReference: {fileID: 1631559966}
     - target: {fileID: 7655543416590406897, guid: af09cd4986eb95a4490be2bee83581cc,
         type: 3}
-      propertyPath: <PlayerTransform>k__BackingField
+      propertyPath: <GameManagerScript>k__BackingField
       value: 
-      objectReference: {fileID: 1631559962}
+      objectReference: {fileID: 2120286416}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
