@@ -35,6 +35,19 @@ public class AircraftDisplay : MonoBehaviour
 
     private void Awake()
     {
+        // Update the UI display to get reference to the player camera if it has not been assigned as the UI render mode is in world space.
+        Canvas uiCanvas = transform.root.GetComponentInChildren<Canvas>();
+
+        if (uiCanvas != null && uiCanvas.renderMode == RenderMode.WorldSpace)
+        {
+            Camera playerCam = FindAnyObjectByType<CameraManager>().PlayerCamera;
+
+            if (playerCam != null)
+            {
+                uiCanvas.worldCamera = playerCam;
+            }
+        }
+
         if (PlayerAircraftScript == null)
         {
             PlayerAircraftScript = GameObject.FindAnyObjectByType<AircraftController>();
