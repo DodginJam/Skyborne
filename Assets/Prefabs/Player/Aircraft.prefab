@@ -485,6 +485,7 @@ GameObject:
   - component: {fileID: 5132881976966350200}
   - component: {fileID: 3087151800478988568}
   - component: {fileID: 8266672179798738665}
+  - component: {fileID: 2071560712038380654}
   m_Layer: 0
   m_Name: Aircraft
   m_TagString: Untagged
@@ -509,6 +510,7 @@ Transform:
   - {fileID: 7835228350866103675}
   - {fileID: 3756041816939242692}
   - {fileID: 7190748342834537452}
+  - {fileID: 375500106168442647}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4629101725988435602
@@ -601,31 +603,26 @@ MonoBehaviour:
     <RotationAxis>k__BackingField: 2
     <SurfaceType>k__BackingField: 3
     <RotationSettingMode>k__BackingField: 0
-    <InitialLocalRotation>k__BackingField: {x: 0, y: 0, z: 0, w: 0}
   - <NameOfSurface>k__BackingField: Elevator
     <ControlSurfaceObject>k__BackingField: {fileID: 4593053277617274722}
     <RotationAxis>k__BackingField: 0
     <SurfaceType>k__BackingField: 0
     <RotationSettingMode>k__BackingField: 0
-    <InitialLocalRotation>k__BackingField: {x: 0, y: 0, z: 0, w: 0}
   - <NameOfSurface>k__BackingField: Aileron_Left
     <ControlSurfaceObject>k__BackingField: {fileID: 7510520344710405471}
     <RotationAxis>k__BackingField: 0
     <SurfaceType>k__BackingField: 1
     <RotationSettingMode>k__BackingField: 0
-    <InitialLocalRotation>k__BackingField: {x: 0, y: 0, z: 0, w: 0}
   - <NameOfSurface>k__BackingField: Aileron_Right
     <ControlSurfaceObject>k__BackingField: {fileID: 7441744285197818947}
     <RotationAxis>k__BackingField: 0
     <SurfaceType>k__BackingField: 2
     <RotationSettingMode>k__BackingField: 0
-    <InitialLocalRotation>k__BackingField: {x: 0, y: 0, z: 0, w: 0}
   - <NameOfSurface>k__BackingField: Propeller
     <ControlSurfaceObject>k__BackingField: {fileID: 7188458239926560806}
     <RotationAxis>k__BackingField: 1
     <SurfaceType>k__BackingField: 5
     <RotationSettingMode>k__BackingField: 1
-    <InitialLocalRotation>k__BackingField: {x: 0, y: 0, z: 0, w: 0}
 --- !u!54 &3087151800478988568
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -681,6 +678,54 @@ MonoBehaviour:
     <FireRatePerSecond>k__BackingField: 10
     <Lifetime>k__BackingField: 2.5
     <LaunchForce>k__BackingField: 100
+--- !u!114 &2071560712038380654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4895237626668929585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f71af28764b5da4da01d672886ed6f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <LightEffectData>k__BackingField:
+  - <EffectName>k__BackingField: Port WIngtip
+    <Effect>k__BackingField: {fileID: 0}
+  - <EffectName>k__BackingField: Starboard Wingtip
+    <Effect>k__BackingField: {fileID: 0}
+--- !u!1 &5129163842653496035
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 375500106168442647}
+  m_Layer: 0
+  m_Name: VFXTransforms
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &375500106168442647
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5129163842653496035}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9179970687835517652}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6195229005367474578
 GameObject:
   m_ObjectHideFlags: 0

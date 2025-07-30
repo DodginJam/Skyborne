@@ -126,7 +126,6 @@ public class ControlSurface
     /// <summary>
     /// The original rotation of the control surface at game start, so it can be referenced too to revert to it's original rotation when being activilely rotated.
     /// </summary>
-    [field: SerializeField]
     public Quaternion InitialLocalRotation
     { get; set; }
 
