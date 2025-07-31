@@ -82,6 +82,15 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""CameraFreeLookToggle"",
+                    ""type"": ""Button"",
+                    ""id"": ""6f80adb4-58b8-4bdb-a326-d2a2d96b5c2f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Fire"",
                     ""type"": ""Value"",
                     ""id"": ""bb3868b7-f034-4529-ba16-f1d8552e2633"",
@@ -472,6 +481,39 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""FireSafety"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ab4d31a4-6475-47a7-ad14-15bf527a8646"",
+                    ""path"": ""<HID::Logitech Extreme 3D pro>/button4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""CameraFreeLookToggle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""95acbe37-e6fd-4c3b-8c6c-c92241331b3e"",
+                    ""path"": ""<Mouse>/middleButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""CameraFreeLookToggle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""deb065af-3008-4381-bceb-0d54d6c2c0eb"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""CameraFreeLookToggle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1065,6 +1107,7 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
         m_Aircraft_ThrottleComposite = m_Aircraft.FindAction("Throttle [Composite]", throwIfNotFound: true);
         m_Aircraft_ThrottleSlider = m_Aircraft.FindAction("Throttle [Slider]", throwIfNotFound: true);
         m_Aircraft_CameraToggle = m_Aircraft.FindAction("CameraToggle", throwIfNotFound: true);
+        m_Aircraft_CameraFreeLookToggle = m_Aircraft.FindAction("CameraFreeLookToggle", throwIfNotFound: true);
         m_Aircraft_Fire = m_Aircraft.FindAction("Fire", throwIfNotFound: true);
         m_Aircraft_FireSafety = m_Aircraft.FindAction("FireSafety", throwIfNotFound: true);
         // UI
@@ -1146,6 +1189,7 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
     private readonly InputAction m_Aircraft_ThrottleComposite;
     private readonly InputAction m_Aircraft_ThrottleSlider;
     private readonly InputAction m_Aircraft_CameraToggle;
+    private readonly InputAction m_Aircraft_CameraFreeLookToggle;
     private readonly InputAction m_Aircraft_Fire;
     private readonly InputAction m_Aircraft_FireSafety;
     public struct AircraftActions
@@ -1158,6 +1202,7 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
         public InputAction @ThrottleComposite => m_Wrapper.m_Aircraft_ThrottleComposite;
         public InputAction @ThrottleSlider => m_Wrapper.m_Aircraft_ThrottleSlider;
         public InputAction @CameraToggle => m_Wrapper.m_Aircraft_CameraToggle;
+        public InputAction @CameraFreeLookToggle => m_Wrapper.m_Aircraft_CameraFreeLookToggle;
         public InputAction @Fire => m_Wrapper.m_Aircraft_Fire;
         public InputAction @FireSafety => m_Wrapper.m_Aircraft_FireSafety;
         public InputActionMap Get() { return m_Wrapper.m_Aircraft; }
@@ -1187,6 +1232,9 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
             @CameraToggle.started += instance.OnCameraToggle;
             @CameraToggle.performed += instance.OnCameraToggle;
             @CameraToggle.canceled += instance.OnCameraToggle;
+            @CameraFreeLookToggle.started += instance.OnCameraFreeLookToggle;
+            @CameraFreeLookToggle.performed += instance.OnCameraFreeLookToggle;
+            @CameraFreeLookToggle.canceled += instance.OnCameraFreeLookToggle;
             @Fire.started += instance.OnFire;
             @Fire.performed += instance.OnFire;
             @Fire.canceled += instance.OnFire;
@@ -1215,6 +1263,9 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
             @CameraToggle.started -= instance.OnCameraToggle;
             @CameraToggle.performed -= instance.OnCameraToggle;
             @CameraToggle.canceled -= instance.OnCameraToggle;
+            @CameraFreeLookToggle.started -= instance.OnCameraFreeLookToggle;
+            @CameraFreeLookToggle.performed -= instance.OnCameraFreeLookToggle;
+            @CameraFreeLookToggle.canceled -= instance.OnCameraFreeLookToggle;
             @Fire.started -= instance.OnFire;
             @Fire.performed -= instance.OnFire;
             @Fire.canceled -= instance.OnFire;
@@ -1409,6 +1460,7 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
         void OnThrottleComposite(InputAction.CallbackContext context);
         void OnThrottleSlider(InputAction.CallbackContext context);
         void OnCameraToggle(InputAction.CallbackContext context);
+        void OnCameraFreeLookToggle(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
         void OnFireSafety(InputAction.CallbackContext context);
     }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Camera))]
 public class CameraManager : MonoBehaviour
@@ -72,7 +73,10 @@ public class CameraManager : MonoBehaviour
     /// The list of available UI displays in the game scene - to be managed when visable upon camera change.
     /// </summary>
     public List<AircraftDisplay> AircraftUIDisplays
-    { get; private set; } 
+    { get; private set; }
+
+    public bool IsFreeLookActive
+    { get; private set; }
 
     private void Awake()
     {
@@ -136,6 +140,7 @@ public class CameraManager : MonoBehaviour
     void Update()
     {
         ToggleCameraDataOnInput(InputControls);
+        ToggleFreeLookOnImput(InputControls);
     }
 
     private void LateUpdate()
@@ -161,22 +166,30 @@ public class CameraManager : MonoBehaviour
         {
             // Orbit mode camera uses a seperate 
 
-            currentCameraData.CameraPitchAngle += -(InputControls.CameraInput.y * Time.deltaTime * ProcessSensitivity(InputControls.CurrentInputType));
-            currentCameraData.CameraYawAngle += (InputControls.CameraInput.x * Time.deltaTime * ProcessSensitivity(InputControls.CurrentInputType));
+            if (IsFreeLookActive)
+            {
+                currentCameraData.CameraPitchAngle += -(InputControls.CameraInput.y * Time.deltaTime * ProcessSensitivity(InputControls.CurrentInputType));
+                currentCameraData.CameraYawAngle += (InputControls.CameraInput.x * Time.deltaTime * ProcessSensitivity(InputControls.CurrentInputType));
 
-            Quaternion baseRotation = AssignedTarget.transform.rotation;
+                Quaternion baseRotation = AssignedTarget.transform.rotation;
 
-            Quaternion pitchRotation = Quaternion.Euler(-currentCameraData.CameraPitchAngle, 0, 0);
+                Quaternion pitchRotation = Quaternion.Euler(-currentCameraData.CameraPitchAngle, 0, 0);
 
-            Quaternion yawRotation = Quaternion.Euler(0, currentCameraData.CameraYawAngle, 0);
+                Quaternion yawRotation = Quaternion.Euler(0, currentCameraData.CameraYawAngle, 0);
 
-            Quaternion finalRotation = yawRotation * pitchRotation;
+                Quaternion finalRotation = yawRotation * pitchRotation;
 
-            OrbitCameraHolder.transform.rotation = finalRotation;
+                OrbitCameraHolder.transform.rotation = finalRotation;
 
-            CalculatedCameraPosition = OrbitCameraHolder.transform.position + (-OrbitCameraHolder.transform.forward * CurrentCameraData.CameraDistanceFromTarget);
+                CalculatedCameraPosition = OrbitCameraHolder.transform.position + (-OrbitCameraHolder.transform.forward * CurrentCameraData.CameraDistanceFromTarget);
 
-            Debug.DrawLine(OrbitCameraHolder.transform.position, CalculatedCameraPosition);
+                Debug.DrawLine(OrbitCameraHolder.transform.position, CalculatedCameraPosition);
+            }
+            else
+            {
+                OrbitCameraHolder.transform.rotation = AssignedTarget.transform.rotation;
+                CalculatedCameraPosition = OrbitCameraHolder.transform.position + (-OrbitCameraHolder.transform.forward * -CurrentCameraData.CameraDistanceFromTarget);
+            }
         }
         else
         {
@@ -193,9 +206,12 @@ public class CameraManager : MonoBehaviour
     {
         if (rotationMode == CameraData.RotationMode.POV)
         {
-            CurrentCameraData.CameraPitchAngle += -(InputControls.CameraInput.y * Time.deltaTime * ProcessSensitivity(InputControls.CurrentInputType));
-            CurrentCameraData.CameraYawAngle += (InputControls.CameraInput.x * Time.deltaTime * ProcessSensitivity(InputControls.CurrentInputType));
-
+            if (IsFreeLookActive)
+            {
+                CurrentCameraData.CameraPitchAngle += -(InputControls.CameraInput.y * Time.deltaTime * ProcessSensitivity(InputControls.CurrentInputType));
+                CurrentCameraData.CameraYawAngle += (InputControls.CameraInput.x * Time.deltaTime * ProcessSensitivity(InputControls.CurrentInputType));
+            }
+            
             Quaternion baseRotation = assignedTarget.rotation;
 
             Quaternion pitchRotation = Quaternion.AngleAxis(CurrentCameraData.CameraPitchAngle, assignedTarget.right);
@@ -232,20 +248,40 @@ public class CameraManager : MonoBehaviour
 
             aircraftInput.CameraTogglePressed = false;
 
-            // Reset the camera angles to face the direction the aircraft is moving in depending onthe set up of the given rotation mode of the currently used camera data.
-            if (CurrentCameraData.RotationType == CameraData.RotationMode.Orbit)
-            {
-                CurrentCameraData.CameraPitchAngle = AssignedTarget.transform.localEulerAngles.x;
-                CurrentCameraData.CameraYawAngle = AssignedTarget.transform.eulerAngles.y - 180;
-            }
-            else if (CurrentCameraData.RotationType == CameraData.RotationMode.POV)
-            {
-                CurrentCameraData.CameraPitchAngle = 0;
-                CurrentCameraData.CameraYawAngle = 0;
-            }
+            ResetCameraAngles();
 
             // Toggle the UI displays to enable the ones intended for the new camera view.
             ToggleUIForCurrentCamera();
+        }
+    }
+
+    public void ToggleFreeLookOnImput(AircraftInput aircraftInput)
+    {
+        if (aircraftInput != null && aircraftInput.CameraFreeLookTogglePressed == true)
+        {
+            aircraftInput.CameraFreeLookTogglePressed = false;
+
+            IsFreeLookActive = !IsFreeLookActive;
+
+            if (IsFreeLookActive == true)
+            {
+                ResetCameraAngles();
+            }
+        }
+    }
+
+    public void ResetCameraAngles()
+    {
+        // Reset the camera angles to face the direction the aircraft is moving in depending onthe set up of the given rotation mode of the currently used camera data.
+        if (CurrentCameraData.RotationType == CameraData.RotationMode.Orbit)
+        {
+            CurrentCameraData.CameraPitchAngle = AssignedTarget.transform.localEulerAngles.x;
+            CurrentCameraData.CameraYawAngle = AssignedTarget.transform.eulerAngles.y - 180;
+        }
+        else if (CurrentCameraData.RotationType == CameraData.RotationMode.POV)
+        {
+            CurrentCameraData.CameraPitchAngle = 0;
+            CurrentCameraData.CameraYawAngle = 0;
         }
     }
 

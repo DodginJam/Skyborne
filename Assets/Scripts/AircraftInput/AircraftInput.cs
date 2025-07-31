@@ -53,6 +53,9 @@ public class AircraftInput : MonoBehaviour
     public bool CameraTogglePressed
     { get; set; }
 
+    public bool CameraFreeLookTogglePressed
+    { get; set; }
+
     public Vector2 CameraInput
     { get; private set; }
 
@@ -183,11 +186,21 @@ public class AircraftInput : MonoBehaviour
         {
             OnFireSafety(context);
         };
+
+        aircraftActions.CameraFreeLookToggle.started += context =>
+        {
+            OnCameraFreeLookToggle(context);
+        };
     }
 
     public void OnCameraToggle(InputAction.CallbackContext context)
     {
         CameraTogglePressed = context.ReadValueAsButton();
+    }
+
+    public void OnCameraFreeLookToggle(InputAction.CallbackContext context)
+    {
+        CameraFreeLookTogglePressed = context.ReadValueAsButton();
     }
 
     public void OnFire(InputAction.CallbackContext context)

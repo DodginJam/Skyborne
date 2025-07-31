@@ -60,6 +60,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "CameraFreeLookToggle",
+                    "type": "Button",
+                    "id": "6f80adb4-58b8-4bdb-a326-d2a2d96b5c2f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Fire",
                     "type": "Value",
                     "id": "bb3868b7-f034-4529-ba16-f1d8552e2633",
@@ -450,6 +459,39 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "FireSafety",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ab4d31a4-6475-47a7-ad14-15bf527a8646",
+                    "path": "<HID::Logitech Extreme 3D pro>/button4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Joystick",
+                    "action": "CameraFreeLookToggle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "95acbe37-e6fd-4c3b-8c6c-c92241331b3e",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "CameraFreeLookToggle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "deb065af-3008-4381-bceb-0d54d6c2c0eb",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "CameraFreeLookToggle",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
