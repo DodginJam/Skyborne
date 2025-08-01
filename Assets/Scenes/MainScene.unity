@@ -5440,17 +5440,17 @@ PrefabInstance:
     - target: {fileID: 5531063403583263567, guid: af09cd4986eb95a4490be2bee83581cc,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 812.9865
+      value: 771.87
       objectReference: {fileID: 0}
     - target: {fileID: 5531063403583263567, guid: af09cd4986eb95a4490be2bee83581cc,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 73.49755
+      value: 119.24755
       objectReference: {fileID: 0}
     - target: {fileID: 5531063403583263567, guid: af09cd4986eb95a4490be2bee83581cc,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 886.0123
+      value: 695.09
       objectReference: {fileID: 0}
     - target: {fileID: 5531063403583263567, guid: af09cd4986eb95a4490be2bee83581cc,
         type: 3}
@@ -5653,6 +5653,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 3879360162199130493, guid: 0d7ad5f5787aa6748b01f51534bcfb79,
+        type: 3}
+      propertyPath: <PlayerController>k__BackingField
+      value: 
+      objectReference: {fileID: 1631559966}
+    - target: {fileID: 3879360162199130493, guid: 0d7ad5f5787aa6748b01f51534bcfb79,
+        type: 3}
+      propertyPath: <GameManagerScript>k__BackingField
+      value: 
+      objectReference: {fileID: 2120286416}
+    - target: {fileID: 3879360162199130493, guid: 0d7ad5f5787aa6748b01f51534bcfb79,
+        type: 3}
+      propertyPath: <CheckpointToLocate>k__BackingField
+      value: 
+      objectReference: {fileID: 3001175055099753077}
     - target: {fileID: 5371871453299535970, guid: 0d7ad5f5787aa6748b01f51534bcfb79,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -5694,7 +5709,7 @@ PrefabInstance:
     - target: {fileID: 3565390331498843953, guid: 94ffa1a4244b5ef4f888a7c799456e0e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 815.10004
+      value: 815.2501
       objectReference: {fileID: 0}
     - target: {fileID: 3565390331498843953, guid: 94ffa1a4244b5ef4f888a7c799456e0e,
         type: 3}
@@ -5754,6 +5769,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2511665020157667212, guid: 7b82bb532206fde468345883997c8e03,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4628767728184442778, guid: 7b82bb532206fde468345883997c8e03,
         type: 3}
       propertyPath: m_Camera
@@ -5763,6 +5783,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Aircraft
+      objectReference: {fileID: 0}
+    - target: {fileID: 5310269539465766615, guid: 7b82bb532206fde468345883997c8e03,
+        type: 3}
+      propertyPath: <GameManagerScript>k__BackingField
+      value: 
+      objectReference: {fileID: 2120286416}
+    - target: {fileID: 5310269539465766615, guid: 7b82bb532206fde468345883997c8e03,
+        type: 3}
+      propertyPath: <CheckpointToLocate>k__BackingField
+      value: 
+      objectReference: {fileID: 3001175055099753077}
+    - target: {fileID: 5328382097939360945, guid: 7b82bb532206fde468345883997c8e03,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8705599512446265451, guid: 7b82bb532206fde468345883997c8e03,
         type: 3}
@@ -5832,6 +5867,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 964258629075708245, guid: 5b0ef94fc00c81b4c83f2b9638d44696,
+        type: 3}
+      propertyPath: <Radius>k__BackingField
+      value: 250
+      objectReference: {fileID: 0}
     - target: {fileID: 964258629075708245, guid: 5b0ef94fc00c81b4c83f2b9638d44696,
         type: 3}
       propertyPath: <GateScript>k__BackingField

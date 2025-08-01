@@ -44,6 +44,10 @@ public class AircraftDisplay : MonoBehaviour
     public UIAndCachedDisplay<Slider, float> ThrottleDisplay
     { get; private set; }
 
+    [field: SerializeField]
+    public UIAndCachedDisplay<CheckpointPointer, Vector2> CheckpointPointerDisplay
+    { get; private set; }
+
     private void Awake()
     {
 
@@ -125,6 +129,7 @@ public class AircraftDisplay : MonoBehaviour
                     Debug.LogError("AltitudeDisplay not assigned.");
                 }
 
+                // Throttle Display.
                 if (ThrottleDisplay != null)
                 {
                     if (ThrottleDisplay.CompareDataToDisplayCache(PlayerAircraftScript.CurrentValues.FlightControls.ThrottleValue, out float data))
@@ -132,6 +137,10 @@ public class AircraftDisplay : MonoBehaviour
                         ThrottleDisplay.UpdateCachedData(data);
                         ThrottleDisplay.UpdateDisplayElement();
                     }
+                }
+                else
+                {
+                    Debug.LogError("ThrottleDisplay not assigned.");
                 }
             }
             else
@@ -143,6 +152,22 @@ public class AircraftDisplay : MonoBehaviour
         {
             Debug.LogError("PlayerAircraftScript not assigned.");
         }
+
+        // CheckpointPointer Display.
+        /*
+        if (CheckpointPointerDisplay != null)
+        {
+            if (CheckpointPointerDisplay.CompareDataToDisplayCache(CheckpointPointerDisplay.UIElement.transform.rotation.eulerAngles, out Vector2 data))
+            {
+                CheckpointPointerDisplay.UpdateCachedData(data);
+                CheckpointPointerDisplay.UpdateDisplayElement();
+            }
+        }
+        else
+        {
+            Debug.LogError("CheckpointPointerDisplay not assigned.");
+        }
+        */
     }
 
     /// <summary>
@@ -231,6 +256,10 @@ public class AircraftDisplay : MonoBehaviour
                 {
                     Debug.LogWarning("Unable to pass data type to the slider value.");
                 }
+            }
+            else if (UIElement is CheckpointPointer newDataPointer)
+            {
+                newDataPointer.PointTowardsCheckpoint();
             }
         }
     }
