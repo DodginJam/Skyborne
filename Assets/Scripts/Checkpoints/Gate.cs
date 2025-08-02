@@ -1,0 +1,99 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Gate : MonoBehaviour
+{
+    [field: SerializeField]
+    public GameManager GameManagerScript
+    {  get; private set; }
+
+    [field: SerializeField]
+    public AircraftController PlayerController 
+    { get; private set; }
+
+    [field: SerializeField]
+    public GateSpawning GateSpawner 
+    { get; private set; }
+
+    public bool HasMissed     
+    {  get; set; }
+
+    private void Awake()
+    {
+        // Initialisation of references.
+        if (GameManagerScript == null)
+        {
+            GameManagerScript = GameObject.FindObjectOfType<GameManager>();
+
+            if (GameManagerScript == null)
+            {
+                Debug.LogError("Unable to locate the game manager script.");
+            }
+        }
+
+        if (GateSpawner == null)
+        {
+            GateSpawner = GameObject.FindObjectOfType<GateSpawning>();
+
+            if (GateSpawner == null)
+            {
+                Debug.LogError("Unable to locate the GateSpawning script.");
+            }
+        }
+
+        if (PlayerController == null)
+        {
+            PlayerController = GameObject.FindObjectOfType<AircraftController>();
+
+            if (PlayerController == null)
+            {
+                Debug.LogError("Unable to locate the AircraftController script.");
+            }
+        }
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        Vector3 forward = transform.TransformDirection(Vector3.back);
+        Vector3 distanceToPlane = Vector3.Normalize(PlayerController.transform.position - transform.position);
+
+        if (Vector3.Dot(forward, distanceToPlane) < 0)
+        {
+            HasMissed = true;
+            GameManagerScript.IncreasePenelty(1);
+            gameObject.SetActive(false);
+        }
+
+        if (GameManagerScript.PenaltyCounter >= GameManagerScript.PenaltyLimit)
+        {
+            GameManagerScript.SetGameOverState();
+        }
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.root.gameObject.CompareTag("Player"))
+        {
+            GameManagerScript.IncreaseScore(1);
+            gameObject.SetActive(false);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.root.gameObject.CompareTag("Player"))
+        {
+            GameManagerScript.IncreaseScore(1);
+            gameObject.SetActive(false);
+        }
+    }
+}
