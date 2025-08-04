@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <GateSpawningScript>k__BackingField: {fileID: 964258629075708245}
+  <PenaltyLimit>k__BackingField: 3
 --- !u!114 &964258629075708245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,7 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bc43b19ab22eb04bb1be3b9144ec39d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Radius>k__BackingField: 125
+  <Radius>k__BackingField: 250
   <Angle>k__BackingField: 10
   <StartingAngle>k__BackingField: 10
   <MinDistanceFromPlayer>k__BackingField: 50
