@@ -5643,6 +5643,21 @@ PrefabInstance:
       propertyPath: <PlayerAircraftScript>k__BackingField
       value: 
       objectReference: {fileID: 1631559966}
+    - target: {fileID: 1882760298916093785, guid: 0d7ad5f5787aa6748b01f51534bcfb79,
+        type: 3}
+      propertyPath: <AircraftPlayerInput>k__BackingField
+      value: 
+      objectReference: {fileID: 1631559955}
+    - target: {fileID: 2216750188703923453, guid: 0d7ad5f5787aa6748b01f51534bcfb79,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1999812915}
+    - target: {fileID: 2216750188703923453, guid: 0d7ad5f5787aa6748b01f51534bcfb79,
+        type: 3}
+      propertyPath: m_UIInputModule
+      value: 
+      objectReference: {fileID: 93348665}
     - target: {fileID: 2424544008996305759, guid: 0d7ad5f5787aa6748b01f51534bcfb79,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -5867,11 +5882,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 964258629075708245, guid: 5b0ef94fc00c81b4c83f2b9638d44696,
-        type: 3}
-      propertyPath: <Radius>k__BackingField
-      value: 250
-      objectReference: {fileID: 0}
     - target: {fileID: 964258629075708245, guid: 5b0ef94fc00c81b4c83f2b9638d44696,
         type: 3}
       propertyPath: <GateScript>k__BackingField

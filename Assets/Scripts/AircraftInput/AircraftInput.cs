@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using UnityEditor.Recorder.Input;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -100,12 +100,24 @@ public class AircraftInput : MonoBehaviour
 
     public void OnEnable()
     {
+        ResetInputs();
         InputActions.Enable();
     }
 
     public void OnDisable()
     {
+        ResetInputs();
         InputActions.Disable();
+    }
+
+    public void ResetInputs()
+    {
+        ThrottleInput = 0;
+        ElevatorInput = 0;
+        AileronInput = 0;
+        RudderInput = 0;
+        CameraInput = Vector2.zero;
+        IsFiring = false;
     }
 
     // Update is called once per frame
