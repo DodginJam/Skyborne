@@ -433,6 +433,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  <TurnSpeed>k__BackingField: 120
-  <AccelerationOfTurn>k__BackingField: {x: 100, y: 15, z: 100}
-  <SteeringPower>k__BackingField: 100
+  <TurnSpeed>k__BackingField: 60
+  <AccelerationOfTurn>k__BackingField: {x: 80, y: 10, z: 80}
+  <SteeringPower>k__BackingField: 80
