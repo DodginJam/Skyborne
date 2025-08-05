@@ -332,6 +332,7 @@ public class CameraManager : MonoBehaviour
                 break;
         }
 
+        Debug.Log($"Current Sens: {sensitivityLevel}. ControlInput: {controlType}");
         return sensitivityLevel;
     }
 }

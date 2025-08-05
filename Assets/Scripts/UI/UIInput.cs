@@ -3,12 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(PlayerInput))]
 public class UIInput : MonoBehaviour
 {
-    public InputActions_Skyborne InputActions
-    { get; private set; }
-
     public InputActions_Skyborne.UIActions UIActionMap
     { get; private set; }
 
@@ -17,11 +13,9 @@ public class UIInput : MonoBehaviour
 
     private void Awake()
     {
-        InputActions = new InputActions_Skyborne();
-
-        if (InputActions != null)
+        if (InputManager.Instance.InputActions != null)
         {
-            UIActionMap = InputActions.UI;
+            UIActionMap = InputManager.Instance.InputActions.UI;
         }
         else
         {
@@ -39,12 +33,12 @@ public class UIInput : MonoBehaviour
 
     public void OnEnable()
     {
-        InputActions.Enable();
+        UIActionMap.Enable();
     }
 
     public void OnDisable()
     {
-        InputActions.Disable();
+        UIActionMap.Disable();
     }
 
     // Update is called once per frame

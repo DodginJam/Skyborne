@@ -478,7 +478,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9179970687835517652}
-  - component: {fileID: 4629101725988435602}
   - component: {fileID: 4031140175458963737}
   - component: {fileID: 1792835663490637729}
   - component: {fileID: 4875903697253658785}
@@ -513,37 +512,6 @@ Transform:
   - {fileID: 375500106168442647}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4629101725988435602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4895237626668929585}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 2fa4fae91520be54cbfe121f67b054e6,
-    type: 3}
-  m_NotificationBehavior: 3
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Aircraft
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!114 &4031140175458963737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1130,6 +1098,11 @@ PrefabInstance:
       propertyPath: <PlayerAircraftScript>k__BackingField
       value: 
       objectReference: {fileID: 4875903697253658785}
+    - target: {fileID: 5786672628535466411, guid: b8e4a9b6da9d04348ab57c06322cafac,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7743326306162315663, guid: b8e4a9b6da9d04348ab57c06322cafac,
         type: 3}
       propertyPath: m_AnchorMax.x

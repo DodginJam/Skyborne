@@ -4,12 +4,8 @@ using UnityEditor.Recorder.Input;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(PlayerInput))]
 public class AircraftInput : MonoBehaviour
 {
-    public InputActions_Skyborne InputActions
-    { get; private set; }
-
     public InputActions_Skyborne.AircraftActions AircraftActionMap
     { get; private set; }
 
@@ -47,9 +43,6 @@ public class AircraftInput : MonoBehaviour
     public ControlInputType CurrentInputType
     { get; private set; }
 
-    public PlayerInput PlayerInputComponent
-    { get; private set; }
-
     public bool CameraTogglePressed
     { get; set; }
 
@@ -67,24 +60,13 @@ public class AircraftInput : MonoBehaviour
 
     private void Awake()
     {
-        InputActions = new InputActions_Skyborne();
-
-        if (InputActions != null)
+        if (InputManager.Instance.InputActions != null)
         {
-            AircraftActionMap = InputActions.Aircraft;
+            AircraftActionMap = InputManager.Instance.InputActions.Aircraft;
         }
         else
         {
             Debug.LogError("Unable to assign class instance to InputActions");
-        }
-
-        if (TryGetComponent<PlayerInput>(out PlayerInput playerInputComponent))
-        {
-            PlayerInputComponent = playerInputComponent;
-        }
-        else
-        {
-            Debug.LogError("Unable to locate a player input component");
         }
 
         SetUpInputListeners(AircraftActionMap);
@@ -96,18 +78,23 @@ public class AircraftInput : MonoBehaviour
         JoystickID = Animator.StringToHash("Joystick");
         GamepadID = Animator.StringToHash("Gamepad");
         MouseKeyboardID = Animator.StringToHash("Keyboard&Mouse");
+
+        Debug.Log($"JoystickID: {JoystickID}");
+        Debug.Log($"GamepadID: {GamepadID}");
+        Debug.Log($"MouseKeyboardID: {MouseKeyboardID}");
+
     }
 
     public void OnEnable()
     {
         ResetInputs();
-        InputActions.Enable();
+        AircraftActionMap.Enable();
     }
 
     public void OnDisable()
     {
         ResetInputs();
-        InputActions.Disable();
+        AircraftActionMap.Disable();
     }
 
     public void ResetInputs()
@@ -124,9 +111,9 @@ public class AircraftInput : MonoBehaviour
     void Update()
     {
         // Check to see if the input scheme has been changed and capture the string name of the new input type.
-        if (CurrentControlSchemeID != Animator.StringToHash(PlayerInputComponent.currentControlScheme))
+        if (CurrentControlSchemeID != Animator.StringToHash(InputManager.Instance.PlayerInputComponent.currentControlScheme))
         {
-            CurrentControlSchemeID = Animator.StringToHash(PlayerInputComponent.currentControlScheme);
+            CurrentControlSchemeID = Animator.StringToHash(InputManager.Instance.PlayerInputComponent.currentControlScheme);
 
             // Update the control type enum to reflect the current input when it has switched.
             switch (CurrentControlSchemeID)
@@ -147,6 +134,9 @@ public class AircraftInput : MonoBehaviour
 
             Debug.Log($"Input has switched to: {CurrentInputType.ToString()}");
         }
+
+        Debug.Log($"CurrentInputType: {InputManager.Instance.PlayerInputComponent.currentControlScheme}");
+        Debug.Log($"CurrentInputType marked: {CurrentInputType.ToString()}");
 
         // Check for joystick being used as control so that throttle input can be swapped to a different binding setup.
         if (CurrentControlSchemeID != JoystickID)
