@@ -1,58 +1,30 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Splines;
+using Unity.Mathematics; // For float3
 
 public class GateSpawning : MonoBehaviour
 {
-    [field: SerializeField, Header("Spawn Area Settings")] 
-    public float Radius 
-    { get; private set; } = 125f;
+    [field: Header("Spawn Area Settings")] 
+    [field: SerializeField] public float Radius { get; private set; } = 125f;
+    [field: SerializeField, Range(10, 80)] public float Angle { get; private set; } = 10f;
+    [field: SerializeField, Range(10, 80)] public float StartingAngle { get; private set; } = 10f;
+    [field: SerializeField] public float MinDistanceFromPlayer { get; private set; } = 50f;
 
-    [field: SerializeField, Range(10, 80)]
-    public float Angle
-    { get; private set; } = 10f;
+    [field: Header("Timing Settings")]
+    [field: SerializeField] public float SpawnDelay { get; private set; } = 5f;
 
-    [field: SerializeField, Range(10, 80)]
-    public float StartingAngle 
-    { get; private set; } = 10f;
+    [field: Header("References")]
+    [field: SerializeField] public AircraftController AircraftController { get; private set; }
+    [field: SerializeField] public GameObject GateInstance { get; private set; }
+    [field: SerializeField] public Gate GateScript { get; private set; }
+    [field: SerializeField] public GameManager GameManagerScript { get; private set; }
 
-    [field: SerializeField]
-    public float MinDistanceFromPlayer 
-    { get; private set; } = 50f;
-
-
-    [field: SerializeField, Header("Timing Settings")]
-    public float SpawnDelay 
-    { get; private set; } = 5f;
-
-
-    /// <summary>
-    /// Reference to the player controller script and providing access to it's gameobject too.
-    /// </summary>
-    [field: SerializeField, Header("References")]
-    public AircraftController AircraftController
-    { get; private set; }
-
-    /// <summary>
-    /// The instances game object of the gate / checkpoint.
-    /// </summary>
-    [field: SerializeField]
-    public GameObject GateInstance
-    { get; private set; }
-
-    /// <summary>
-    /// The script for the gate.
-    /// </summary>
-    [field: SerializeField]
-    public Gate GateScript
-    { get; private set; }
-
-    /// <summary>
-    /// The game manager script reference which controls gameflow.
-    /// </summary>
-    [field: SerializeField]
-    public GameManager GameManagerScript
-    { get; private set; }
-
+    [Header("Spline Path")]
+    [SerializeField] private SplineContainer flightPath;
+    [SerializeField] private float gateSpacingT = 0.05f;
+    [SerializeField] private float lateralOffsetRange = 15f;
+    [SerializeField] private float verticalOffsetRange = 10f;
 
     private void Start()
     {
@@ -65,12 +37,13 @@ public class GateSpawning : MonoBehaviour
                 return;
             }
         }
+
         StartCoroutine(GateRoutine());
     }
 
     private void FixedUpdate()
     {
-        Angle = StartingAngle + (GameManagerScript.ScoreCount * 5f); // Temporary method of increasing Angle
+        Angle = StartingAngle + (GameManagerScript.ScoreCount * 5f);
         if (Angle > 80f)
         {
             Angle = 80f;
@@ -79,7 +52,7 @@ public class GateSpawning : MonoBehaviour
 
     private void Update()
     {
-        if (GateScript.HasMissed == true)
+        if (GateScript.HasMissed)
         {
             GateScript.HasMissed = false;
             Angle -= 10f;
@@ -98,38 +71,51 @@ public class GateSpawning : MonoBehaviour
             {
                 yield return new WaitForSeconds(SpawnDelay);
 
-                Vector3 newPos = FindValidSpawnPos();
-                GateInstance.transform.position = newPos;
-                GateInstance.transform.rotation = AircraftController.transform.rotation;
+                Vector3 spawnPos;
+                Quaternion spawnRot;
+
+                GetGateSpawnFromSpline(out spawnPos, out spawnRot);
+
+                GateInstance.transform.position = spawnPos;
+                GateInstance.transform.rotation = spawnRot;
                 GateInstance.SetActive(true);
             }
+
             yield return null;
         }
     }
 
-    private Vector3 FindValidSpawnPos()
+    private void GetGateSpawnFromSpline(out Vector3 position, out Quaternion rotation)
     {
-        for (int i = 0; i < 30; i++) // Try up to 30 times
-        {
-            float randAngle = Random.Range(-Angle / 2f, Angle / 2f);
-            float randDistance = Random.Range(MinDistanceFromPlayer, Radius); // Might change to fixed distance later
+        Spline spline = flightPath.Spline;
+        Transform splineTransform = flightPath.transform;
 
-            Vector3 direction = Quaternion.Euler(0, randAngle, 0) * AircraftController.transform.forward;
-            Vector3 potentialPos = AircraftController.transform.position + direction.normalized * randDistance;
+        // Project player position onto spline to get current T
+        float3 playerLocalPos = splineTransform.InverseTransformPoint(AircraftController.transform.position);
+        SplineUtility.GetNearestPoint(spline, playerLocalPos, out float3 _, out float nearestT);
 
-            float playerDistance = Vector3.Distance(potentialPos, AircraftController.transform.position);
-            if (playerDistance >= MinDistanceFromPlayer)
-            {
-                return potentialPos;
-            }
-        }
-        Debug.LogWarning("Could not find valid spawn position after 30 attempts, using fallback.");
-        return AircraftController.transform.position + AircraftController.transform.forward * MinDistanceFromPlayer;
+        // Spawn ahead of the player
+        float spawnT = math.clamp(nearestT + gateSpacingT, 0f, 1f);
+
+        // Evaluate the spline at the spawn point
+        SplineUtility.Evaluate(spline, spawnT, out float3 pos, out float3 tangent, out float3 up);
+
+        Vector3 worldPos = splineTransform.TransformPoint((Vector3)pos);
+        Vector3 worldForward = splineTransform.TransformDirection((Vector3)tangent).normalized;
+        Vector3 worldUp = splineTransform.TransformDirection((Vector3)up).normalized;
+        Vector3 worldRight = Vector3.Cross(worldUp, worldForward).normalized;
+
+        float lateralOffset = UnityEngine.Random.Range(-lateralOffsetRange, lateralOffsetRange);
+        float verticalOffset = UnityEngine.Random.Range(-verticalOffsetRange, verticalOffsetRange);
+
+        position = worldPos + worldRight * lateralOffset + worldUp * verticalOffset;
+        rotation = Quaternion.LookRotation(worldForward, worldUp);
     }
 
-    //Gizmos for viewing GateScript spawn area in editor
     private void OnDrawGizmosSelected()
     {
+        if (AircraftController == null) return;
+
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(AircraftController.transform.position, Radius);
 
