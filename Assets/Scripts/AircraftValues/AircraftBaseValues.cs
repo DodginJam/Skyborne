@@ -148,15 +148,22 @@ public class AircraftBaseValues : ScriptableObject
 
     [field: SerializeField, Min(0.1f)]
     public float TurnSpeed
-    { get; private set; }
+    { get; private set; } = 60f;
 
     [field: SerializeField]
     public Vector3 AccelerationOfTurn
-    { get; private set; }
+    { get; private set; } = new Vector3(80f, 10f, 80f);
 
     [field: SerializeField, Min(0.1f)]
     public float SteeringPower
-    { get; private set; }
+    { get; private set; } = 80.0f;
+
+    /// <summary>
+    /// Abstract figure representing the level of induced drag this plane has on a turn.
+    /// </summary>
+    [field: SerializeField, Min(0.1f)]
+    public float InducedDrag
+    { get; private set; } = 20.0f;
 }
 
 /// <summary>

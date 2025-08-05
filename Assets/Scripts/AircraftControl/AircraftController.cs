@@ -153,8 +153,11 @@ public class AircraftController : MonoBehaviour
         // Converting the planes current velocity and Angle of attack to the lift being generated.
         if (CurrentValues.ValuesHolder.CurrentVelocityLocal.sqrMagnitude >= 1f)
         {
-            flightForces.Lift = ForcesOnFlight.CalculateLiftVector(CurrentValues.ValuesHolder.AngleOfAttack, Vector3.right, CurrentValues.BaseValues.LiftPower, CurrentValues.BaseValues.LiftCurve, CurrentValues.ValuesHolder);
-            flightForces.Lift += ForcesOnFlight.CalculateLiftVector(CurrentValues.ValuesHolder.AngleOfAttackYaw, Vector3.up, CurrentValues.BaseValues.LiftPowerVertical, CurrentValues.BaseValues.LiftCurveVertical, CurrentValues.ValuesHolder);
+            flightForces.Lift = ForcesOnFlight.CalculateLiftVector(CurrentValues.ValuesHolder.AngleOfAttack, Vector3.right, CurrentValues.BaseValues.LiftPower, CurrentValues.BaseValues.LiftCurve, CurrentValues.ValuesHolder, out float lifeCoefficent, out Vector3 liftVelocity);
+            flightForces.Lift += ForcesOnFlight.CalculateLiftVector(CurrentValues.ValuesHolder.AngleOfAttackYaw, Vector3.up, CurrentValues.BaseValues.LiftPowerVertical, CurrentValues.BaseValues.LiftCurveVertical, CurrentValues.ValuesHolder, out float lifeCoefficentYaw, out Vector3 liftVelocityYaw);
+
+            flightForces.Lift += ForcesOnFlight.CalculateInducedDrag(lifeCoefficent, liftVelocity, CurrentValues.BaseValues.InducedDrag);
+            flightForces.Lift += ForcesOnFlight.CalculateInducedDrag(lifeCoefficentYaw, liftVelocityYaw, CurrentValues.BaseValues.InducedDrag);
         }
     }
 

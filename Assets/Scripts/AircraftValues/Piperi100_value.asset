@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42cd5ab830c28de4db7b0bd151f935f0, type: 3}
-  m_Name: AircraftBaseValues
+  m_Name: Piperi100_value
   m_EditorClassIdentifier: 
   <ThrustMax>k__BackingField: 5000
   <ThrottleSpeedOfChange>k__BackingField: 0.5
@@ -436,3 +436,4 @@ MonoBehaviour:
   <TurnSpeed>k__BackingField: 60
   <AccelerationOfTurn>k__BackingField: {x: 80, y: 10, z: 80}
   <SteeringPower>k__BackingField: 80
+  <InducedDrag>k__BackingField: 15

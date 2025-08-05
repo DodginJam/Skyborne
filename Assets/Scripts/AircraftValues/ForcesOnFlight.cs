@@ -90,18 +90,18 @@ public class ForcesOnFlight
     /// <param name="angleOfAttackCurve"></param>
     /// <param name="valuesHolder"></param>
     /// <returns></returns>
-    public static Vector3 CalculateLiftVector(float angleOfAttack, Vector3 rightAxis, float liftPower, AnimationCurve angleOfAttackCurve, AircraftValuesHolder valuesHolder)
+    public static Vector3 CalculateLiftVector(float angleOfAttack, Vector3 rightAxis, float liftPower, AnimationCurve angleOfAttackCurve, AircraftValuesHolder valuesHolder, out float liftCoefficent, out Vector3 liftVelocity)
     {
         // Project velocity onto YZ plane
-        var liftVelocity = Vector3.ProjectOnPlane(valuesHolder.CurrentVelocityLocal, rightAxis);
+        liftVelocity = Vector3.ProjectOnPlane(valuesHolder.CurrentVelocityLocal, rightAxis);
 
         // Square of velocity
         var v2 = liftVelocity.sqrMagnitude;
 
         //lift = velocity^2 * coefficient * liftPower
         //coefficient varies with AOA
-        var liftCoefficient = angleOfAttackCurve.Evaluate(angleOfAttack);
-        var liftForce = v2 * liftCoefficient * liftPower;
+        liftCoefficent = angleOfAttackCurve.Evaluate(angleOfAttack);
+        var liftForce = v2 * liftCoefficent * liftPower;
 
         // Lift is perpendicular to velocity
         // Lift direction is up
@@ -110,6 +110,15 @@ public class ForcesOnFlight
         var lift = liftDirection * liftForce;
 
         return lift;
+    }
+
+    public static Vector3 CalculateInducedDrag(float liftCoefficent, Vector3 liftVelocity, float inducedDragValue)
+    {
+        float dragForce = liftCoefficent * liftCoefficent * inducedDragValue;
+        Vector3 dragDirection = -liftVelocity.normalized;
+        Vector3 inducedDrag = dragDirection * liftVelocity.sqrMagnitude * dragForce;
+
+        return inducedDrag;
     }
 
     public static Vector3 CalculateAngularRotationForce(AircraftValuesHolder valuesHolder, AircraftInput controlInputs, AircraftCurrentValues currentValues)
