@@ -78,11 +78,6 @@ public class AircraftInput : MonoBehaviour
         JoystickID = Animator.StringToHash("Joystick");
         GamepadID = Animator.StringToHash("Gamepad");
         MouseKeyboardID = Animator.StringToHash("Keyboard&Mouse");
-
-        Debug.Log($"JoystickID: {JoystickID}");
-        Debug.Log($"GamepadID: {GamepadID}");
-        Debug.Log($"MouseKeyboardID: {MouseKeyboardID}");
-
     }
 
     public void OnEnable()
@@ -131,12 +126,7 @@ public class AircraftInput : MonoBehaviour
                     CurrentInputType = ControlInputType.None;
                     break;
             }
-
-            Debug.Log($"Input has switched to: {CurrentInputType.ToString()}");
         }
-
-        Debug.Log($"CurrentInputType: {InputManager.Instance.PlayerInputComponent.currentControlScheme}");
-        Debug.Log($"CurrentInputType marked: {CurrentInputType.ToString()}");
 
         // Check for joystick being used as control so that throttle input can be swapped to a different binding setup.
         if (CurrentControlSchemeID != JoystickID)
