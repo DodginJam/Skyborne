@@ -37,6 +37,9 @@ public class CheckpointPointer : MonoBehaviour
     public Vector3 PositionOffset
     { get; private set; }
 
+    public Canvas UICanvasWithin
+    { get; private set; }
+
     private void Awake()
     {
         if (GameManagerScript == null)
@@ -62,6 +65,16 @@ public class CheckpointPointer : MonoBehaviour
         if (Pointer == null)
         {
             Debug.LogWarning("Unable to locate Pointer gameobject.");
+        }
+
+        if (UICanvasWithin == null)
+        {
+            UICanvasWithin = Pointer.transform.root.GetComponentInChildren<Canvas>();
+
+            if (UICanvasWithin == null)
+            {
+                Debug.LogWarning("Unable to locate game manager script.");
+            }
         }
     }
 
@@ -128,7 +141,7 @@ public class CheckpointPointer : MonoBehaviour
                     Pointer.SetActive(true);
                 }
 
-                if (Pointer.transform.root.GetComponentInChildren<Canvas>().renderMode != RenderMode.WorldSpace)
+                if (UICanvasWithin.renderMode != RenderMode.WorldSpace)
                 {
                     Pointer.transform.position = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.75f)) + (Camera.main.transform.forward * PositionOffset.x) + (Camera.main.transform.up * PositionOffset.y) + (Camera.main.transform.right * PositionOffset.z);
 

@@ -1098,6 +1098,11 @@ PrefabInstance:
       propertyPath: <PlayerAircraftScript>k__BackingField
       value: 
       objectReference: {fileID: 4875903697253658785}
+    - target: {fileID: 3566402962535734888, guid: b8e4a9b6da9d04348ab57c06322cafac,
+        type: 3}
+      propertyPath: <CheckpointPointerDisplay>k__BackingField.<UIElement>k__BackingField
+      value: 
+      objectReference: {fileID: 5310269539465766615}
     - target: {fileID: 5786672628535466411, guid: b8e4a9b6da9d04348ab57c06322cafac,
         type: 3}
       propertyPath: m_PresetInfoIsWorld
@@ -1109,10 +1114,23 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3334678993210798960, guid: b8e4a9b6da9d04348ab57c06322cafac, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8e4a9b6da9d04348ab57c06322cafac, type: 3}
+--- !u!114 &5310269539465766615 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8785348936372436, guid: b8e4a9b6da9d04348ab57c06322cafac,
+    type: 3}
+  m_PrefabInstance: {fileID: 5309436340817606147}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05528c3dfd382524794843731bca35bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &7835228350866103675 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2671402676763896696, guid: b8e4a9b6da9d04348ab57c06322cafac,

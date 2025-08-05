@@ -3056,6 +3056,8 @@ MonoBehaviour:
     <UIElement>k__BackingField: {fileID: 1551678642948144325}
   <ThrottleDisplay>k__BackingField:
     <UIElement>k__BackingField: {fileID: 8263746045926433169}
+  <CheckpointPointerDisplay>k__BackingField:
+    <UIElement>k__BackingField: {fileID: 3879360162199130493}
 --- !u!1 &7637090232463422334
 GameObject:
   m_ObjectHideFlags: 0
