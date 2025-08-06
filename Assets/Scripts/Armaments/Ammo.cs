@@ -73,7 +73,7 @@ public class Ammo : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision != null)
+        if (collision != null && collision.transform.gameObject.layer != LayerMask.NameToLayer("PlaneBody"))
         {
             SetToDisable(AssociatedArmamentData);
         }
@@ -81,7 +81,7 @@ public class Ammo : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other != null)
+        if (other != null && other.transform.gameObject.layer != LayerMask.NameToLayer("PlaneBody"))
         {
             SetToDisable(AssociatedArmamentData);
         }

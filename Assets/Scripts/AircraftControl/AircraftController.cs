@@ -27,6 +27,13 @@ public class AircraftController : MonoBehaviour
     public Rigidbody PlaneRigidBody
     {  get; private set; }
 
+    /// <summary>
+    /// For the sake of controlling the centre of mass of the aircraft.
+    /// </summary>
+    [field: SerializeField]
+    public Transform CentreOfMassTransform
+    { get; private set; }
+
     private void Awake()
     {
         // Rigidbody null checking.
@@ -46,6 +53,11 @@ public class AircraftController : MonoBehaviour
     void Start()
     {
         PlaneRigidBody.mass = CurrentValues.FlightForces.Weight;
+
+        if (CentreOfMassTransform != null)
+        {
+            PlaneRigidBody.centerOfMass = CentreOfMassTransform.transform.localPosition;
+        }
     }
 
     // Update is called once per frame
@@ -91,6 +103,12 @@ public class AircraftController : MonoBehaviour
 
         // Updating display information for player to read.
         valuesHolder.HeightAboveSeaLevel = PlaneRigidBody.transform.position.y;
+
+        // Update the manually calculated centre of mass if required.
+        if (PlaneRigidBody.centerOfMass != CentreOfMassTransform.transform.localPosition)
+        {
+            PlaneRigidBody.centerOfMass = CentreOfMassTransform.transform.localPosition;
+        }
     }
 
     /// <summary>

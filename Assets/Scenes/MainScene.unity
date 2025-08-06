@@ -6007,6 +6007,11 @@ PrefabInstance:
       propertyPath: m_UIInputModule
       value: 
       objectReference: {fileID: 93348665}
+    - target: {fileID: 663335663868678512, guid: f53dbcb3096a12d4f995a3c31658c5ce,
+        type: 3}
+      propertyPath: m_NotificationBehavior
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1251346941069758410, guid: f53dbcb3096a12d4f995a3c31658c5ce,
         type: 3}
       propertyPath: m_Name

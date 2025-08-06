@@ -18,8 +18,8 @@ MonoBehaviour:
   <Weight>k__BackingField: 800
   <LiftPower>k__BackingField: 30
   <LiftPowerVertical>k__BackingField: 20
-  <ElevatorDegreeLimit>k__BackingField: 30
-  <ElevatorSpeedOfRotation>k__BackingField: 60
+  <ElevatorDegreeLimit>k__BackingField: 15
+  <ElevatorSpeedOfRotation>k__BackingField: 35
   <AileronDegreeLimit>k__BackingField: 30
   <AileronSpeedOfRotation>k__BackingField: 60
   <RudderDegreeLimit>k__BackingField: 30
