@@ -73,17 +73,25 @@ public class Ammo : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision != null && collision.transform.gameObject.layer != LayerMask.NameToLayer("PlaneBody"))
+        if (collision != null)
         {
-            SetToDisable(AssociatedArmamentData);
+            // If the object hit is not parented to the current player, don't allow collision.
+            if (!collision.transform.root.CompareTag("Player"))
+            {
+                SetToDisable(AssociatedArmamentData);
+            }
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other != null && other.transform.gameObject.layer != LayerMask.NameToLayer("PlaneBody"))
+        if (other != null)
         {
-            SetToDisable(AssociatedArmamentData);
+            // If the object hit is not parented to the current player, don't allow collision.
+            if (!other.transform.root.CompareTag("Player"))
+            {
+                SetToDisable(AssociatedArmamentData);
+            }
         }
     }
 
