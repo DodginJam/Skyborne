@@ -109,8 +109,12 @@ public class AircraftValuesHolder
     public float LevelOfFlight
     { get; set; }
 
-    public int CalculateLevelOfFlightDotProduct()
+    public int CalculateLevelOfFlightDotProduct(GameObject flightObject)
     {
+        // Vector3.
+
+        Vector3.Dot(flightObject.transform.forward, );
+
         return default(int);
     }
 }
