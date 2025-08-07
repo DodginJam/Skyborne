@@ -97,7 +97,8 @@ public class LevelFlightTracker : MonoBehaviour
     {
         if (GameManagerScript != null)
         {
-            GameManagerScript.IncreaseScore(UpdateAltitudeScore());
+            // Update the altitude performance score for the aircraft.
+            GameManagerScript.IncreaseScore(ScoreFromNormalisedRange(GameManagerScript.AircraftController.CurrentValues.ValuesHolder.HeightAboveSeaLevel, MinAltitudeValue, MaxAltitudeValue, AltitudeScoreMultiplier, MaxScoreAllowedPerTick));
 
         }
         else
@@ -106,14 +107,14 @@ public class LevelFlightTracker : MonoBehaviour
         }
     }
 
-    int UpdateAltitudeScore()
+    int ScoreFromNormalisedRange(float currentValue, float minForScore, float maxForScore, AnimationCurve animationCurve, float maxScoreAllowedPerTick)
     {
         // Get the normalised value of the current altitude as compared to the minimum and maximum allowed altitude values.
-        float normalisedValue = (GameManagerScript.AircraftController.CurrentValues.ValuesHolder.HeightAboveSeaLevel - MinAltitudeValue) / (MaxAltitudeValue - MinAltitudeValue);
+        float normalisedValue = (currentValue - minForScore) / (maxForScore - minForScore);
 
         // Get the score modifier for this normalised value.
-        float currentScoreModifier = AltitudeScoreMultiplier.Evaluate(normalisedValue);
+        float currentScoreModifier = animationCurve.Evaluate(normalisedValue);
 
-        return Mathf.RoundToInt(MaxScoreAllowedPerTick * currentScoreModifier);
+        return Mathf.RoundToInt(maxScoreAllowedPerTick * currentScoreModifier);
     }
 }
