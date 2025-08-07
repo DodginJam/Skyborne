@@ -102,4 +102,15 @@ public class AircraftValuesHolder
     /// </summary>
     public float HeightAboveSeaLevel
     { get; set; }
+
+    /// <summary>
+    /// Representation of how level the flight of the aircraft is via Dot product.
+    /// </summary>
+    public float LevelOfFlight
+    { get; set; }
+
+    public int CalculateLevelOfFlightDotProduct()
+    {
+        return default(int);
+    }
 }

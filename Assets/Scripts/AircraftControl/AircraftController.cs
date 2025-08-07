@@ -101,9 +101,6 @@ public class AircraftController : MonoBehaviour
             valuesHolder.AngleOfAttackYaw = Mathf.Rad2Deg * Mathf.Atan2(valuesHolder.CurrentVelocityLocal.x, valuesHolder.CurrentVelocityLocal.z);
         }
 
-        // Updating display information for player to read.
-        valuesHolder.HeightAboveSeaLevel = PlaneRigidBody.transform.position.y;
-
         // Update the manually calculated centre of mass if required.
         if (PlaneRigidBody.centerOfMass != CentreOfMassTransform.transform.localPosition)
         {
@@ -204,6 +201,11 @@ public class AircraftController : MonoBehaviour
     {
         // Updating display information.
         valuesHolder.AirSpeed = Mathf.Max(0f, Vector3.Dot(PlaneRigidBody.velocity, transform.forward));
+
+        // Updating display information for player to read.
+        valuesHolder.HeightAboveSeaLevel = PlaneRigidBody.transform.position.y;
+
+        valuesHolder.LevelOfFlight = CurrentValues.ValuesHolder.CalculateLevelOfFlightDotProduct();
     }
 
 }

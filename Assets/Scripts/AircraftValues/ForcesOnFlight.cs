@@ -142,8 +142,5 @@ public class ForcesOnFlight
         );
 
         return correction * Mathf.Deg2Rad;    //ignore rigidbody mass
-
-
-        return default(Vector3);
     }
 }

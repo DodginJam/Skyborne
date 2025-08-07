@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelFlightTracker : MonoBehaviour
+public class FlightPeformanceTracker : MonoBehaviour
 {
     [field: SerializeField]
     public GameManager GameManagerScript
@@ -100,6 +100,8 @@ public class LevelFlightTracker : MonoBehaviour
             // Update the altitude performance score for the aircraft.
             GameManagerScript.IncreaseScore(ScoreFromNormalisedRange(GameManagerScript.AircraftController.CurrentValues.ValuesHolder.HeightAboveSeaLevel, MinAltitudeValue, MaxAltitudeValue, AltitudeScoreMultiplier, MaxScoreAllowedPerTick));
 
+            // Update the level peformance score for the aircraft.
+            GameManagerScript.IncreaseScore(ScoreFromNormalisedRange(GameManagerScript.AircraftController.CurrentValues.ValuesHolder.LevelOfFlight, MinRotationValue, MaxRotationValue, LevelRotationMultiplier, MaxScoreAllowedPerTick));
         }
         else
         {
