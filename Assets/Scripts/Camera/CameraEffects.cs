@@ -60,6 +60,9 @@ public class CameraEffects : MonoBehaviour
     private static int XScaleRangeID
     { get; set; } = Shader.PropertyToID("XScaleRange");
 
+    public float CachedSpeedValue
+    { get; private set; }
+
     private void Awake()
     {
         if (TryGetComponent<CameraManager>(out CameraManager cameraManager))
@@ -83,16 +86,20 @@ public class CameraEffects : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        // Update the speed lines effect.
-        UpdateSpeedLines(
-            SpeedLines.GetVector2(SpeedID).x, 
-            SpeedLines.GetVector2(SpeedID).y,
-            SpeedLines.GetFloat(RadiusID),
-            SpeedLineCurve.Evaluate(GetNormalisedSpeed(MaxSpeedForVFXLines, CurrentAircraftValues.ValuesHolder.AirSpeed)) * MaxSpeedForVFXLines,
-            Mathf.Clamp(SpeedLineCurve.Evaluate(GetNormalisedSpeed(MaxSpeedForVFXLines, CurrentAircraftValues.ValuesHolder.AirSpeed)) * MaxLengthForVFXLines, 0, MaxLengthForVFXLines),
-            Mathf.Clamp(SpeedLineCurve.Evaluate(GetNormalisedSpeed(MaxSpeedForVFXLines, CurrentAircraftValues.ValuesHolder.AirSpeed)) * MaxLengthForVFXLines, 0, MaxLengthForVFXLines)
-            );
+        if (CachedSpeedValue != CurrentAircraftValues.ValuesHolder.AirSpeed)
+        {
+            CachedSpeedValue = CurrentAircraftValues.ValuesHolder.AirSpeed;
+
+            // Update the speed lines effect.
+            UpdateSpeedLines(
+                SpeedLines.GetVector2(SpeedID).x,
+                SpeedLines.GetVector2(SpeedID).y,
+                SpeedLines.GetFloat(RadiusID),
+                SpeedLineCurve.Evaluate(GetNormalisedSpeed(MaxSpeedForVFXLines, CurrentAircraftValues.ValuesHolder.AirSpeed)) * MaxSpeedForVFXLines,
+                Mathf.Clamp(SpeedLineCurve.Evaluate(GetNormalisedSpeed(MaxSpeedForVFXLines, CurrentAircraftValues.ValuesHolder.AirSpeed)) * MaxLengthForVFXLines, 0, MaxLengthForVFXLines),
+                Mathf.Clamp(SpeedLineCurve.Evaluate(GetNormalisedSpeed(MaxSpeedForVFXLines, CurrentAircraftValues.ValuesHolder.AirSpeed)) * MaxLengthForVFXLines, 0, MaxLengthForVFXLines)
+                );
+        }
     }
 
     public void UpdateSpeedLines(float speedX, float speedY, float spawnRadius, float spawnrate, float lengthXmin, float lengthXmax)
@@ -113,6 +120,8 @@ public class CameraEffects : MonoBehaviour
             if (CameraManager.AssignedTarget.TryGetComponent<AircraftCurrentValues>(out AircraftCurrentValues aircraftCurrentValues))
             {
                 CurrentAircraftValues = aircraftCurrentValues;
+
+                CachedSpeedValue = CurrentAircraftValues.ValuesHolder.AirSpeed;
             }
             else
             {
