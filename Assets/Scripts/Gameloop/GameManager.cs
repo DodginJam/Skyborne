@@ -46,6 +46,13 @@ public class GameManager : MonoBehaviour
     public GameStatus GameState
     { get; private set; }
 
+    /// <summary>
+    /// Reference to the player controller script and providing access to it's gameobject too.
+    /// </summary>
+    [field: SerializeField]
+    public AircraftController AircraftController
+    { get; private set; }
+
     public enum GameStatus
     {
         Playing,

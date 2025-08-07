@@ -69,9 +69,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b13d977e2d409dd42966cd03c2453914, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <PlayerScore>k__BackingField: {fileID: 0}
-  <PlayerTransform>k__BackingField: {fileID: 0}
+  <GameManagerScript>k__BackingField: {fileID: 0}
+  <PlayerController>k__BackingField: {fileID: 0}
   <GateSpawner>k__BackingField: {fileID: 0}
+  <GatePointValue>k__BackingField: 1000
 --- !u!1001 &462836062128860348
 PrefabInstance:
   m_ObjectHideFlags: 0

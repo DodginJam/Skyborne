@@ -61,7 +61,7 @@ public class CameraEffects : MonoBehaviour
     { get; set; } = Shader.PropertyToID("XScaleRange");
 
     public float CachedSpeedValue
-    { get; private set; }
+    { get; private set; } = 0;
 
     private void Awake()
     {
@@ -119,9 +119,7 @@ public class CameraEffects : MonoBehaviour
         {
             if (CameraManager.AssignedTarget.TryGetComponent<AircraftCurrentValues>(out AircraftCurrentValues aircraftCurrentValues))
             {
-                CurrentAircraftValues = aircraftCurrentValues;
-
-                CachedSpeedValue = CurrentAircraftValues.ValuesHolder.AirSpeed;
+                CurrentAircraftValues = aircraftCurrentValues;            
             }
             else
             {

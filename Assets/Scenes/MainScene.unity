@@ -6090,11 +6090,6 @@ PrefabInstance:
       propertyPath: <GateInstance>k__BackingField
       value: 
       objectReference: {fileID: 3001175055099753074}
-    - target: {fileID: 964258629075708245, guid: 5b0ef94fc00c81b4c83f2b9638d44696,
-        type: 3}
-      propertyPath: <AircraftController>k__BackingField
-      value: 
-      objectReference: {fileID: 1631559966}
     - target: {fileID: 1299590380731441380, guid: 5b0ef94fc00c81b4c83f2b9638d44696,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6150,6 +6145,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 8464920701204609531, guid: 5b0ef94fc00c81b4c83f2b9638d44696,
+        type: 3}
+      propertyPath: <AircraftController>k__BackingField
+      value: 
+      objectReference: {fileID: 1631559966}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

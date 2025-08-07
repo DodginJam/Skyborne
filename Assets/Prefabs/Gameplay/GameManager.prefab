@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1299590380731441380}
   - component: {fileID: 8464920701204609531}
   - component: {fileID: 964258629075708245}
+  - component: {fileID: 3527769398937181987}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -47,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <GateSpawningScript>k__BackingField: {fileID: 964258629075708245}
   <PenaltyLimit>k__BackingField: 3
+  <AircraftController>k__BackingField: {fileID: 0}
 --- !u!114 &964258629075708245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,7 +66,91 @@ MonoBehaviour:
   <StartingAngle>k__BackingField: 10
   <MinDistanceFromPlayer>k__BackingField: 50
   <SpawnDelay>k__BackingField: 5
-  <AircraftController>k__BackingField: {fileID: 0}
   <GateInstance>k__BackingField: {fileID: 0}
   <GateScript>k__BackingField: {fileID: 0}
   <GameManagerScript>k__BackingField: {fileID: 8464920701204609531}
+--- !u!114 &3527769398937181987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4907948137872286457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c668784e80d76d4cab9ca6dc613f25d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <GameManagerScript>k__BackingField: {fileID: 8464920701204609531}
+  <ScoreTickDuration>k__BackingField: 1
+  <MaxScoreAllowedPerTick>k__BackingField: 10
+  <AltitudeScoreMultiplier>k__BackingField:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.5
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  <MinAltitudeValue>k__BackingField: 243.84
+  <MaxAltitudeValue>k__BackingField: 365.76
+  <LevelRotationMultiplier>k__BackingField:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.5
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  <MinRotationValue>k__BackingField: 0
+  <MaxRotationValue>k__BackingField: 0

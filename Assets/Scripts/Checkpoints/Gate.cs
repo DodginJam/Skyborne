@@ -16,6 +16,10 @@ public class Gate : MonoBehaviour
     public GateSpawning GateSpawner 
     { get; private set; }
 
+    [field: SerializeField]
+    public int GatePointValue
+    { get; private set; } = 100;
+
     public bool HasMissed     
     {  get; set; }
 
@@ -83,7 +87,7 @@ public class Gate : MonoBehaviour
     {
         if (other.transform.root.gameObject.CompareTag("Player"))
         {
-            GameManagerScript.IncreaseScore(1);
+            GameManagerScript.IncreaseScore(GatePointValue);
             gameObject.SetActive(false);
         }
     }
@@ -92,7 +96,7 @@ public class Gate : MonoBehaviour
     {
         if (collision.transform.root.gameObject.CompareTag("Player"))
         {
-            GameManagerScript.IncreaseScore(1);
+            GameManagerScript.IncreaseScore(GatePointValue);
             gameObject.SetActive(false);
         }
     }

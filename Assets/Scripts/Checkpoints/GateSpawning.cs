@@ -26,16 +26,9 @@ public class GateSpawning : MonoBehaviour
 
 
     /// <summary>
-    /// Reference to the player controller script and providing access to it's gameobject too.
-    /// </summary>
-    [field: SerializeField, Header("References")]
-    public AircraftController AircraftController
-    { get; private set; }
-
-    /// <summary>
     /// The instances game object of the gate / checkpoint.
     /// </summary>
-    [field: SerializeField]
+    [field: SerializeField, Header("References")]
     public GameObject GateInstance
     { get; private set; }
 
@@ -100,7 +93,7 @@ public class GateSpawning : MonoBehaviour
 
                 Vector3 newPos = FindValidSpawnPos();
                 GateInstance.transform.position = newPos;
-                GateInstance.transform.rotation = AircraftController.transform.rotation;
+                GateInstance.transform.rotation = GameManagerScript.AircraftController.transform.rotation;
                 GateInstance.SetActive(true);
             }
             yield return null;
@@ -114,31 +107,31 @@ public class GateSpawning : MonoBehaviour
             float randAngle = Random.Range(-Angle / 2f, Angle / 2f);
             float randDistance = Random.Range(MinDistanceFromPlayer, Radius); // Might change to fixed distance later
 
-            Vector3 direction = Quaternion.Euler(0, randAngle, 0) * AircraftController.transform.forward;
-            Vector3 potentialPos = AircraftController.transform.position + direction.normalized * randDistance;
+            Vector3 direction = Quaternion.Euler(0, randAngle, 0) * GameManagerScript.AircraftController.transform.forward;
+            Vector3 potentialPos = GameManagerScript.AircraftController.transform.position + direction.normalized * randDistance;
 
-            float playerDistance = Vector3.Distance(potentialPos, AircraftController.transform.position);
+            float playerDistance = Vector3.Distance(potentialPos, GameManagerScript.AircraftController.transform.position);
             if (playerDistance >= MinDistanceFromPlayer)
             {
                 return potentialPos;
             }
         }
         Debug.LogWarning("Could not find valid spawn position after 30 attempts, using fallback.");
-        return AircraftController.transform.position + AircraftController.transform.forward * MinDistanceFromPlayer;
+        return GameManagerScript.AircraftController.transform.position + GameManagerScript.AircraftController.transform.forward * MinDistanceFromPlayer;
     }
 
     //Gizmos for viewing GateScript spawn area in editor
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(AircraftController.transform.position, Radius);
+        Gizmos.DrawWireSphere(GameManagerScript.AircraftController.transform.position, Radius);
 
-        Vector3 forward = AircraftController.transform.forward * Radius;
+        Vector3 forward = GameManagerScript.AircraftController.transform.forward * Radius;
         Vector3 leftBoundary = Quaternion.Euler(0, -Angle / 2, 0) * forward;
         Vector3 rightBoundary = Quaternion.Euler(0, Angle / 2, 0) * forward;
 
         Gizmos.color = Color.green;
-        Gizmos.DrawRay(AircraftController.transform.position, leftBoundary);
-        Gizmos.DrawRay(AircraftController.transform.position, rightBoundary);
+        Gizmos.DrawRay(GameManagerScript.AircraftController.transform.position, leftBoundary);
+        Gizmos.DrawRay(GameManagerScript.AircraftController.transform.position, rightBoundary);
     }
 }
