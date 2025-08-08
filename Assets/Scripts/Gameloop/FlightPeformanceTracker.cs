@@ -47,11 +47,17 @@ public class FlightPeformanceTracker : MonoBehaviour
     public AnimationCurve LevelRotationMultiplier
     { get; private set; }
 
-    [field: SerializeField]
+    /// <summary>
+    /// The rotation value is limited to the range of a normalised dot product calculation.
+    /// </summary>
+    [field: SerializeField, Range(-1, 1)]
     public float MinRotationValue
     { get; private set; } = 0;
 
-    [field: SerializeField]
+    /// <summary>
+    /// The rotation value is limited to the range of a normalised dot product calculation.
+    /// </summary>
+    [field: SerializeField, Range(-1, 1)]
     public float MaxRotationValue
     { get; private set; } = 0;
 
@@ -79,6 +85,9 @@ public class FlightPeformanceTracker : MonoBehaviour
         UpdateTicker();
     }
 
+    /// <summary>
+    /// How often the score should tick up is controlled here.
+    /// </summary>
     void UpdateTicker()
     {
         if (ScoreTicker >= ScoreTickDuration)
@@ -93,6 +102,9 @@ public class FlightPeformanceTracker : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Updates the game managers scores.
+    /// </summary>
     void UpdateScore()
     {
         if (GameManagerScript != null)
@@ -109,6 +121,15 @@ public class FlightPeformanceTracker : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Takes the max and min range and uses that to create a normalised value for the current value inputted in, sampled from the animation curve (which should be a range of 0 to 1).
+    /// </summary>
+    /// <param name="currentValue"></param>
+    /// <param name="minForScore"></param>
+    /// <param name="maxForScore"></param>
+    /// <param name="animationCurve"></param>
+    /// <param name="maxScoreAllowedPerTick"></param>
+    /// <returns></returns>
     int ScoreFromNormalisedRange(float currentValue, float minForScore, float maxForScore, AnimationCurve animationCurve, float maxScoreAllowedPerTick)
     {
         // Get the normalised value of the current altitude as compared to the minimum and maximum allowed altitude values.
@@ -117,6 +138,10 @@ public class FlightPeformanceTracker : MonoBehaviour
         // Get the score modifier for this normalised value.
         float currentScoreModifier = animationCurve.Evaluate(normalisedValue);
 
-        return Mathf.RoundToInt(maxScoreAllowedPerTick * currentScoreModifier);
+        int score = Mathf.RoundToInt(maxScoreAllowedPerTick * currentScoreModifier);
+
+        // Debug.Log(score + " for " + animationCurve.ToString());
+
+        return score;
     }
 }

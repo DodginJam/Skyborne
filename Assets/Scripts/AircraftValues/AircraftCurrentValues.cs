@@ -109,12 +109,24 @@ public class AircraftValuesHolder
     public float LevelOfFlight
     { get; set; }
 
-    public int CalculateLevelOfFlightDotProduct(GameObject flightObject)
+    /// <summary>
+    /// Returns the dot product of how alligned the up direction of the gameeobject is compared to the games scene global up direction.
+    /// </summary>
+    /// <param name="flightObject"></param>
+    /// <returns></returns>
+    public float CalculateLevelOfFlightDotProduct(GameObject flightObject)
     {
-        // Vector3.
+        Vector3 upDirectionOfObject = flightObject.transform.TransformDirection(Vector3.up);
 
-        Vector3.Dot(flightObject.transform.forward, );
+        float dotProduct = Vector3.Dot(upDirectionOfObject.normalized, Vector3.up.normalized);
 
-        return default(int);
+        /*
+        Debug.DrawLine(flightObject.transform.position, flightObject.transform.position + (upDirectionOfObject * 5), Color.magenta);
+        Debug.DrawLine(flightObject.transform.position, flightObject.transform.position + (Vector3.up * 5), Color.magenta);
+
+        Debug.Log(dotProduct);
+        */
+
+        return dotProduct;
     }
 }

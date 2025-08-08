@@ -205,7 +205,7 @@ public class AircraftController : MonoBehaviour
         // Updating display information for player to read.
         valuesHolder.HeightAboveSeaLevel = PlaneRigidBody.transform.position.y;
 
-        valuesHolder.LevelOfFlight = CurrentValues.ValuesHolder.CalculateLevelOfFlightDotProduct();
+        valuesHolder.LevelOfFlight = CurrentValues.ValuesHolder.CalculateLevelOfFlightDotProduct(PlaneRigidBody.gameObject);
     }
 
 }
