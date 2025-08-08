@@ -52,10 +52,14 @@ public class BalanceBall : MonoBehaviour
         if (UICanvasWithin.renderMode != RenderMode.WorldSpace)
         {
             BalanceBallObject.transform.position = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.75f)) + (Camera.main.transform.forward * PositionOffset.x) + (Camera.main.transform.up * PositionOffset.y) + (Camera.main.transform.right * PositionOffset.z);
+
+            Transform PlaneTrans = GameObject.FindAnyObjectByType<AircraftController>().PlaneRigidBody.transform;
+
+            BalanceBallObject.transform.localRotation = Quaternion.RotateTowards(BalanceBallObject.transform.rotation, Quaternion.Euler(Vector3.up), SpeedOfRotation);
         }
-
-        Quaternion newRotation = Quaternion.RotateTowards(BalanceBallObject.transform.rotation, Quaternion.Euler(Vector3.up), SpeedOfRotation);
-
-        transform.rotation = newRotation;
+        else
+        {
+            BalanceBallObject.transform.rotation = Quaternion.RotateTowards(BalanceBallObject.transform.rotation, Quaternion.Euler(Vector3.up), SpeedOfRotation);
+        }
     }
 }
