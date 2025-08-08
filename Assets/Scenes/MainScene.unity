@@ -5354,6 +5354,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bc43b19ab22eb04bb1be3b9144ec39d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2120286418 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3527769398937181987, guid: 5b0ef94fc00c81b4c83f2b9638d44696,
+    type: 3}
+  m_PrefabInstance: {fileID: 7733132178055736664}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c668784e80d76d4cab9ca6dc613f25d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2126806752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5773,6 +5785,11 @@ PrefabInstance:
       propertyPath: <PlayerAircraftScript>k__BackingField
       value: 
       objectReference: {fileID: 1631559966}
+    - target: {fileID: 1190922854235062149, guid: 0d7ad5f5787aa6748b01f51534bcfb79,
+        type: 3}
+      propertyPath: <FlightPerformanceTracker>k__BackingField
+      value: 
+      objectReference: {fileID: 2120286418}
     - target: {fileID: 1882760298916093785, guid: 0d7ad5f5787aa6748b01f51534bcfb79,
         type: 3}
       propertyPath: <AircraftPlayerInput>k__BackingField
@@ -5804,6 +5821,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3001175055099753077}
     - target: {fileID: 5371871453299535970, guid: 0d7ad5f5787aa6748b01f51534bcfb79,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5897372193163935313, guid: 0d7ad5f5787aa6748b01f51534bcfb79,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9135289663587243259, guid: 0d7ad5f5787aa6748b01f51534bcfb79,
         type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -5909,6 +5936,16 @@ PrefabInstance:
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2923740489051176178, guid: 7b82bb532206fde468345883997c8e03,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4369538761635429051, guid: 7b82bb532206fde468345883997c8e03,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4628767728184442778, guid: 7b82bb532206fde468345883997c8e03,
         type: 3}
       propertyPath: m_Camera
@@ -5939,6 +5976,11 @@ PrefabInstance:
       propertyPath: <GameManagerScript>k__BackingField
       value: 
       objectReference: {fileID: 2120286416}
+    - target: {fileID: 8705599512446265451, guid: 7b82bb532206fde468345883997c8e03,
+        type: 3}
+      propertyPath: <FlightPerformanceTracker>k__BackingField
+      value: 
+      objectReference: {fileID: 2120286418}
     - target: {fileID: 9179970687835517652, guid: 7b82bb532206fde468345883997c8e03,
         type: 3}
       propertyPath: m_LocalPosition.x

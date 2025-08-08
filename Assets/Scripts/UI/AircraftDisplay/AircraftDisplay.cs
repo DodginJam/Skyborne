@@ -18,6 +18,14 @@ public class AircraftDisplay : MonoBehaviour
     { get; private set; }
 
     /// <summary>
+    /// Used to draw information from for display on certain UI elements.
+    /// </summary>
+    [field: SerializeField]
+    public FlightPeformanceTracker FlightPerformanceTracker
+    { get; private set; }
+
+
+    /// <summary>
     /// Based on the prefence displayed below, this controls whether this aircraft display is displayed to the game world.
     /// </summary>
     [field: SerializeField, Header("Display To Camera Mode")]
@@ -42,6 +50,10 @@ public class AircraftDisplay : MonoBehaviour
 
     [field: SerializeField] 
     public UIAndCachedDisplay<Slider, float> ThrottleDisplay
+    { get; private set; }
+
+    [field: SerializeField]
+    public UIAndCachedDisplay<Slider, float> AltitudeScoreDisplay
     { get; private set; }
 
     private void Awake()
@@ -86,7 +98,13 @@ public class AircraftDisplay : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (AltitudeScoreDisplay != null && AltitudeScoreDisplay.UIElement != null)
+        {
+            if (FlightPerformanceTracker != null)
+            {
+                AltitudeScoreDisplay.InitialiseDisplayElement(AltitudeScoreDisplay.UIElement, FlightPerformanceTracker.MinAltitudeValue, FlightPerformanceTracker.MaxAltitudeValue);
+            }
+        }
     }
 
     // Update is called once per frame
@@ -137,6 +155,25 @@ public class AircraftDisplay : MonoBehaviour
                 else
                 {
                     Debug.LogError("ThrottleDisplay not assigned.");
+                }
+
+                // UI Altitude Score Display.
+                if (AltitudeScoreDisplay != null)
+                {
+                    if (AltitudeScoreDisplay.CompareDataToDisplayCache(PlayerAircraftScript.CurrentValues.ValuesHolder.HeightAboveSeaLevel, out float data))
+                    {
+                        if (FlightPerformanceTracker != null)
+                        {
+                            AltitudeScoreDisplay.InitialiseDisplayElement(AltitudeScoreDisplay.UIElement, FlightPerformanceTracker.MinAltitudeValue, FlightPerformanceTracker.MaxAltitudeValue);
+                        }
+
+                        AltitudeScoreDisplay.UpdateCachedData(data);
+                        AltitudeScoreDisplay.UpdateDisplayElement();
+                    }
+                }
+                else
+                {
+                    Debug.LogError("AltitudeScoreDisplay not assigned.");
                 }
             }
             else
@@ -256,6 +293,38 @@ public class AircraftDisplay : MonoBehaviour
             else if (UIElement is CheckpointPointer newDataPointer)
             {
                 newDataPointer.PointTowardsCheckpoint();
+            }
+        }
+
+        /// <summary>
+        /// Can be used to initialise certain elements of the slider display.
+        /// </summary>
+        /// <param name="slider"></param>
+        /// <param name="minValue"></param>
+        /// <param name="maxValue"></param>
+        public void InitialiseDisplayElement(Slider slider, float minValue = 0, float maxValue = 1)
+        {
+            if (slider.minValue != minValue)
+            {
+                slider.minValue = minValue;
+            }
+
+            if (slider.maxValue != maxValue)
+            {
+                slider.maxValue = maxValue;
+            }
+        }
+
+        /// <summary>
+        /// Can be used to initialise certain elements of the text display.
+        /// </summary>
+        /// <param name="textMeshPro"></param>
+        /// <param name="textSize"></param>
+        public void InitialiseDisplayElement(TextMeshProUGUI textMeshPro, float textSize = -1)
+        {
+            if (textSize != -1)
+            {
+                textMeshPro.fontSize = textSize;
             }
         }
     }
