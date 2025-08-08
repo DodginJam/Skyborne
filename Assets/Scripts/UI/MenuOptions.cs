@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MenuOptions : MonoBehaviour
@@ -22,6 +23,10 @@ public class MenuOptions : MonoBehaviour
 
     [field: SerializeField]
     public Button ResumeButton
+    { private get; set; }
+
+    [field: SerializeField]
+    public Button RestartButton
     { private get; set; }
 
     [field: SerializeField]
@@ -179,6 +184,8 @@ public class MenuOptions : MonoBehaviour
     {
         ResumeButton.onClick.AddListener(() => ResumeGame());
 
+        RestartButton.onClick.AddListener(() => RestartGame());
+
         OptionsButton.onClick.AddListener(() => OptionsPress());
 
         QuitButton.onClick.AddListener(() => QuitGame());
@@ -213,5 +220,18 @@ public class MenuOptions : MonoBehaviour
 #else
         Application.Quit();
 #endif
+    }
+
+    /// <summary>
+    /// Reload the exisiting scene after resetting the timescale.
+    /// </summary>
+    void RestartGame()
+    {
+        Time.timeScale = 1;
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

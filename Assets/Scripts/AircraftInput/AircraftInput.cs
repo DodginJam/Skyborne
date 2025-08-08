@@ -59,7 +59,7 @@ public class AircraftInput : MonoBehaviour
     public bool FireSafetyDisabled
     { get; private set; }
 
-    public bool BreakInputHeld
+    public bool BrakeInputHeld
     { get; set; }
 
     private void Awake()
@@ -188,14 +188,14 @@ public class AircraftInput : MonoBehaviour
             OnCameraFreeLookToggle(context);
         };
 
-        aircraftActions.Break.started += context =>
+        aircraftActions.Brake.started += context =>
         {
-            OnBreak(context);
+            OnBrake(context);
         };
 
-        aircraftActions.Break.canceled += context =>
+        aircraftActions.Brake.canceled += context =>
         {
-            OnBreak(context);
+            OnBrake(context);
         };
     }
 
@@ -229,15 +229,15 @@ public class AircraftInput : MonoBehaviour
         }
     }
 
-    public void OnBreak(InputAction.CallbackContext context)
+    public void OnBrake(InputAction.CallbackContext context)
     {
         if (context.started)
         {
-            BreakInputHeld = true;
+            BrakeInputHeld = true;
         }
         else if (context.canceled)
         {
-            BreakInputHeld = false;
+            BrakeInputHeld = false;
         }
     }
 

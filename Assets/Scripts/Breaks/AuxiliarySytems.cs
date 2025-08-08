@@ -10,7 +10,7 @@ public class AuxiliarySytems : MonoBehaviour
     { get; private set; }
 
     [field: SerializeField]
-    public BreakSystem BreakingSystem
+    public BrakeSystem BrakingSystem
     { get; private set; }
 
     private void Awake()
@@ -42,17 +42,17 @@ public class AuxiliarySytems : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Input != null && BreakingSystem != null)
+        if (Input != null && BrakingSystem != null)
         {
-            if (Input.BreakInputHeld && BreakingSystem.AreBreaksActive == false)
+            if (Input.BrakeInputHeld && BrakingSystem.AreBrakesActive == false)
             {
-                BreakingSystem.SetBreaksActiveStatus(true);
+                BrakingSystem.SetBreaksActiveStatus(true);
 
                 // Debug.Log("BreaksActive");
             }
-            else if (!Input.BreakInputHeld && BreakingSystem.AreBreaksActive == true)
+            else if (!Input.BrakeInputHeld && BrakingSystem.AreBrakesActive == true)
             {
-                BreakingSystem.SetBreaksActiveStatus(false);
+                BrakingSystem.SetBreaksActiveStatus(false);
                 // Debug.Log("BreaksOff");
             }
         }
@@ -60,20 +60,20 @@ public class AuxiliarySytems : MonoBehaviour
 }
 
 [Serializable]
-public class BreakSystem
+public class BrakeSystem
 {
-    public bool AreBreaksActive
+    public bool AreBrakesActive
     { get; private set; }
 
     [field: SerializeField]
-    public List<BreakData> Breaks
+    public List<BreakData> Brakes
     { get; private set; }
 
     public void SetBreaksActiveStatus(bool newStatus)
     {
-        AreBreaksActive = newStatus;
+        AreBrakesActive = newStatus;
 
-        foreach (BreakData breakData in Breaks)
+        foreach (BreakData breakData in Brakes)
         {
             breakData.SetBreakStatus(newStatus);
         }
@@ -96,7 +96,7 @@ public class BreakData
     { get; private set; }
 
     [field: SerializeField]
-    public PhysicMaterial BreakingtMat
+    public PhysicMaterial BrakingMat
     { get; private set; }
     public bool IsBreakActive
     { get; private set; }
@@ -108,7 +108,7 @@ public class BreakData
 
         if (IsBreakActive)
         {
-            BreakSurface.material = BreakingtMat;
+            BreakSurface.material = BrakingMat;
         }
         else
         {

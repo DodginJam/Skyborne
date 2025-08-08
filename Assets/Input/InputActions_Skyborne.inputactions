@@ -87,7 +87,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Break",
+                    "name": "Brake",
                     "type": "Value",
                     "id": "0cc8bb26-d6b4-400a-af17-8eba5fa768ce",
                     "expectedControlType": "Button",
@@ -511,7 +511,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Break",
+                    "action": "Brake",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -522,7 +522,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Break",
+                    "action": "Brake",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -533,7 +533,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Joystick",
-                    "action": "Break",
+                    "action": "Brake",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -109,7 +109,7 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""BreakData"",
+                    ""name"": ""Brake"",
                     ""type"": ""Value"",
                     ""id"": ""0cc8bb26-d6b4-400a-af17-8eba5fa768ce"",
                     ""expectedControlType"": ""Button"",
@@ -533,7 +533,7 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""BreakData"",
+                    ""action"": ""Brake"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -544,7 +544,7 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""BreakData"",
+                    ""action"": ""Brake"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -555,7 +555,7 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Joystick"",
-                    ""action"": ""BreakData"",
+                    ""action"": ""Brake"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1194,7 +1194,7 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
         m_Aircraft_CameraFreeLookToggle = m_Aircraft.FindAction("CameraFreeLookToggle", throwIfNotFound: true);
         m_Aircraft_Fire = m_Aircraft.FindAction("Fire", throwIfNotFound: true);
         m_Aircraft_FireSafety = m_Aircraft.FindAction("FireSafety", throwIfNotFound: true);
-        m_Aircraft_Break = m_Aircraft.FindAction("BreakData", throwIfNotFound: true);
+        m_Aircraft_Brake = m_Aircraft.FindAction("Brake", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1278,7 +1278,7 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
     private readonly InputAction m_Aircraft_CameraFreeLookToggle;
     private readonly InputAction m_Aircraft_Fire;
     private readonly InputAction m_Aircraft_FireSafety;
-    private readonly InputAction m_Aircraft_Break;
+    private readonly InputAction m_Aircraft_Brake;
     public struct AircraftActions
     {
         private @InputActions_Skyborne m_Wrapper;
@@ -1292,7 +1292,7 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
         public InputAction @CameraFreeLookToggle => m_Wrapper.m_Aircraft_CameraFreeLookToggle;
         public InputAction @Fire => m_Wrapper.m_Aircraft_Fire;
         public InputAction @FireSafety => m_Wrapper.m_Aircraft_FireSafety;
-        public InputAction @Break => m_Wrapper.m_Aircraft_Break;
+        public InputAction @Brake => m_Wrapper.m_Aircraft_Brake;
         public InputActionMap Get() { return m_Wrapper.m_Aircraft; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1329,9 +1329,9 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
             @FireSafety.started += instance.OnFireSafety;
             @FireSafety.performed += instance.OnFireSafety;
             @FireSafety.canceled += instance.OnFireSafety;
-            @Break.started += instance.OnBreak;
-            @Break.performed += instance.OnBreak;
-            @Break.canceled += instance.OnBreak;
+            @Brake.started += instance.OnBrake;
+            @Brake.performed += instance.OnBrake;
+            @Brake.canceled += instance.OnBrake;
         }
 
         private void UnregisterCallbacks(IAircraftActions instance)
@@ -1363,9 +1363,9 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
             @FireSafety.started -= instance.OnFireSafety;
             @FireSafety.performed -= instance.OnFireSafety;
             @FireSafety.canceled -= instance.OnFireSafety;
-            @Break.started -= instance.OnBreak;
-            @Break.performed -= instance.OnBreak;
-            @Break.canceled -= instance.OnBreak;
+            @Brake.started -= instance.OnBrake;
+            @Brake.performed -= instance.OnBrake;
+            @Brake.canceled -= instance.OnBrake;
         }
 
         public void RemoveCallbacks(IAircraftActions instance)
@@ -1565,7 +1565,7 @@ public partial class @InputActions_Skyborne: IInputActionCollection2, IDisposabl
         void OnCameraFreeLookToggle(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
         void OnFireSafety(InputAction.CallbackContext context);
-        void OnBreak(InputAction.CallbackContext context);
+        void OnBrake(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
