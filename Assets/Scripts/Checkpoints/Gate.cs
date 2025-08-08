@@ -76,7 +76,7 @@ public class Gate : MonoBehaviour
             gameObject.SetActive(false);
         }
 
-        if (GameManagerScript.PenaltyCounter >= GameManagerScript.PenaltyLimit)
+        if (GameManagerScript.PenaltyCounter >= GameManagerScript.PenaltyLimit && GameManagerScript.GameState == GameManager.GameStatus.Playing)
         {
             GameManagerScript.SetGameOverState();
         }

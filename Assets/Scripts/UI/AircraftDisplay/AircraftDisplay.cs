@@ -44,10 +44,6 @@ public class AircraftDisplay : MonoBehaviour
     public UIAndCachedDisplay<Slider, float> ThrottleDisplay
     { get; private set; }
 
-    [field: SerializeField]
-    public UIAndCachedDisplay<CheckpointPointer, Vector2> CheckpointPointerDisplay
-    { get; private set; }
-
     private void Awake()
     {
 

@@ -85,7 +85,8 @@ public class GateSpawning : MonoBehaviour
 
     private IEnumerator GateRoutine()
     {
-        while (true)
+        // Updated to only run the gate coroutine while the game status is set to playing, rather then always true.
+        while (GameManagerScript.GameState == GameManager.GameStatus.Playing)
         {
             if (!GateInstance.activeSelf)
             {
