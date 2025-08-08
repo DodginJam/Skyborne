@@ -10,69 +10,132 @@ public class ProceduralFlightPath : MonoBehaviour
     [SerializeField] private int initialSegments = 5;
 
     [Header("Flight Path Constraints")]
-    [SerializeField] private float maxTurnAngle = 10f;       // Degrees per segment left/right
-    [SerializeField] private float maxPitchAngle = 5f;       // Degrees per segment up/down
-    [SerializeField] private float horizontalBias = 0.5f;    // 0 = no left/right, 1 = full range
-    [SerializeField] private float verticalBias = 0.5f;      // 0 = no climb/descent, 1 = full range
+    [SerializeField] private float maxTurnAngle = 10f;
+    [SerializeField] private float maxPitchAngle = 5f;
+    [SerializeField, Range(0f, 1f)] private float horizontalBias = 0.5f;
+    [SerializeField, Range(0f, 1f)] private float verticalBias = 0.5f;
+
+    [Header("Auto-Extension")]
+    [SerializeField] private Transform player;
+    [Tooltip("How far (world units) the generated path should remain ahead of the player")]
+    [SerializeField] private float keepAheadDistance = 500f;
 
     [Header("Debug")]
     [SerializeField] private bool generateOnStart = true;
-    [SerializeField] private bool extendWithKey = true;
 
     private Spline spline;
     private Vector3 lastDirection;
 
     private void Awake()
     {
+        if (splineContainer == null)
+        {
+            Debug.LogError("ProceduralFlightPath: splineContainer not assigned.");
+            enabled = false;
+            return;
+        }
+
         spline = splineContainer.Spline;
 
         if (generateOnStart)
-        {
             GenerateInitialPath();
-        }
     }
 
     private void Update()
     {
-        if (extendWithKey && Input.GetKeyDown(KeyCode.E))
-        {
-            ExtendSpline();
-        }
+        AutoExtendIfNeeded();
     }
 
     private void GenerateInitialPath()
     {
         spline.Clear();
 
+        // Start in local space of the spline container
         Vector3 startPos = Vector3.zero;
-        lastDirection = Vector3.forward;
-
         spline.Add(new BezierKnot(startPos));
 
+        // create a handful of straight segments first
+        lastDirection = Vector3.forward; // local forward
         for (int i = 0; i < initialSegments; i++)
-        {
             ExtendSpline();
+
+        // Recompute lastDirection based on the last two knots (safer)
+        if (spline.Count >= 2)
+        {
+            float3 p1 = spline[spline.Count - 2].Position;
+            float3 p2 = spline[spline.Count - 1].Position;
+            Vector3 dirLocal = ((Vector3)p2 - (Vector3)p1).normalized;
+            if (dirLocal.sqrMagnitude > 0f)
+                lastDirection = dirLocal;
         }
     }
 
     private void ExtendSpline()
     {
-        // Get last point on spline
-        int lastIndex = spline.Count - 1;
-        BezierKnot lastKnot = spline[lastIndex];
+        if (spline.Count == 0)
+        {
+            spline.Add(new BezierKnot(Vector3.zero));
+            lastDirection = Vector3.forward;
+            return;
+        }
 
-        // Random gentle yaw and pitch
+        int lastIndex = spline.Count - 1;
+        float3 lastPosF3 = spline[lastIndex].Position;
+        Vector3 lastPos = (Vector3)lastPosF3;
+
+        // gentle yaw/pitch around current local forward
         float yaw = UnityEngine.Random.Range(-maxTurnAngle * horizontalBias, maxTurnAngle * horizontalBias);
         float pitch = UnityEngine.Random.Range(-maxPitchAngle * verticalBias, maxPitchAngle * verticalBias);
 
-        // Smoothly adjust direction
-        Quaternion rotation = Quaternion.Euler(pitch, yaw, 0);
-        lastDirection = rotation * lastDirection;
+        Quaternion rot = Quaternion.Euler(pitch, yaw, 0f);
+        lastDirection = rot * lastDirection;
+        lastDirection = lastDirection.normalized;
 
-        // New point
-        Vector3 newPos = (Vector3)lastKnot.Position + lastDirection.normalized * segmentLength;
+        Vector3 newLocalPos = lastPos + lastDirection * segmentLength;
 
-        // Add to spline
-        spline.Add(new BezierKnot(newPos));
+        spline.Add(new BezierKnot(newLocalPos));
+
+        // Optional: mark dirty in editor so changes persist
+#if UNITY_EDITOR
+        UnityEditor.EditorUtility.SetDirty(splineContainer);
+#endif
     }
+
+    private void AutoExtendIfNeeded()
+    {
+        if (player == null || spline.Count == 0 || splineContainer == null) return;
+
+        // Get last knot position (local) and convert to world
+        float3 lastKnotLocal = spline[spline.Count - 1].Position;
+        Vector3 lastKnotWorld = splineContainer.transform.TransformPoint((Vector3)lastKnotLocal);
+
+        float distanceAhead = Vector3.Distance(player.position, lastKnotWorld);
+
+        // If the player is closer than keepAheadDistance to the end, extend until it isn't (with safety cap)
+        int safety = 0;
+        const int maxExtensionsPerFrame = 20; // avoid infinite loops
+        while (distanceAhead < keepAheadDistance && safety < maxExtensionsPerFrame)
+        {
+            ExtendSpline();
+
+            // recompute last world pos and distance
+            lastKnotLocal = spline[spline.Count - 1].Position;
+            lastKnotWorld = splineContainer.transform.TransformPoint((Vector3)lastKnotLocal);
+            distanceAhead = Vector3.Distance(player.position, lastKnotWorld);
+
+            safety++;
+        }
+
+        if (safety >= maxExtensionsPerFrame)
+            Debug.LogWarning("ProceduralFlightPath: reached max extensions per frame; increase maxExtensionsPerFrame if needed.");
+    }
+
+#if UNITY_EDITOR
+    // Convenience editor helper to regenerate quickly
+    [ContextMenu("Regenerate Path (editor)")]
+    private void EditorRegeneratePath()
+    {
+        GenerateInitialPath();
+    }
+#endif
 }
