@@ -22,7 +22,6 @@ public class InputManager : MonoBehaviour
         {
             Instance = this;
             InputActions = new InputActions_Skyborne();
-            DontDestroyOnLoad(this.gameObject);
             InputActions.Enable();
         }
         else
