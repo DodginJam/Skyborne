@@ -48,12 +48,12 @@ public class AuxiliarySytems : MonoBehaviour
             {
                 BreakingSystem.SetBreaksActiveStatus(true);
 
-                Debug.Log("BreaksActive");
+                // Debug.Log("BreaksActive");
             }
             else if (!Input.BreakInputHeld && BreakingSystem.AreBreaksActive == true)
             {
                 BreakingSystem.SetBreaksActiveStatus(false);
-                Debug.Log("BreaksOff");
+                // Debug.Log("BreaksOff");
             }
         }
     }
