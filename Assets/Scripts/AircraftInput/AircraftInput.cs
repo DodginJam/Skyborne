@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Recorder.Input;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -57,6 +58,9 @@ public class AircraftInput : MonoBehaviour
 
     public bool FireSafetyDisabled
     { get; private set; }
+
+    public bool BreakInputHeld
+    { get; set; }
 
     private void Awake()
     {
@@ -183,6 +187,16 @@ public class AircraftInput : MonoBehaviour
         {
             OnCameraFreeLookToggle(context);
         };
+
+        aircraftActions.Break.started += context =>
+        {
+            OnBreak(context);
+        };
+
+        aircraftActions.Break.canceled += context =>
+        {
+            OnBreak(context);
+        };
     }
 
     public void OnCameraToggle(InputAction.CallbackContext context)
@@ -212,6 +226,18 @@ public class AircraftInput : MonoBehaviour
         if (context.started)
         {
             FireSafetyDisabled = !FireSafetyDisabled;
+        }
+    }
+
+    public void OnBreak(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            BreakInputHeld = true;
+        }
+        else if (context.canceled)
+        {
+            BreakInputHeld = false;
         }
     }
 
