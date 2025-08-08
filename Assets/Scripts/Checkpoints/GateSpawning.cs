@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Splines;
-using Unity.Mathematics; // For float3
+using Unity.Mathematics;
 
 public class GateSpawning : MonoBehaviour
 {

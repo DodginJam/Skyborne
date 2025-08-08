@@ -1938,6 +1938,12 @@ Terrain:
   m_EnableHeightmapRayTracing: 1
   m_EnableTreesAndDetailsRayTracing: 0
   m_TreeMotionVectorModeOverride: 3
+--- !u!1 &624252674 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4907948137872286457, guid: 5b0ef94fc00c81b4c83f2b9638d44696,
+    type: 3}
+  m_PrefabInstance: {fileID: 7733132178055736664}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &640334640
 GameObject:
   m_ObjectHideFlags: 0
@@ -5548,7 +5554,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 7733132178055736664}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 624252674}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e26e1d07c97657748bbe94735a1f428e, type: 3}
@@ -5560,12 +5566,29 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 7733132178055736664}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 624252674}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0bc43b19ab22eb04bb1be3b9144ec39d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2120286418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 624252674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b14e09c40c817fc4ca314ddd214333e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  splineContainer: {fileID: 1959398050}
+  segmentLength: 100
+  initialSegments: 5
+  generateOnStart: 1
+  extendWithKey: 1
 --- !u!114 &2126806752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6365,7 +6388,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4907948137872286457, guid: 5b0ef94fc00c81b4c83f2b9638d44696,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2120286418}
   m_SourcePrefab: {fileID: 100100000, guid: 5b0ef94fc00c81b4c83f2b9638d44696, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
