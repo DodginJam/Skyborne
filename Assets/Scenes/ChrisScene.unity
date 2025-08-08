@@ -3859,6 +3859,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae1a9f9d746affe41828493d27cf56c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1631559969 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9179970687835517652, guid: 7b82bb532206fde468345883997c8e03,
+    type: 3}
+  m_PrefabInstance: {fileID: 4406453735467669109}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1691012005
 GameObject:
   m_ObjectHideFlags: 0
@@ -4730,7 +4736,7 @@ Transform:
   m_GameObject: {fileID: 1959398049}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 811.3497, y: 136, z: 1185.2183}
+  m_LocalPosition: {x: 811.3497, y: 133, z: 1185.2183}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5591,8 +5597,9 @@ MonoBehaviour:
   maxPitchAngle: 5
   horizontalBias: 0.5
   verticalBias: 0.5
+  player: {fileID: 1631559969}
+  keepAheadDistance: 800
   generateOnStart: 1
-  extendWithKey: 1
 --- !u!114 &2126806752
 MonoBehaviour:
   m_ObjectHideFlags: 0
