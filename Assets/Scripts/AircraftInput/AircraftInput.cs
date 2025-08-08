@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -59,8 +60,10 @@ public class AircraftInput : MonoBehaviour
     public bool FireSafetyDisabled
     { get; private set; }
 
-    public bool BrakeInputHeld
-    { get; set; }
+    /// <summary>
+    /// Methods to be assigned related to break inputs.
+    /// </summary>
+    public event Action<bool> OnBreakInput;
 
     private void Awake()
     {
@@ -233,11 +236,11 @@ public class AircraftInput : MonoBehaviour
     {
         if (context.started)
         {
-            BrakeInputHeld = true;
+            OnBreakInput?.Invoke(true);
         }
         else if (context.canceled)
         {
-            BrakeInputHeld = false;
+            OnBreakInput?.Invoke(false);
         }
     }
 

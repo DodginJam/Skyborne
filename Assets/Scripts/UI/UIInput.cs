@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,8 +9,7 @@ public class UIInput : MonoBehaviour
     public InputActions_Skyborne.UIActions UIActionMap
     { get; private set; }
 
-    public bool GamePauseInputted
-    { get; set; }
+    public event Action GamePause;
 
     private void Awake()
     {
@@ -57,6 +57,6 @@ public class UIInput : MonoBehaviour
 
     public void OnPause(InputAction.CallbackContext context)
     {
-        GamePauseInputted = context.ReadValueAsButton();
+        GamePause?.Invoke();
     }
 }

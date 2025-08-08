@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -72,13 +73,8 @@ public class Gate : MonoBehaviour
         if (Vector3.Dot(forward, distanceToPlane) < 0)
         {
             HasMissed = true;
-            GameManagerScript.IncreasePenelty(1);
+            GameManagerScript.IncreasePenalty(1);
             gameObject.SetActive(false);
-        }
-
-        if (GameManagerScript.PenaltyCounter >= GameManagerScript.PenaltyLimit && GameManagerScript.GameState == GameManager.GameStatus.Playing)
-        {
-            GameManagerScript.SetGameOverState();
         }
     }
 

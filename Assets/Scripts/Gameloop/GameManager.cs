@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -117,7 +118,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void IncreasePenelty(int amountToIncrease)
+    public void IncreasePenalty(int amountToIncrease)
     {
         // Prevent game progress on game over.
         if (GameState != GameStatus.Playing)
@@ -134,6 +135,11 @@ public class GameManager : MonoBehaviour
             {
                 display.UpdatePenaltyDisplay(PenaltyCounter);
             }
+        }
+
+        if (PenaltyCounter >= PenaltyLimit && GameState == GameManager.GameStatus.Playing)
+        {
+            SetGameOverState();
         }
     }
 

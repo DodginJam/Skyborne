@@ -89,39 +89,57 @@ public class MenuOptions : MonoBehaviour
         SetUpListeners();
     }
 
+    private void OnEnable()
+    {
+        if (UI_Input != null)
+        {
+            UI_Input.GamePause += OnPauseInput;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (UI_Input != null)
+        {
+            UI_Input.GamePause -= OnPauseInput;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    /// <summary>
+    /// To be called when the pause input is pressed - it either pauses the game, or it removes the open list of UI elements in order they were opened until the all are gone and game unpauses.
+    /// </summary>
+    void OnPauseInput()
     {
-        // Polling for pause 
-        if (UI_Input.GamePauseInputted)
+        if (PauseMenuElements.activeSelf)
         {
-            UI_Input.GamePauseInputted = false;
-
-            if (PauseMenuElements.activeSelf)
+            // If the only pause menu open is the actually base pause menu, close it and resume the game.
+            if (OpenUIELements.Count == 1 && OpenUIELements[0] == PauseMenuElements)
             {
-                // If the only pause menu open is the actually base pause menu, close it and resume the game.
-                if (OpenUIELements.Count == 1 && OpenUIELements[0] == PauseMenuElements)
-                {
-                    ResumeGame();
-                }
-                else
-                {
-                    // Look at the list of open UI elements of the pause menu and remove the latest opened gameobject and close it.
-                    OpenUIELements[OpenUIELements.Count - 1].SetActive(false);
-                    OpenUIELements.RemoveAt(OpenUIELements.Count - 1);
-                }
+                ResumeGame();
             }
             else
             {
-                PauseGame();
+                // Look at the list of open UI elements of the pause menu and remove the latest opened gameobject and close it.
+                OpenUIELements[OpenUIELements.Count - 1].SetActive(false);
+                OpenUIELements.RemoveAt(OpenUIELements.Count - 1);
             }
         }
+        else
+        {
+            PauseGame();
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
     }
 
     public void ResumeGame()

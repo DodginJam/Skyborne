@@ -185,22 +185,6 @@ public class AircraftDisplay : MonoBehaviour
         {
             Debug.LogError("PlayerAircraftScript not assigned.");
         }
-
-        // CheckpointPointer Display.
-        /*
-        if (CheckpointPointerDisplay != null)
-        {
-            if (CheckpointPointerDisplay.CompareDataToDisplayCache(CheckpointPointerDisplay.UIElement.transform.rotation.eulerAngles, out Vector2 data))
-            {
-                CheckpointPointerDisplay.UpdateCachedData(data);
-                CheckpointPointerDisplay.UpdateDisplayElement();
-            }
-        }
-        else
-        {
-            Debug.LogError("CheckpointPointerDisplay not assigned.");
-        }
-        */
     }
 
     /// <summary>

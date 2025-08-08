@@ -34,6 +34,22 @@ public class AuxiliarySytems : MonoBehaviour
         
     }
 
+    private void OnEnable()
+    {
+        if (Input != null && BrakingSystem != null)
+        {
+            Input.OnBreakInput += BrakingSystem.SetBreaksActiveStatus;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (Input != null && BrakingSystem!= null)
+        {
+            Input.OnBreakInput -= BrakingSystem.SetBreaksActiveStatus;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -42,20 +58,7 @@ public class AuxiliarySytems : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Input != null && BrakingSystem != null)
-        {
-            if (Input.BrakeInputHeld && BrakingSystem.AreBrakesActive == false)
-            {
-                BrakingSystem.SetBreaksActiveStatus(true);
 
-                // Debug.Log("BreaksActive");
-            }
-            else if (!Input.BrakeInputHeld && BrakingSystem.AreBrakesActive == true)
-            {
-                BrakingSystem.SetBreaksActiveStatus(false);
-                // Debug.Log("BreaksOff");
-            }
-        }
     }
 }
 
@@ -77,6 +80,8 @@ public class BrakeSystem
         {
             breakData.SetBreakStatus(newStatus);
         }
+
+        Debug.Log($"Break set to active: {newStatus}");
     }
 }
 
@@ -106,11 +111,11 @@ public class BreakData
     {
         IsBreakActive = activeStatus;
 
-        if (IsBreakActive)
+        if (IsBreakActive && BrakingMat != null)
         {
             BreakSurface.material = BrakingMat;
         }
-        else
+        else if (!IsBreakActive && DefaultMat != null)
         {
             BreakSurface.material = DefaultMat;
         }
