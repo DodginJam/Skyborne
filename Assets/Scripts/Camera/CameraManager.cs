@@ -20,7 +20,7 @@ public class CameraManager : MonoBehaviour
     /// </summary>
     [field: SerializeField]
     public GameObject AssignedTarget
-    { get; private set; }
+    { get; set; }
 
     /// <summary>
     /// The base speed of movement the camera has when moving towards the players direction of movement.

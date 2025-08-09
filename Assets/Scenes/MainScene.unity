@@ -4896,6 +4896,18 @@ Camera:
     type: 3}
   m_PrefabInstance: {fileID: 3983955888634642069}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1999812917 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 590838476083247528, guid: 94ffa1a4244b5ef4f888a7c799456e0e,
+    type: 3}
+  m_PrefabInstance: {fileID: 3983955888634642069}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33c0f5946b22ce844a6ffb56d6745144, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2010230698
 GameObject:
   m_ObjectHideFlags: 0
@@ -5941,6 +5953,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3074998226794679211, guid: 7b82bb532206fde468345883997c8e03,
+        type: 3}
+      propertyPath: <CameraManagerScript>k__BackingField
+      value: 
+      objectReference: {fileID: 1999812917}
     - target: {fileID: 4369538761635429051, guid: 7b82bb532206fde468345883997c8e03,
         type: 3}
       propertyPath: m_AnchorMax.x

@@ -1506,7 +1506,7 @@ GameObject:
   - component: {fileID: 6988157650990840091}
   - component: {fileID: 3074998226794679211}
   m_Layer: 0
-  m_Name: PiperPilot100i_Prop
+  m_Name: Breakable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1554,6 +1554,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <MainAircraft>k__BackingField: {fileID: 3087151800478988568}
+  <DestroyForce>k__BackingField: 50000
+  <CameraManagerScript>k__BackingField: {fileID: 0}
 --- !u!1 &4241147073394428393
 GameObject:
   m_ObjectHideFlags: 0
@@ -2295,6 +2297,7 @@ GameObject:
   - component: {fileID: 8266672179798738665}
   - component: {fileID: 2071560712038380654}
   - component: {fileID: 7840567375506702696}
+  - component: {fileID: 6635128766935622286}
   m_Layer: 0
   m_Name: Aircraft
   m_TagString: Player
@@ -2508,6 +2511,19 @@ MonoBehaviour:
         type: 2}
       <BrakingMat>k__BackingField: {fileID: 13400000, guid: 46fc250312fe48446af56d5dda4e2d0e,
         type: 2}
+--- !u!114 &6635128766935622286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4895237626668929585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd0ddea3bc294f4458bfd02aa7ee7f39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <DestructionComp>k__BackingField: {fileID: 3074998226794679211}
 --- !u!1 &4906458778418748154
 GameObject:
   m_ObjectHideFlags: 0

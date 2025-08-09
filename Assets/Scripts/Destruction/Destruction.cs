@@ -11,8 +11,8 @@ public class Destruction : MonoBehaviour
     public Rigidbody MainAircraft
     {  get; private set; }
 
-    public List<DetectCollision> AirPlaneActiveColliders
-    { get; private set; } = new List<DetectCollision>();
+    public List<Collider> AirPlaneActiveColliders
+    { get; private set; } = new List<Collider>();
 
     public List<Rigidbody> InactiveRigidBodiesToRelease
     { get; private set; } = new List<Rigidbody>();
@@ -20,20 +20,32 @@ public class Destruction : MonoBehaviour
     public bool HasImpactOccured
     { get; private set; } = false;
 
+    [field: SerializeField]
+    public float DestroyForce 
+    { get; private set; }
+
+    [field: SerializeField]
+    public CameraManager CameraManagerScript
+    { get; private set; }
+
     private void Awake()
     {
+        if (CameraManagerScript == null)
+        {
+            CameraManagerScript = GameObject.FindAnyObjectByType<CameraManager>();
+            
+            if (CameraManagerScript == null)
+            {
+                Debug.LogError("Unable to locate camera manager in scene.");
+            }
+        }
+
         // Get the planes colliders active as used during flight, and add the DetectCollision script to them.
         Collider[] activeAircraftColliders = MainAircraft.transform.GetComponentsInChildren<Collider>(false);
 
         foreach (Collider collider in activeAircraftColliders)
         {
-            DetectCollision dtCollision = collider.transform.AddComponent<DetectCollision>();
-
-            // Rigidbody rb = dtCollision.transform.AddComponent<Rigidbody>();
-
-            dtCollision.DestructionComp = this;
-
-            AirPlaneActiveColliders.Add(dtCollision);
+            AirPlaneActiveColliders.Add(collider);
         }
 
         // Grab reference to all the rigidbodies held as children under this transform which are the inactive debris of the aircraft.
@@ -69,7 +81,21 @@ public class Destruction : MonoBehaviour
                 rb.AddForce(impactForce, ForceMode.Impulse);
             }
 
+            CreateEmptyCameraTransform();
+
             MainAircraft.transform.gameObject.SetActive(false);
+        }
+    }
+
+    public void CreateEmptyCameraTransform()
+    {
+        if (CameraManagerScript != null)
+        {
+            GameObject newGameObject = new GameObject();
+
+            newGameObject.transform.position = MainAircraft.transform.position;
+
+            CameraManagerScript.AssignedTarget = newGameObject;
         }
     }
 }
