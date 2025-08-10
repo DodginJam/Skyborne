@@ -24,7 +24,9 @@ public class ProceduralFlightPath : MonoBehaviour
     [SerializeField] private bool generateOnStart = true;
 
     private Spline spline;
+    [SerializeField] private SplineExtrude splineExtrude;
     private Vector3 lastDirection;
+
 
     private void Awake()
     {
@@ -76,6 +78,7 @@ public class ProceduralFlightPath : MonoBehaviour
         {
             spline.Add(new BezierKnot(Vector3.zero));
             lastDirection = Vector3.forward;
+            splineExtrude.Rebuild();
             return;
         }
 
@@ -95,7 +98,9 @@ public class ProceduralFlightPath : MonoBehaviour
 
         spline.Add(new BezierKnot(newLocalPos));
 
-        // Optional: mark dirty in editor so changes persist
+        splineExtrude.Rebuild();
+
+        // Mark dirty in editor so changes persist
 #if UNITY_EDITOR
         UnityEditor.EditorUtility.SetDirty(splineContainer);
 #endif
