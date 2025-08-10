@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MenuOptions : MonoBehaviour
+public class MainMenu : MonoBehaviour
 {
     /// <summary>
     /// The input system for the UI.
@@ -14,19 +14,8 @@ public class MenuOptions : MonoBehaviour
     public UIInput UI_Input
     { private get; set; }
 
-    /// <summary>
-    /// The input system for the player aircraft controller.
-    /// </summary>
     [field: SerializeField]
-    public AircraftInput AircraftPlayerInput
-    {  private get; set; }
-
-    [field: SerializeField]
-    public Button ResumeButton
-    { private get; set; }
-
-    [field: SerializeField]
-    public Button RestartButton
+    public Button PlayGameButton
     { private get; set; }
 
     [field: SerializeField]
@@ -42,13 +31,6 @@ public class MenuOptions : MonoBehaviour
 
     [field: SerializeField]
     public Button QuitButton
-    { private get; set; }
-    
-    /// <summary>
-    /// The gameobject holding the pause menu elements.
-    /// </summary>
-    [field: SerializeField]
-    public GameObject PauseMenuElements
     { private get; set; }
 
     /// <summary>
@@ -71,21 +53,6 @@ public class MenuOptions : MonoBehaviour
             }
         }
 
-        if (PauseMenuElements == null)
-        {
-            Debug.LogError("Unable to locate the PauseMenuElements game object from the root transform component.");
-        }
-
-        if (AircraftPlayerInput == null)
-        {
-            AircraftPlayerInput = GameObject.FindAnyObjectByType<AircraftInput>();
-
-            if (AircraftPlayerInput == null)
-            {
-                Debug.LogError("Unable to locate the AircraftPlayerInput system from the root transform component.");
-            }
-        }
-
         SetUpListeners();
     }
 
@@ -93,7 +60,7 @@ public class MenuOptions : MonoBehaviour
     {
         if (UI_Input != null)
         {
-            UI_Input.GamePause += OnPauseInput;
+            UI_Input.GamePause += OnBackInput;
         }
     }
 
@@ -101,7 +68,7 @@ public class MenuOptions : MonoBehaviour
     {
         if (UI_Input != null)
         {
-            UI_Input.GamePause -= OnPauseInput;
+            UI_Input.GamePause -= OnBackInput;
         }
     }
 
@@ -114,25 +81,14 @@ public class MenuOptions : MonoBehaviour
     /// <summary>
     /// To be called when the pause input is pressed - it either pauses the game, or it removes the open list of UI elements in order they were opened until the all are gone and game unpauses.
     /// </summary>
-    void OnPauseInput()
+    void OnBackInput()
     {
-        if (PauseMenuElements.activeSelf)
+        // If the only pause menu open is the actually base pause menu, close it and resume the game.
+        if (OpenUIELements.Count > 0)
         {
-            // If the only pause menu open is the actually base pause menu, close it and resume the game.
-            if (OpenUIELements.Count == 1 && OpenUIELements[0] == PauseMenuElements)
-            {
-                ResumeGame();
-            }
-            else
-            {
-                // Look at the list of open UI elements of the pause menu and remove the latest opened gameobject and close it.
-                OpenUIELements[OpenUIELements.Count - 1].SetActive(false);
-                OpenUIELements.RemoveAt(OpenUIELements.Count - 1);
-            }
-        }
-        else
-        {
-            PauseGame();
+            // Look at the list of open UI elements of the pause menu and remove the latest opened gameobject and close it.
+            OpenUIELements[OpenUIELements.Count - 1].SetActive(false);
+            OpenUIELements.RemoveAt(OpenUIELements.Count - 1);
         }
     }
 
@@ -142,44 +98,9 @@ public class MenuOptions : MonoBehaviour
 
     }
 
-    public void ResumeGame()
+    public void PlayGame()
     {
-        if (Time.timeScale != 1)
-        {
-            Time.timeScale = 1;
-        }
-        
-        if (!AircraftPlayerInput.isActiveAndEnabled)
-        {
-            AircraftPlayerInput.enabled = true;
-        }
-
-        // Set the mouse state to back to state for flight.
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
-        // Remove the pause menu elements from the active list of UI elements and disable it.
-        ModifyOpenUIElements(false, PauseMenuElements);
-    }
-
-    public void PauseGame()
-    {
-        if (Time.timeScale != 0)
-        {
-            Time.timeScale = 0;
-        }
-        
-        if (AircraftPlayerInput.isActiveAndEnabled)
-        {
-            AircraftPlayerInput.enabled = false;
-        }
-
-        // Set the mouse state during pause state.
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = true;
-
-        // Add the pause menu to the list of open UI elements.
-        ModifyOpenUIElements(true, PauseMenuElements);
+        SceneManager.LoadScene("MainScene");
     }
 
     public void OptionsPress()
@@ -200,9 +121,7 @@ public class MenuOptions : MonoBehaviour
     /// </summary>
     public void SetUpListeners()
     {
-        ResumeButton.onClick.AddListener(() => ResumeGame());
-
-        RestartButton.onClick.AddListener(() => RestartGame());
+        PlayGameButton.onClick.AddListener(() => PlayGame());
 
         OptionsButton.onClick.AddListener(() => OptionsPress());
 
@@ -238,18 +157,5 @@ public class MenuOptions : MonoBehaviour
 #else
         Application.Quit();
 #endif
-    }
-
-    /// <summary>
-    /// Reload the exisiting scene after resetting the timescale.
-    /// </summary>
-    void RestartGame()
-    {
-        Time.timeScale = 1;
-
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
