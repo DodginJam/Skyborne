@@ -67,7 +67,7 @@ public class CameraManager : MonoBehaviour
     /// </summary>
     [field: SerializeField]
     public Transform OrbitCameraHolder
-    { get; private set; }
+    { get; set; }
 
     /// <summary>
     /// The list of available UI displays in the game scene - to be managed when visable upon camera change.
@@ -334,6 +334,25 @@ public class CameraManager : MonoBehaviour
 
         // Debug.Log($"Current Sens: {sensitivityLevel}. ControlInput: {controlType}");
         return sensitivityLevel;
+    }
+
+    /// <summary>
+    /// Used to create an empty camera rotation location plane disappearing from scene.
+    /// </summary>
+    /// <param name="newPosition"></param>
+    public void CreateEmptyCameraTransform(Vector3 newPosition)
+    {
+        GameObject newGameObject = new GameObject();
+
+        GameObject newChildGameObject = new GameObject();
+
+        newGameObject.transform.position = newPosition;
+        newChildGameObject.transform.parent = newGameObject.transform;
+        newChildGameObject.transform.localPosition = Vector3.zero;
+
+        AssignedTarget = newGameObject;
+
+        OrbitCameraHolder = newChildGameObject.transform;
     }
 }
 

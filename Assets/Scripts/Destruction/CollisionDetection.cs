@@ -27,7 +27,7 @@ public class CollisionDetection : MonoBehaviour
 
             if (DestructionComp == null)
             {
-                Debug.Log("Unable to locate the destruction component within this gameobject.");
+                Debug.LogError("Unable to locate the destruction component within this gameobject.");
             }
         }
     }

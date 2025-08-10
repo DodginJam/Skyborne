@@ -28,6 +28,9 @@ public class Destruction : MonoBehaviour
     public CameraManager CameraManagerScript
     { get; private set; }
 
+    public GameManager GameManagerScript
+    { get; private set; }
+
     private void Awake()
     {
         if (CameraManagerScript == null)
@@ -37,6 +40,16 @@ public class Destruction : MonoBehaviour
             if (CameraManagerScript == null)
             {
                 Debug.LogError("Unable to locate camera manager in scene.");
+            }
+        }
+
+        if (GameManagerScript == null)
+        {
+            GameManagerScript = GameObject.FindAnyObjectByType<GameManager>();
+
+            if (GameManagerScript == null)
+            {
+                Debug.LogError("Unable to locate the GameManagerScript.");
             }
         }
 
@@ -55,17 +68,13 @@ public class Destruction : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log($"{AirPlaneActiveColliders.Count}");
-        Debug.Log($"{InactiveRigidBodiesToRelease.Count}");
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            Impact(Vector3.one * 50f);
-        }
+
     }
 
     public void Impact(Vector3 impactForce)
@@ -81,21 +90,11 @@ public class Destruction : MonoBehaviour
                 rb.AddForce(impactForce, ForceMode.Impulse);
             }
 
-            CreateEmptyCameraTransform();
+            CameraManagerScript.CreateEmptyCameraTransform(MainAircraft.transform.position);
 
             MainAircraft.transform.gameObject.SetActive(false);
-        }
-    }
 
-    public void CreateEmptyCameraTransform()
-    {
-        if (CameraManagerScript != null)
-        {
-            GameObject newGameObject = new GameObject();
-
-            newGameObject.transform.position = MainAircraft.transform.position;
-
-            CameraManagerScript.AssignedTarget = newGameObject;
+            GameManagerScript.SetGameOverState();
         }
     }
 }
