@@ -9,11 +9,17 @@ public class MenuPlaneLoop : MonoBehaviour
     { get; private set; }
 
     [field: SerializeField]
-    public Transform StartPosition
+    public MeshRenderer StartPositions
+    { get; private set; }
+    
+    public Vector3 StartPosition
     { get; private set; }
 
     [field: SerializeField]
-    public Transform EndPosition
+    public MeshRenderer EndPositions
+    { get; private set; }
+
+    public Vector3 EndPosition
     { get; private set; }
 
     [field: SerializeField, Min(1), Range(1, 60)]
@@ -30,6 +36,8 @@ public class MenuPlaneLoop : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        ResetPlane();
+
         FlyByRoutine = StartCoroutine(FlyByLoop());
     }
 
@@ -46,12 +54,12 @@ public class MenuPlaneLoop : MonoBehaviour
             return false;
         }
 
-        if (StartPosition == null)
+        if (StartPositions == null)
         {
             return false;
         }
 
-        if (EndPosition == null)
+        if (EndPositions == null)
         {
             return false;
         }
@@ -68,17 +76,11 @@ public class MenuPlaneLoop : MonoBehaviour
         {
             if (endHit == false)
             {
-                Vector3 newPosition = Vector3.MoveTowards(ObjectToMove.transform.position, EndPosition.transform.position, MovementSpeed * Time.deltaTime);
+                Vector3 newPosition = Vector3.MoveTowards(ObjectToMove.transform.position, EndPosition, MovementSpeed * Time.deltaTime);
 
-                if (Vector3.Distance(newPosition, EndPosition.transform.position) <= 0.1f)
+                if (Vector3.Distance(newPosition, EndPosition) <= 0.1f)
                 {
-                    ObjectToMove.transform.position = StartPosition.transform.position;
-
-                    ObjectToMove.transform.LookAt(EndPosition, Vector3.forward);
-
-                    // Since plane is not facing right direction, manually rotation is needed after LookAt.
-                    ObjectToMove.transform.rotation *= Quaternion.AngleAxis(-90, Vector3.right);
-                    ObjectToMove.transform.rotation *= Quaternion.AngleAxis(-90, Vector3.up);
+                    ResetPlane();
 
                     endHit = true;
                     currentTimer = 0;
@@ -103,5 +105,43 @@ public class MenuPlaneLoop : MonoBehaviour
 
             yield return null;
         }
+    }
+
+    public Vector3 GetWorldPointPointOnMeshRendererAxis(MeshRenderer meshToSample)
+    {
+        Vector3 meshExtents = meshToSample.bounds.extents;
+
+        Vector3 randomPointLocal = new Vector3(
+            ReturnRandomPointFromAxis(meshExtents.x),
+            ReturnRandomPointFromAxis(meshExtents.y),
+            ReturnRandomPointFromAxis(meshExtents.z)
+            );
+
+        return meshToSample.transform.position + randomPointLocal;
+
+        static float ReturnRandomPointFromAxis(float extentsOfAxis)
+        {
+            return Random.Range(-extentsOfAxis, extentsOfAxis);
+        }
+    }
+
+    public void ResetPlane()
+    {
+        if (Random.Range(0, 2) == 0)
+        {
+            StartPosition = GetWorldPointPointOnMeshRendererAxis(StartPositions);
+            EndPosition = GetWorldPointPointOnMeshRendererAxis(EndPositions);
+        }
+        else
+        {
+            EndPosition = GetWorldPointPointOnMeshRendererAxis(StartPositions);
+            StartPosition = GetWorldPointPointOnMeshRendererAxis(EndPositions);
+        }
+        
+        // Reset the start and end positions to random points.
+
+        ObjectToMove.transform.position = StartPosition;
+
+        ObjectToMove.transform.LookAt(EndPosition, Vector3.up);
     }
 }
