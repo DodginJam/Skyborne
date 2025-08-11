@@ -81,7 +81,7 @@ public class BrakeSystem
             breakData.SetBreakStatus(newStatus);
         }
 
-        Debug.Log($"Break set to active: {newStatus}");
+        // Debug.Log($"Break set to active: {newStatus}");
     }
 }
 

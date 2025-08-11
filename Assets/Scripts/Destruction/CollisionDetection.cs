@@ -51,7 +51,7 @@ public class CollisionDetection : MonoBehaviour
     {
         if (collision.gameObject.layer != LayerMask.NameToLayer("Projectile"))
         {
-            Debug.Log($"Impluse: {(collision.impulse * LastFixedDeltaTimeAmount).sqrMagnitude}");
+            // Debug.Log($"Impluse: {(collision.impulse * LastFixedDeltaTimeAmount).sqrMagnitude}");
 
             if ((collision.impulse * LastFixedDeltaTimeAmount).sqrMagnitude >= DestructionComp.DestroyForce)
             {
