@@ -5540,7 +5540,7 @@ PrefabInstance:
     - target: {fileID: 2146472837041767092, guid: 618ceb3e27b66e44dad017b5c9f00c3a,
         type: 3}
       propertyPath: m_Name
-      value: Sky and Fog Volume (1)
+      value: Sky and Fog Volume
       objectReference: {fileID: 0}
     - target: {fileID: 7659293072553219007, guid: 618ceb3e27b66e44dad017b5c9f00c3a,
         type: 3}
