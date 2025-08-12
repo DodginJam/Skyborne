@@ -320,7 +320,7 @@ MonoBehaviour:
       m_Value: 0
     opacityB:
       m_OverrideState: 1
-      m_Value: 0.201
+      m_Value: 0.2
     opacityA:
       m_OverrideState: 1
       m_Value: 0
@@ -329,7 +329,7 @@ MonoBehaviour:
       m_Value: 2000
     rotation:
       m_OverrideState: 1
-      m_Value: 263.94144
+      m_Value: 2
     tint:
       m_OverrideState: 0
       m_Value: {r: 1, g: 1, b: 1, a: 1}

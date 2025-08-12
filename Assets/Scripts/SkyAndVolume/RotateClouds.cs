@@ -29,7 +29,10 @@ public class RotateClouds : MonoBehaviour
         if (TryGetComponent<Volume>(out Volume volume))
         {
             VolumeComp = volume;
-            Profile = VolumeComp.sharedProfile;
+
+            Profile = Instantiate(VolumeComp.sharedProfile);
+
+            VolumeComp.profile = Profile;
         }
 
         if (Profile != null)
@@ -69,5 +72,22 @@ public class RotateClouds : MonoBehaviour
 
             Clouds.layerA.rotation.value = CloudOffset;
         }
+    }
+
+    private void OnEnable()
+    {
+        ResetValues();
+    }
+
+    private void OnDisable()
+    {
+        ResetValues();
+    }
+
+    public void ResetValues()
+    {
+        Clouds.layerA.opacityB.value = 0.2f;
+
+        Clouds.layerA.rotation.value = 2f;
     }
 }
