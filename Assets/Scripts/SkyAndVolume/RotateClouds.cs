@@ -86,8 +86,11 @@ public class RotateClouds : MonoBehaviour
 
     public void ResetValues()
     {
-        Clouds.layerA.opacityB.value = 0.2f;
+        if (Clouds != null)
+        {
+            Clouds.layerA.opacityB.value = 0.2f;
 
-        Clouds.layerA.rotation.value = 2f;
+            Clouds.layerA.rotation.value = 2f;
+        }
     }
 }
