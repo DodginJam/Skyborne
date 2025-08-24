@@ -41,6 +41,10 @@ public class MenuOptions : MonoBehaviour
     { private get; set; }
 
     [field: SerializeField]
+    public Button MenuButton
+    { private get; set; }
+
+    [field: SerializeField]
     public Button QuitButton
     { private get; set; }
     
@@ -206,6 +210,8 @@ public class MenuOptions : MonoBehaviour
 
         OptionsButton.onClick.AddListener(() => OptionsPress());
 
+        MenuButton.onClick.AddListener(() => ChangeScene(0));
+
         QuitButton.onClick.AddListener(() => QuitGame());
     }
 
@@ -233,11 +239,12 @@ public class MenuOptions : MonoBehaviour
     /// </summary>
     void QuitGame()
     {
-#if UNITY_EDITOR
-        EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
+        SceneHandler.Instance.QuitGame();
+    }
+
+    void ChangeScene(int newSceneIndex)
+    {
+        SceneHandler.Instance.LoadScene(newSceneIndex);
     }
 
     /// <summary>
@@ -245,11 +252,9 @@ public class MenuOptions : MonoBehaviour
     /// </summary>
     void RestartGame()
     {
-        Time.timeScale = 1;
-
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneHandler.Instance.RestartScene();
     }
 }

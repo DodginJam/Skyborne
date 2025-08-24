@@ -100,7 +100,7 @@ public class MainMenu : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene("MainScene");
+        SceneHandler.Instance.LoadScene(1);
     }
 
     public void OptionsPress()
@@ -152,10 +152,6 @@ public class MainMenu : MonoBehaviour
     /// </summary>
     void QuitGame()
     {
-#if UNITY_EDITOR
-        EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
+        SceneHandler.Instance.QuitGame();
     }
 }

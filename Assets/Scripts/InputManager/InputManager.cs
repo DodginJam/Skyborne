@@ -18,15 +18,16 @@ public class InputManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+            return;
+        }
+        else
         {
             Instance = this;
             InputActions = new InputActions_Skyborne();
             InputActions.Enable();
-        }
-        else
-        {
-            Destroy(this);
         }
 
         if (TryGetComponent<PlayerInput>(out PlayerInput playerInputComponent))

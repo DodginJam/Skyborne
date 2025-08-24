@@ -20,6 +20,15 @@ public class MusicManager : MonoBehaviour
         Initialise();
     }
 
+    private void OnEnable()
+    {
+        SceneHandler.Instance.SceneTransition += MusicOnSceneChange;
+    }
+    private void OnDisable()
+    {
+        SceneHandler.Instance.SceneTransition -= MusicOnSceneChange;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,15 +43,15 @@ public class MusicManager : MonoBehaviour
 
     void Initialise()
     {
-        if (Instance == null)
+        if (Instance != null && Instance != this)
         {
-            Instance = this;
-            DontDestroyOnLoad(this);
+            Destroy(this.gameObject);
+            return;
         }
         else
         {
-            Destroy(this);
-            return;
+            Instance = this;
+            DontDestroyOnLoad(this.gameObject);
         }
 
         if (TryGetComponent<AudioSource>(out AudioSource audioSource))
@@ -66,8 +75,8 @@ public class MusicManager : MonoBehaviour
         }
     }
 
-    public void OnSceneTransition()
+    public void MusicOnSceneChange(int newSceneIndex)
     {
-
+        Debug.Log("Music Changed");
     }
 }
