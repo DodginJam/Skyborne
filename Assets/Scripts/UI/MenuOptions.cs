@@ -148,10 +148,7 @@ public class MenuOptions : MonoBehaviour
 
     public void ResumeGame()
     {
-        if (Time.timeScale != 1)
-        {
-            Time.timeScale = 1;
-        }
+        SceneHandler.Instance.ResumeScene();
         
         if (!AircraftPlayerInput.isActiveAndEnabled)
         {
@@ -168,11 +165,8 @@ public class MenuOptions : MonoBehaviour
 
     public void PauseGame()
     {
-        if (Time.timeScale != 0)
-        {
-            Time.timeScale = 0;
-        }
-        
+        SceneHandler.Instance.PauseScene();
+
         if (AircraftPlayerInput.isActiveAndEnabled)
         {
             AircraftPlayerInput.enabled = false;

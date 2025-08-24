@@ -47,6 +47,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <CurrentSoundGrouping>k__BackingField: {fileID: 11400000, guid: e483c8c7d55525942a073337ecedccaf,
     type: 2}
+  <MainMenuSoundGrouping>k__BackingField: {fileID: 11400000, guid: 824db344da4cfe040a736ce65409eb60,
+    type: 2}
+  <AmbientSoundGrouping>k__BackingField: {fileID: 11400000, guid: e483c8c7d55525942a073337ecedccaf,
+    type: 2}
+  <DangerSoundGrouping>k__BackingField: {fileID: 11400000, guid: 208dca0c87ba69e44a9b0cf9144df911,
+    type: 2}
+  <PauseSoundGrouping>k__BackingField: {fileID: 11400000, guid: 777b91c525a2e50478cc8d01b517e8fb,
+    type: 2}
 --- !u!82 &3299443977558124617
 AudioSource:
   m_ObjectHideFlags: 0

@@ -11,10 +11,9 @@ public class SceneHandler : MonoBehaviour
     public static SceneHandler Instance
     { get; private set; }
 
-    public Dictionary<int, string> GameSceneIndexAndNames
-    { get; private set; } = new Dictionary<int, string>();
-
     public event Action<int> SceneTransition;
+
+    public event Action<bool> ScenePause;
 
     private void Awake()
     {
@@ -29,23 +28,39 @@ public class SceneHandler : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
         }
 
-        // Get a dictionary of all the scenes in the build and assgin the name to the build index. 
-        for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
-        {
-            GameSceneIndexAndNames.Add(i, SceneManager.GetSceneByBuildIndex(i).name);
-        }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        // Initialise the starting music.
+        SceneTransition?.Invoke(SceneManager.GetActiveScene().buildIndex);
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void PauseScene()
+    {
+        if (Time.timeScale != 0)
+        {
+            Time.timeScale = 0;
+        }
+
+        ScenePause?.Invoke(true);
+    }
+
+    public void ResumeScene()
+    {
+        if (Time.timeScale != 1)
+        {
+            Time.timeScale = 1;
+        }
+
+        ScenePause?.Invoke(false);
     }
 
     public void LoadScene(int newSceneIndex)
@@ -72,9 +87,6 @@ public class SceneHandler : MonoBehaviour
 
     public void RestartScene()
     {
-        // Reset the time scale on scene change.
-        Time.timeScale = 1;
-
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
