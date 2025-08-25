@@ -12,6 +12,9 @@ public class MusicManager : MonoBehaviour
     public AudioSource MusicAudioSource
     { get; private set; }
 
+    public PlayingAudioData AudioToResume
+    { get; private set; }
+
     public SoundGroupings_SO CurrentSoundGrouping
     { get; private set; }
 
@@ -103,22 +106,63 @@ public class MusicManager : MonoBehaviour
 
     public void MusicChangeOnPauseStatus(bool pauseStatus)
     {
+        // Grab the data from the current playing clip before the audio is switched on the pause action.
+        PlayingAudioData pausedAudioData = PlayingAudioData.SetPlayingAudioData(MusicAudioSource.clip, MusicAudioSource.time);
+
         switch (pauseStatus)
         {
             case true:
                 CurrentSoundGrouping = PauseSoundGrouping;
                 break;
+
             case false:
+
                 CurrentSoundGrouping = AmbientSoundGrouping;
                 break;
         }
 
-        PlaySoundClipFromGrouping(CurrentSoundGrouping);
+        // On pause change, resume the audio to start from the last saved audio clip to resume if it is not null.
+        if (AudioToResume != null)
+        {
+            AudioToResume.PlayAudioFromTime(MusicAudioSource, 0.1f);
+        }
+        else
+        {
+            PlaySoundClipFromGrouping(CurrentSoundGrouping);
+        }
+
+        // With the old audio now resumed, save the last playing audio to the class so it can now itself be resumed.
+        AudioToResume = pausedAudioData;
     }
 
     public void PlaySoundClipFromGrouping(SoundGroupings_SO currentSoundGroup)
     {
         MusicAudioSource.clip = currentSoundGroup.SoundData[Random.Range(0, currentSoundGroup.SoundData.Count)].SoundDataSO.AudioClip;
         MusicAudioSource.PlayDelayed(0.1f);
+    }
+}
+
+public class PlayingAudioData
+{
+    public AudioClip ClipPlaying
+    { get; private set; }
+
+    public float TimeForResume
+    { get; private set; }
+
+    public static PlayingAudioData SetPlayingAudioData(AudioClip clip, float timeForResume)
+    {
+        PlayingAudioData newData = new PlayingAudioData();
+        newData.ClipPlaying = clip;
+        newData.TimeForResume = timeForResume;
+
+        return newData;
+    }
+
+    public void PlayAudioFromTime(AudioSource audioSource, float delayPlayTime)
+    {
+        audioSource.clip = ClipPlaying;
+        audioSource.PlayDelayed(0.1f);
+        audioSource.time = TimeForResume;
     }
 }
