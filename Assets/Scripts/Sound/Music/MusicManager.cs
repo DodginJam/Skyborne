@@ -1,14 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static GameManager;
+using UnityEngine.Audio;
 
 [RequireComponent(typeof(AudioSource))]
 public class MusicManager : MonoBehaviour
 {
-    public static MusicManager Instance
-    { get; private set; }
-
     public AudioSource MusicAudioSource
     { get; private set; }
 
@@ -35,6 +33,7 @@ public class MusicManager : MonoBehaviour
     { get; private set; }
 
 
+
     private void Awake()
     {
         Initialise();
@@ -51,31 +50,8 @@ public class MusicManager : MonoBehaviour
         SceneHandler.Instance.ScenePause -= MusicChangeOnPauseStatus;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void Initialise()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this.gameObject);
-            return;
-        }
-        else
-        {
-            Instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
-
         if (TryGetComponent<AudioSource>(out AudioSource audioSource))
         {
             MusicAudioSource = audioSource;
@@ -101,6 +77,7 @@ public class MusicManager : MonoBehaviour
                 break;
         }
 
+        AudioToResume = null;
         PlaySoundClipFromGrouping(CurrentSoundGrouping);
     }
 
@@ -131,13 +108,13 @@ public class MusicManager : MonoBehaviour
             PlaySoundClipFromGrouping(CurrentSoundGrouping);
         }
 
-        // With the old audio now resumed, save the last playing audio to the class so it can now itself be resumed.
+        // With the old audio now resumed, save the last playing audio to the class so it can now itself be resumed next time.
         AudioToResume = pausedAudioData;
     }
 
     public void PlaySoundClipFromGrouping(SoundGroupings_SO currentSoundGroup)
     {
-        MusicAudioSource.clip = currentSoundGroup.SoundData[Random.Range(0, currentSoundGroup.SoundData.Count)].SoundDataSO.AudioClip;
+        MusicAudioSource.clip = currentSoundGroup.SoundData[UnityEngine.Random.Range(0, currentSoundGroup.SoundData.Count)].SoundDataSO.AudioClip;
         MusicAudioSource.PlayDelayed(0.1f);
     }
 }

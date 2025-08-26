@@ -121,7 +121,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &2133094033763746938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1824,6 +1824,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <PlayerAircraftScript>k__BackingField: {fileID: 0}
   <GameManagerScript>k__BackingField: {fileID: 0}
+  <FlightPerformanceTracker>k__BackingField: {fileID: 0}
   <CameraTypeDisplay>k__BackingField: 0
   <ScoreDisplay>k__BackingField:
     <UIElement>k__BackingField: {fileID: 2909541939771244970}
@@ -1835,6 +1836,8 @@ MonoBehaviour:
     <UIElement>k__BackingField: {fileID: 3779013900494642472}
   <ThrottleDisplay>k__BackingField:
     <UIElement>k__BackingField: {fileID: 6005501317223481468}
+  <AltitudeScoreDisplay>k__BackingField:
+    <UIElement>k__BackingField: {fileID: 0}
 --- !u!1 &6268042084292098977
 GameObject:
   m_ObjectHideFlags: 0

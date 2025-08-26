@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MenuOptions : MonoBehaviour
+public class PauseMenuOptions : MonoBehaviour
 {
     /// <summary>
     /// The input system for the UI.
