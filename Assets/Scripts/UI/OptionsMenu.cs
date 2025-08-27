@@ -2,9 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
-public class OptionsMenu : MonoBehaviour
+public class OptionsMenu : MonoBehaviour, UI_SoundMixerControls
 {
     [field: SerializeField]
     public Slider MasterVolumeSlider
@@ -26,17 +27,9 @@ public class OptionsMenu : MonoBehaviour
         // Set the slider values to reflect the current audio levels of the sound mixer upon a new options menu being loaded in.
         if (SoundManager.Instance != null)
         {
-            if (SoundManager.Instance.AudioMixerAsset.GetFloat("MasterVolume", out float valueMaster))
-            {
-                float normalisedValue = Mathf.Pow(10f, valueMaster / 20f);
-                MasterVolumeSlider.value = normalisedValue;
-            }
+            UI_SoundMixerControls.ChangeMixerValueToNormalised(SoundManager.Instance.AudioMixerAsset, SoundManager.Instance.MIXER_MASTER, MasterVolumeSlider);
 
-            if (SoundManager.Instance.AudioMixerAsset.GetFloat("MusicVolume", out float valueMusic))
-            {
-                float normalisedValue = Mathf.Pow(10f, valueMusic / 20f);
-                MusicVolumeSlider.value = normalisedValue;
-            }
+            UI_SoundMixerControls.ChangeMixerValueToNormalised(SoundManager.Instance.AudioMixerAsset, SoundManager.Instance.MIXER_MUSIC, MusicVolumeSlider);
         }
     }
 
@@ -44,7 +37,7 @@ public class OptionsMenu : MonoBehaviour
     {
         if (SoundManager.Instance != null)
         {
-            SoundManager.Instance.AddOrRemoveOptionsMenu(this, true);
+            SoundManager.Instance.AddOrRemoveUI_SoundListeners(this, true);
         }
         else
         {
@@ -56,7 +49,7 @@ public class OptionsMenu : MonoBehaviour
     {
         if (SoundManager.Instance != null)
         {
-            SoundManager.Instance.AddOrRemoveOptionsMenu(this, false);
+            SoundManager.Instance.AddOrRemoveUI_SoundListeners(this, false);
         }
         else
         {
@@ -76,7 +69,7 @@ public class OptionsMenu : MonoBehaviour
         
     }
 
-    void InitialseListeners()
+    public void InitialseListeners()
     {
         MasterVolumeSlider.onValueChanged.AddListener(value => AdjustMasterSound?.Invoke(value));
         MusicVolumeSlider.onValueChanged.AddListener(value => AdjustMusicSound?.Invoke(value));

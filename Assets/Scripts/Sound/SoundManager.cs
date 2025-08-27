@@ -16,11 +16,11 @@ public class SoundManager : MonoBehaviour
     public MusicManager MusicManagerScript
     { get; private set; }
 
-    const string MIXER_MASTER = "MasterVolume";
-    const string MIXER_MUSIC = "MusicVolume";
+    public string MIXER_MASTER 
+    { get; private set; }= "MasterVolume";
 
-    public List<OptionsMenu> OptionsMenusForEvents
-    { get; private set; } = new List<OptionsMenu>();
+    public string MIXER_MUSIC
+    { get; private set; } = "MusicVolume";
 
     private void Awake()
     {
@@ -40,33 +40,25 @@ public class SoundManager : MonoBehaviour
 
     public void AdjustSoundMaster(float newValue)
     {
-        float logValue = Mathf.Log10(newValue) * 20;
-
-        AudioMixerAsset.SetFloat(MIXER_MASTER, logValue);
+        UI_SoundMixerControls.ChangeNormalisedValueToMixer(newValue, AudioMixerAsset, MIXER_MASTER);
     }
 
     public void AdjustSoundMusic(float newValue)
     {
-        float logValue = Mathf.Log10(newValue) * 20;
-
-        AudioMixerAsset.SetFloat(MIXER_MUSIC, logValue);
+        UI_SoundMixerControls.ChangeNormalisedValueToMixer(newValue, AudioMixerAsset, MIXER_MUSIC);
     }
 
-    public void AddOrRemoveOptionsMenu(OptionsMenu optionsMenu, bool addTrueRemoveFalse)
+    public void AddOrRemoveUI_SoundListeners(UI_SoundMixerControls uiSound, bool addTrueRemoveFalse)
     {
         if (addTrueRemoveFalse)
         {
-            OptionsMenusForEvents.Add(optionsMenu);
-
-            optionsMenu.AdjustMasterSound += AdjustSoundMaster;
-            optionsMenu.AdjustMusicSound += AdjustSoundMusic;
+            uiSound.AdjustMasterSound += AdjustSoundMaster;
+            uiSound.AdjustMusicSound += AdjustSoundMusic;
         }
         else
         {
-            OptionsMenusForEvents.Remove(optionsMenu);
-
-            optionsMenu.AdjustMasterSound -= AdjustSoundMaster;
-            optionsMenu.AdjustMusicSound -= AdjustSoundMusic;
+            uiSound.AdjustMasterSound -= AdjustSoundMaster;
+            uiSound.AdjustMusicSound -= AdjustSoundMusic;
         }
     }
 }
