@@ -39,10 +39,6 @@ public class OptionsMenu : MonoBehaviour, UI_SoundMixerControls
         {
             SoundManager.Instance.AddOrRemoveUI_SoundListeners(this, true);
         }
-        else
-        {
-            Debug.LogError("Sound Manager Instance is null");
-        }
     }
 
     private void OnDisable()
@@ -50,10 +46,6 @@ public class OptionsMenu : MonoBehaviour, UI_SoundMixerControls
         if (SoundManager.Instance != null)
         {
             SoundManager.Instance.AddOrRemoveUI_SoundListeners(this, false);
-        }
-        else
-        {
-            Debug.LogError("Sound Manager Instance is null");
         }
     }
 
