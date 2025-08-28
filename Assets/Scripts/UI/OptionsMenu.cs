@@ -15,13 +15,20 @@ public class OptionsMenu : MonoBehaviour, UI_SoundMixerControls
     public Slider MusicVolumeSlider
     { get; private set; }
 
+    [field: SerializeField]
+    public Slider SFXVolumeSlider
+    { get; private set; }
+
     public event Action<float> AdjustMasterSound;
     public event Action<float> AdjustMusicSound;
+    public event Action<float> AdjustSFXSound;
 
     private void Awake()
     {
-        InitialiseSlider(MasterVolumeSlider);
-        InitialiseSlider(MusicVolumeSlider);
+        UI_SoundMixerControls.InitialiseSlider(MasterVolumeSlider);
+        UI_SoundMixerControls.InitialiseSlider(MusicVolumeSlider);
+        UI_SoundMixerControls.InitialiseSlider(SFXVolumeSlider);
+
         InitialseListeners();
 
         // Set the slider values to reflect the current audio levels of the sound mixer upon a new options menu being loaded in.
@@ -30,6 +37,8 @@ public class OptionsMenu : MonoBehaviour, UI_SoundMixerControls
             UI_SoundMixerControls.ChangeMixerValueToNormalised(SoundManager.Instance.AudioMixerAsset, SoundManager.Instance.MIXER_MASTER, MasterVolumeSlider);
 
             UI_SoundMixerControls.ChangeMixerValueToNormalised(SoundManager.Instance.AudioMixerAsset, SoundManager.Instance.MIXER_MUSIC, MusicVolumeSlider);
+
+            UI_SoundMixerControls.ChangeMixerValueToNormalised(SoundManager.Instance.AudioMixerAsset, SoundManager.Instance.MIXER_SFX, SFXVolumeSlider);
         }
     }
 
@@ -65,13 +74,6 @@ public class OptionsMenu : MonoBehaviour, UI_SoundMixerControls
     {
         MasterVolumeSlider.onValueChanged.AddListener(value => AdjustMasterSound?.Invoke(value));
         MusicVolumeSlider.onValueChanged.AddListener(value => AdjustMusicSound?.Invoke(value));
-    }
-
-    void InitialiseSlider(Slider sliderToAdjust)
-    {
-        sliderToAdjust.wholeNumbers = false;
-        sliderToAdjust.minValue = 0.0001f;
-        sliderToAdjust.maxValue = 1;
-        sliderToAdjust.value = sliderToAdjust.maxValue;
+        SFXVolumeSlider.onValueChanged.AddListener(value => AdjustSFXSound?.Invoke(value));
     }
 }

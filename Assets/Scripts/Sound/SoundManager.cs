@@ -22,6 +22,9 @@ public class SoundManager : MonoBehaviour
     public string MIXER_MUSIC
     { get; private set; } = "MusicVolume";
 
+    public string MIXER_SFX
+    { get; private set; } = "SFXVolume";
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -48,17 +51,24 @@ public class SoundManager : MonoBehaviour
         UI_SoundMixerControls.ChangeNormalisedValueToMixer(newValue, AudioMixerAsset, MIXER_MUSIC);
     }
 
+    public void AdjustSoundSFX(float newValue)
+    {
+        UI_SoundMixerControls.ChangeNormalisedValueToMixer(newValue, AudioMixerAsset, MIXER_SFX);
+    }
+
     public void AddOrRemoveUI_SoundListeners(UI_SoundMixerControls uiSound, bool addTrueRemoveFalse)
     {
         if (addTrueRemoveFalse)
         {
             uiSound.AdjustMasterSound += AdjustSoundMaster;
             uiSound.AdjustMusicSound += AdjustSoundMusic;
+            uiSound.AdjustSFXSound += AdjustSoundSFX;
         }
         else
         {
             uiSound.AdjustMasterSound -= AdjustSoundMaster;
             uiSound.AdjustMusicSound -= AdjustSoundMusic;
+            uiSound.AdjustSFXSound -= AdjustSoundSFX;
         }
     }
 }
