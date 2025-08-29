@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Representing the local sound emission of an audio source within a gameobject.
+/// </summary>
 [RequireComponent(typeof(AudioSource))]
 public class Sound_Local : MonoBehaviour
 {
