@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8464920701204609531}
   - component: {fileID: 964258629075708245}
   - component: {fileID: 3527769398937181987}
+  - component: {fileID: 9223058023159022146}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -61,14 +62,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bc43b19ab22eb04bb1be3b9144ec39d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Radius>k__BackingField: 250
-  <Angle>k__BackingField: 10
-  <StartingAngle>k__BackingField: 10
-  <MinDistanceFromPlayer>k__BackingField: 50
-  <SpawnDelay>k__BackingField: 5
-  <GateInstance>k__BackingField: {fileID: 0}
-  <GateScript>k__BackingField: {fileID: 0}
-  <GameManagerScript>k__BackingField: {fileID: 8464920701204609531}
+  Radius: 125
+  Angle: 10
+  StartingAngle: 10
+  MinDistanceFromPlayer: 50
+  SpawnDelay: 0.5
+  AircraftController: {fileID: 0}
+  Gates:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  GameManagerScript: {fileID: 8464920701204609531}
+  flightPath: {fileID: 0}
+  gateSpacingT: 0.05
+  lateralOffsetRange: 15
+  verticalOffsetRange: 10
 --- !u!114 &3527769398937181987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,3 +153,26 @@ MonoBehaviour:
     m_RotationOrder: 4
   <MinRotationValue>k__BackingField: 0
   <MaxRotationValue>k__BackingField: 1
+--- !u!114 &9223058023159022146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4907948137872286457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b14e09c40c817fc4ca314ddd214333e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  splineContainer: {fileID: 0}
+  segmentLength: 100
+  initialSegments: 5
+  maxTurnAngle: 10
+  maxPitchAngle: 5
+  horizontalBias: 0.5
+  verticalBias: 0.5
+  player: {fileID: 0}
+  keepAheadDistance: 800
+  generateOnStart: 1
+  splineExtrude: {fileID: 0}

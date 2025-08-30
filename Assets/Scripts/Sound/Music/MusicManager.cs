@@ -126,8 +126,16 @@ public class MusicManager : MonoBehaviour
     /// <param name="currentSoundGroup"></param>
     public void PlaySoundClipFromGrouping(SoundGroupings_SO currentSoundGroup)
     {
-        MusicAudioSource.clip = currentSoundGroup.SoundData[UnityEngine.Random.Range(0, currentSoundGroup.SoundData.Count)].SoundDataSO.AudioClip;
-        MusicAudioSource.PlayDelayed(0.1f);
+        if (currentSoundGroup == null)
+        {
+            MusicAudioSource.clip = AmbientSoundGrouping.SoundData[1].SoundDataSO.AudioClip;
+            Debug.LogWarning("Scene not in the build index, defaulting to scene ambient music group.");
+        }
+        else
+        {
+            MusicAudioSource.clip = currentSoundGroup.SoundData[UnityEngine.Random.Range(0, currentSoundGroup.SoundData.Count)].SoundDataSO.AudioClip;
+            MusicAudioSource.PlayDelayed(0.1f);
+        }
     }
 }
 
