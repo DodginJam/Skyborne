@@ -62,6 +62,10 @@ public class MusicManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Change the current playing music track to match the current scene index being loaded.
+    /// </summary>
+    /// <param name="newSceneIndex"></param>
     public void MusicOnSceneChange(int newSceneIndex)
     {
         switch (newSceneIndex)
@@ -81,6 +85,10 @@ public class MusicManager : MonoBehaviour
         PlaySoundClipFromGrouping(CurrentSoundGrouping);
     }
 
+    /// <summary>
+    /// Based on the passed in pause status, resume playing the audio that was last paused if it is not null.
+    /// </summary>
+    /// <param name="pauseStatus"></param>
     public void MusicChangeOnPauseStatus(bool pauseStatus)
     {
         // Grab the data from the current playing clip before the audio is switched on the pause action.
@@ -98,7 +106,7 @@ public class MusicManager : MonoBehaviour
                 break;
         }
 
-        // On pause change, resume the audio to start from the last saved audio clip to resume if it is not null.
+        // On pause change, resume the audio to start from the last saved audio clip if it is not null.
         if (AudioToResume != null)
         {
             AudioToResume.PlayAudioFromTime(MusicAudioSource, 0.1f);
@@ -112,6 +120,10 @@ public class MusicManager : MonoBehaviour
         AudioToResume = pausedAudioData;
     }
 
+    /// <summary>
+    /// Plays a randomised track from a given listings of sounds.
+    /// </summary>
+    /// <param name="currentSoundGroup"></param>
     public void PlaySoundClipFromGrouping(SoundGroupings_SO currentSoundGroup)
     {
         MusicAudioSource.clip = currentSoundGroup.SoundData[UnityEngine.Random.Range(0, currentSoundGroup.SoundData.Count)].SoundDataSO.AudioClip;
@@ -119,6 +131,9 @@ public class MusicManager : MonoBehaviour
     }
 }
 
+/// <summary>
+/// Class representing the music and snapshot of time that a given audio track was paused at, so that it can be referenced for resuming at the exact instance.
+/// </summary>
 public class PlayingAudioData
 {
     public AudioClip ClipPlaying

@@ -18,6 +18,10 @@ public interface UI_SoundMixerControls
 
     public void InitialseListeners();
 
+    /// <summary>
+    /// Set the sliders to default values for best use in being used to control and audio mixers values.
+    /// </summary>
+    /// <param name="sliderToAdjust"></param>
     public static void InitialiseSlider(Slider sliderToAdjust)
     {
         sliderToAdjust.wholeNumbers = false;
@@ -26,6 +30,12 @@ public interface UI_SoundMixerControls
         sliderToAdjust.value = sliderToAdjust.maxValue;
     }
 
+    /// <summary>
+    /// Convert the audio mixers values to the normalised values used on the sliders.
+    /// </summary>
+    /// <param name="audioMixer"></param>
+    /// <param name="floatToChange"></param>
+    /// <param name="sliderToAdjust"></param>
     public static void ChangeMixerValueToNormalised(AudioMixer audioMixer, string floatToChange, Slider sliderToAdjust)
     {
         if (audioMixer.GetFloat(floatToChange, out float valueMaster))
@@ -39,6 +49,12 @@ public interface UI_SoundMixerControls
         }
     }
 
+    /// <summary>
+    /// Convert the normalised slider value to the audio mixers decibal scale.
+    /// </summary>
+    /// <param name="newValue"></param>
+    /// <param name="audioMixer"></param>
+    /// <param name="floatToChange"></param>
     public static void ChangeNormalisedValueToMixer(float newValue, AudioMixer audioMixer, string floatToChange)
     {
         float logValue = Mathf.Log10(newValue) * 20;

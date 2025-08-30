@@ -70,6 +70,9 @@ public class OptionsMenu : MonoBehaviour, UI_SoundMixerControls
         
     }
 
+    /// <summary>
+    /// Initialise the listnerers of the sliders so that they can adjust the sound mixers they are associated with.
+    /// </summary>
     public void InitialseListeners()
     {
         MasterVolumeSlider.onValueChanged.AddListener(value => AdjustMasterSound?.Invoke(value));

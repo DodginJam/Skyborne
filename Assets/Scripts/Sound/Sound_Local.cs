@@ -34,16 +34,31 @@ public class Sound_Local : MonoBehaviour
         InitialiseAudioSource(AudioSourceComp);
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
-        
+        // Add the local pausing of sound method to the scene handlers event for pausing.
+        SceneHandler.Instance.ScenePause += SoundChangeOnPauseStatus;
+    }
+    private void OnDisable()
+    {
+        // Remove the local pausing of sound method to the scene handlers event for pausing.
+        SceneHandler.Instance.ScenePause -= SoundChangeOnPauseStatus;
     }
 
-    // Update is called once per frame
-    void Update()
+    /// <summary>
+    /// Tell the audio source to stop or play depending on the active status of the boolean passed through.
+    /// </summary>
+    /// <param name="activeStatus"></param>
+    public void SoundChangeOnPauseStatus(bool activeStatus)
     {
-        
+        if (activeStatus)
+        {
+            AudioSourceComp.Pause();
+        }
+        else
+        {
+            AudioSourceComp.UnPause();
+        }
     }
 
     /// <summary>

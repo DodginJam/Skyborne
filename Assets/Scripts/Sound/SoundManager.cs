@@ -3,9 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
+/// <summary>
+/// For the global modification of sound and the management of the mixer.
+/// </summary>
 [DefaultExecutionOrder(-500)]
 public class SoundManager : MonoBehaviour
 {
+    /// <summary>
+    /// The current singleton instance of the sound manager.
+    /// </summary>
     public static SoundManager Instance
     { get; private set; }
 
