@@ -38,6 +38,8 @@ public class PrimaryFlightControls
     public float ThrottleValue
     { get; set; } = 0;
 
+    public event Action<float> OnThrottleValue;
+
     /// <summary>
     /// The rate of which the propeller should rotate per second.
     /// </summary>
@@ -60,5 +62,11 @@ public class PrimaryFlightControls
         float newCurrentDegree = Mathf.MoveTowardsAngle(currentElevatorDegrees, newDegreeTarget, speedOfRotation * Time.fixedDeltaTime);
 
         return newCurrentDegree;
+    }
+
+    public void AdjustThrottleValue(float newValue)
+    {
+        ThrottleValue = newValue;
+        OnThrottleValue?.Invoke(newValue);
     }
 }

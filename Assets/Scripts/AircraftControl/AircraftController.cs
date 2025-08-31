@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -125,13 +126,14 @@ public class AircraftController : MonoBehaviour
 
             float newThrottleValue = Mathf.MoveTowards(flightControls.ThrottleValue, normalisedJoystickInput, Time.fixedDeltaTime * CurrentValues.BaseValues.ThrottleSpeedOfChange);
 
-            flightControls.ThrottleValue = newThrottleValue;
+            flightControls.AdjustThrottleValue(newThrottleValue);
         }
         else
         {
             // Calculating the throttles values after any changes in input by the player.
             float newThrottleValue = flightControls.ThrottleValue + (inputControls.ThrottleInput * Time.fixedDeltaTime * CurrentValues.BaseValues.ThrottleSpeedOfChange);
-            flightControls.ThrottleValue = Mathf.Clamp01(newThrottleValue);
+
+            flightControls.AdjustThrottleValue(Mathf.Clamp01(newThrottleValue));
         }
 
         // Calculating the elevator normalised angles of degrees.

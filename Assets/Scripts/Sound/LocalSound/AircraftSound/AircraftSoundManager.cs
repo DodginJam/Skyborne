@@ -35,25 +35,47 @@ public class AircraftSoundManager : Sound_Local_Manager
         base.Awake();
 
         InitialiseEngineValues();
+
+        FlightValues = GameObject.FindAnyObjectByType<AircraftCurrentValues>().FlightControls;
+
     }
 
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
+    }
 
-        FlightValues = GameObject.FindAnyObjectByType<AircraftCurrentValues>().FlightControls;
+    private void OnEnable()
+    {
+        if (FlightValues != null)
+        {
+            FlightValues.OnThrottleValue += CalculateNewVolume;
+            FlightValues.OnThrottleValue += CalculateNewPitch;
+        }
+        else
+        {
+            Debug.LogError("Flight Values is null");
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (FlightValues != null)
+        {
+            FlightValues.OnThrottleValue -= CalculateNewVolume;
+            FlightValues.OnThrottleValue -= CalculateNewPitch;
+        }
+        else
+        {
+            Debug.LogError("Flight Values is null");
+        }
     }
 
     // Update is called once per frame
     protected override void Update()
     {
         base.Update();
-
-        float throttleValue = FlightValues.ThrottleValue;
-
-        EngineSound.AdjustVolume(CalculateNewSoundValue(throttleValue, MinEngineVolume, MaxEngineVolume));
-        EngineSound.AdjustPitch(CalculateNewSoundValue(throttleValue, MinEnginePitch, MaxEnginePitch));
     }
 
     public void InitialiseEngineValues()
@@ -67,5 +89,15 @@ public class AircraftSoundManager : Sound_Local_Manager
         float lerpedSoundValue = Mathf.Lerp(minSoundValue, maxSoundValue, currentNormalisedValue);
 
         return lerpedSoundValue;
+    }
+
+    public void CalculateNewVolume(float value)
+    {
+        EngineSound.AdjustVolume(CalculateNewSoundValue(value, MinEngineVolume, MaxEngineVolume));
+    }
+
+    public void CalculateNewPitch(float value)
+    {
+        EngineSound.AdjustPitch(CalculateNewSoundValue(value, MinEnginePitch, MaxEnginePitch));
     }
 }
