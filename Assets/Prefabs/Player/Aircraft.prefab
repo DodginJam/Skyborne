@@ -1405,7 +1405,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -4488440715235361853, guid: b4f9c5bca3d67d949812fabd68787860,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: f062584d64e056c4c8a203ecd2f30ac2, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -1503,8 +1503,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e306feba11c16ac40bf9a85332a2d843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <LocalAudio>k__BackingField: {fileID: 8300000, guid: f062584d64e056c4c8a203ecd2f30ac2,
-    type: 3}
+  <LocalAudioData>k__BackingField: {fileID: 11400000, guid: e69fd6b3c5e1ddb42bea6a1979287050,
+    type: 2}
   <Allow2DSound>k__BackingField: 0
 --- !u!1 &4180030454041393184
 GameObject:
@@ -2434,7 +2434,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8111579863039747408}
-  - component: {fileID: 7941225729685145268}
+  - component: {fileID: 4019517156532182229}
   m_Layer: 0
   m_Name: Sound
   m_TagString: Untagged
@@ -2458,7 +2458,7 @@ Transform:
   - {fileID: 6387434739839704300}
   m_Father: {fileID: 9179970687835517652}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7941225729685145268
+--- !u!114 &4019517156532182229
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2467,9 +2467,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 4863696760437570106}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13b0a5e124f331243b3890510e3a0c1f, type: 3}
+  m_Script: {fileID: 11500000, guid: 5bc28c50c844c6243b63ece9a3a25dbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <EngineSound>k__BackingField: {fileID: 2846371665032704480}
+  <MaxEngineVolume>k__BackingField: 0.8
+  <MinEngineVolume>k__BackingField: 0.3
+  <MaxEnginePitch>k__BackingField: 1.27
+  <MinEnginePitch>k__BackingField: 0.7
 --- !u!1 &4895237626668929585
 GameObject:
   m_ObjectHideFlags: 0

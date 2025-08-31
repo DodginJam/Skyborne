@@ -106,6 +106,8 @@ public class AircraftController : MonoBehaviour
         {
             PlaneRigidBody.centerOfMass = CentreOfMassTransform.transform.localPosition;
         }
+
+        valuesHolder.LevelOfFlight = CurrentValues.ValuesHolder.CalculateLevelOfFlightDotProduct(PlaneRigidBody.gameObject);
     }
 
     /// <summary>
@@ -204,8 +206,6 @@ public class AircraftController : MonoBehaviour
 
         // Updating display information for player to read.
         valuesHolder.HeightAboveSeaLevel = PlaneRigidBody.transform.position.y;
-
-        valuesHolder.LevelOfFlight = CurrentValues.ValuesHolder.CalculateLevelOfFlightDotProduct(PlaneRigidBody.gameObject);
     }
 
 }

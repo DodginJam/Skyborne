@@ -12,7 +12,7 @@ public class Sound_Local : MonoBehaviour
     {  get; private set; }
 
     [field: SerializeField]
-    public AudioClip LocalAudio
+    public SoundData_SO LocalAudioData
     { get; private set; }
 
     [field: SerializeField]
@@ -71,5 +71,22 @@ public class Sound_Local : MonoBehaviour
         {
             audioSource.spatialBlend = 1;
         }
+
+        audioSource.clip = LocalAudioData.AudioClip;
+        audioSource.Play();
+    }
+
+    public void AdjustPitch(float newPitch)
+    {
+        newPitch = Mathf.Clamp(newPitch, -3, 3);
+
+        AudioSourceComp.pitch = newPitch;
+    }
+
+    public void AdjustVolume(float newVolume)
+    {
+        newVolume = Mathf.Clamp(newVolume, 0, 1);
+
+        AudioSourceComp.volume = newVolume;
     }
 }

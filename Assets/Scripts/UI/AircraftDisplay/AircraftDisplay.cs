@@ -178,7 +178,7 @@ public class AircraftDisplay : MonoBehaviour
             }
             else
             {
-                Debug.LogError("PlayerAircraftScript.CurrentValues or PlayerAircraftScript.CurrentValues.ValuesHolder not assigned.");
+                Debug.LogError("PlayerAircraftScript.FlightValues or PlayerAircraftScript.FlightValues.ValuesHolder not assigned.");
             }
         }
         else

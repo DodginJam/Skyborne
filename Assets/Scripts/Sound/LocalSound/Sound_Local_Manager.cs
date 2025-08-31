@@ -11,19 +11,19 @@ public class Sound_Local_Manager : MonoBehaviour
     public List<Sound_Local> LocalSounds
     { get; private set; } = new List<Sound_Local>();
 
-    private void Awake()
+    protected virtual void Awake()
     {
         LocalSounds = GetComponentsInChildren<Sound_Local>().ToList();
     }
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         
     }
