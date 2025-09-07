@@ -2074,6 +2074,7 @@ MonoBehaviour:
   <UI_Input>k__BackingField: {fileID: 9160270495506554820}
   <PlayGameButton>k__BackingField: {fileID: 1814129041915904979}
   <OptionsButton>k__BackingField: {fileID: 1878385830023355079}
+  <MainMenuElements>k__BackingField: {fileID: 1199427443139554456}
   <OptionsMenu>k__BackingField: {fileID: 2276614308150420712}
   <QuitButton>k__BackingField: {fileID: 7245786156789501818}
 --- !u!1 &6406447480061213898

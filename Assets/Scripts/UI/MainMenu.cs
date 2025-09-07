@@ -23,6 +23,13 @@ public class MainMenu : MonoBehaviour
     { private get; set; }
 
     /// <summary>
+    /// The gameobject holding the main menu elements.
+    /// </summary>
+    [field: SerializeField]
+    public GameObject MainMenuElements
+    { private get; set; }
+
+    /// <summary>
     /// The gameobject holding the options menu elements.
     /// </summary>
     [field: SerializeField]
@@ -75,7 +82,9 @@ public class MainMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        // Pre-add the main menu UI elements to the list of OpenUIElements
+
+        OpenUIELements.Add(MainMenuElements);
     }
 
     /// <summary>
@@ -83,12 +92,10 @@ public class MainMenu : MonoBehaviour
     /// </summary>
     void OnBackInput()
     {
-        // If the only pause menu open is the actually base pause menu, close it and resume the game.
-        if (OpenUIELements.Count > 0)
+        // Ensure that the menus only close if not the base (starting) menu.
+        if (OpenUIELements.Count > 1)
         {
-            // Look at the list of open UI elements of the pause menu and remove the latest opened gameobject and close it.
-            OpenUIELements[OpenUIELements.Count - 1].SetActive(false);
-            OpenUIELements.RemoveAt(OpenUIELements.Count - 1);
+            ModifyOpenUIElements(false, OpenUIELements[OpenUIELements.Count - 1]);
         }
     }
 
@@ -137,6 +144,12 @@ public class MainMenu : MonoBehaviour
     {
         if (add)
         {
+            // Check if any UI element already on the list before checking to un-render it before adding the new UI element.
+            if (OpenUIELements.Count > 0)
+            {
+                OpenUIELements[OpenUIELements.Count - 1].SetActive(false);
+            }
+
             OpenUIELements.Add(UIelement);
             UIelement.SetActive(true);
         }
@@ -144,6 +157,12 @@ public class MainMenu : MonoBehaviour
         {
             OpenUIELements.Remove(UIelement);
             UIelement.SetActive(false);
+
+            // Check if any UI element still open on the list, before checking to render it.
+            if (OpenUIELements.Count > 0)
+            {
+                OpenUIELements[OpenUIELements.Count - 1].SetActive(true);
+            }
         }
     }
 

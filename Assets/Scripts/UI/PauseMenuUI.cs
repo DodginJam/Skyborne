@@ -120,21 +120,16 @@ public class PauseMenuUI : MonoBehaviour
     /// </summary>
     void OnPauseInput()
     {
-        if (PauseMenuElements.activeSelf)
+        // If the only pause menu open is the actually base pause menu, close it and resume the game.
+        if (OpenUIELements.Count == 1 && PauseMenuElements.activeSelf)
         {
-            // If the only pause menu open is the actually base pause menu, close it and resume the game.
-            if (OpenUIELements.Count == 1 && OpenUIELements[0] == PauseMenuElements)
-            {
-                ResumeGame();
-            }
-            else
-            {
-                // Look at the list of open UI elements of the pause menu and remove the latest opened gameobject and close it.
-                OpenUIELements[OpenUIELements.Count - 1].SetActive(false);
-                OpenUIELements.RemoveAt(OpenUIELements.Count - 1);
-            }
+            ResumeGame();
         }
-        else
+        else if (OpenUIELements.Count > 1)
+        {
+            ModifyOpenUIElements(false, OpenUIELements[OpenUIELements.Count - 1]);
+        }
+        else if (OpenUIELements.Count == 0)
         {
             PauseGame();
         }
@@ -218,6 +213,12 @@ public class PauseMenuUI : MonoBehaviour
     {
         if (add)
         {
+            // Check if any UI element already on the list before checking to un-render it before adding the new UI element.
+            if (OpenUIELements.Count > 0)
+            {
+                OpenUIELements[OpenUIELements.Count - 1].SetActive(false);
+            }
+
             OpenUIELements.Add(UIelement);
             UIelement.SetActive(true);
         }
@@ -225,6 +226,12 @@ public class PauseMenuUI : MonoBehaviour
         {
             OpenUIELements.Remove(UIelement);
             UIelement.SetActive(false);
+
+            // Check if any UI element still open on the list, before checking to render it.
+            if (OpenUIELements.Count > 0)
+            {
+                OpenUIELements[OpenUIELements.Count - 1].SetActive(true);
+            }
         }
     }
 
@@ -233,12 +240,26 @@ public class PauseMenuUI : MonoBehaviour
     /// </summary>
     void QuitGame()
     {
-        SceneHandler.Instance.QuitGame();
+        if (SceneHandler.Instance != null)
+        {
+            SceneHandler.Instance.QuitGame();
+        }
+        else
+        {
+            Debug.LogError("SceneHandler.Instance is null - is the script in the scene?");
+        }
     }
 
     void ChangeScene(int newSceneIndex)
     {
-        SceneHandler.Instance.LoadScene(newSceneIndex);
+        if (SceneHandler.Instance != null)
+        {
+            SceneHandler.Instance.LoadScene(newSceneIndex);
+        }
+        else
+        {
+            Debug.LogError("SceneHandler.Instance is null - is the script in the scene?");
+        }
     }
 
     /// <summary>
@@ -249,6 +270,13 @@ public class PauseMenuUI : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        SceneHandler.Instance.RestartScene();
+        if (SceneHandler.Instance != null)
+        {
+            SceneHandler.Instance.RestartScene();
+        }
+        else
+        {
+            Debug.LogError("SceneHandler.Instance is null - is the script in the scene?");
+        }
     }
 }
