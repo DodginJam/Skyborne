@@ -22,6 +22,9 @@ public class SoundManager : MonoBehaviour
     public MusicManager MusicManagerScript
     { get; private set; }
 
+    public SFXManager SFXManagerScript
+    { get; private set; }
+
     public string MIXER_MASTER 
     { get; private set; }= "MasterVolume";
 
@@ -45,6 +48,8 @@ public class SoundManager : MonoBehaviour
         }
 
         MusicManagerScript = GetComponentInChildren<MusicManager>();
+
+        SFXManagerScript = GetComponentInChildren<SFXManager>();
     }
 
     public void AdjustSoundMaster(float newValue)

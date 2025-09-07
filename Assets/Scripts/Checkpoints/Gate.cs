@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gate : MonoBehaviour
+public class Gate : MonoBehaviour, IGlobalSoundOnCollect
 {
     [field: SerializeField]
     public GameManager GameManagerScript
@@ -23,6 +23,14 @@ public class Gate : MonoBehaviour
 
     public bool HasMissed     
     {  get; set; }
+
+    [field: SerializeField]
+    public SoundData_SO SoundCollect
+    { get; set; }
+
+    [field: SerializeField]
+    public SoundData_SO SoundMiss
+    { get; set; }
 
     private void Awake()
     {
@@ -74,6 +82,12 @@ public class Gate : MonoBehaviour
         {
             HasMissed = true;
             GameManagerScript.IncreasePenalty(1);
+
+            if (this is IGlobalSoundOnCollect soundOnCollect)
+            {
+                soundOnCollect.PlaySoundOnMiss();
+            }
+
             gameObject.SetActive(false);
         }
     }
@@ -85,6 +99,11 @@ public class Gate : MonoBehaviour
         {
             GameManagerScript.IncreaseScore(GatePointValue);
             gameObject.SetActive(false);
+
+            if (this is IGlobalSoundOnCollect soundOnCollect)
+            {
+                soundOnCollect.PlaySoundOnCollect();
+            }
         }
     }
 
@@ -94,6 +113,11 @@ public class Gate : MonoBehaviour
         {
             GameManagerScript.IncreaseScore(GatePointValue);
             gameObject.SetActive(false);
+
+            if (this is IGlobalSoundOnCollect soundOnCollect)
+            {
+                soundOnCollect.PlaySoundOnCollect();
+            }
         }
     }
 }

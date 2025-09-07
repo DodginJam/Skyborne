@@ -73,6 +73,10 @@ MonoBehaviour:
   <PlayerController>k__BackingField: {fileID: 0}
   <GateSpawner>k__BackingField: {fileID: 0}
   <GatePointValue>k__BackingField: 1000
+  <SoundCollect>k__BackingField: {fileID: 11400000, guid: c1b4d5d202701c8489f4f87515fd5031,
+    type: 2}
+  <SoundMiss>k__BackingField: {fileID: 11400000, guid: 0e01f4bc5bf32ce42ab2182d861f4f61,
+    type: 2}
 --- !u!1001 &462836062128860348
 PrefabInstance:
   m_ObjectHideFlags: 0

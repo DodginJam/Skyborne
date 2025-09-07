@@ -2471,8 +2471,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <EngineSound>k__BackingField: {fileID: 2846371665032704480}
-  <MaxEngineVolume>k__BackingField: 0.8
-  <MinEngineVolume>k__BackingField: 0.3
+  <MaxEngineVolume>k__BackingField: 0.5
+  <MinEngineVolume>k__BackingField: 0.1
   <MaxEnginePitch>k__BackingField: 1.27
   <MinEnginePitch>k__BackingField: 0.7
 --- !u!1 &4895237626668929585
