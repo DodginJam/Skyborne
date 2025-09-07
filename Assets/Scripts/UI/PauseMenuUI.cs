@@ -41,6 +41,17 @@ public class PauseMenuUI : MonoBehaviour
     { private get; set; }
 
     [field: SerializeField]
+    public Button ControlsButton
+    { private get; set; }
+
+    /// <summary>
+    /// The gameobject holding the controls menu elements.
+    /// </summary>
+    [field: SerializeField]
+    public GameObject ControlsMenu
+    { private get; set; }
+
+    [field: SerializeField]
     public Button MenuButton
     { private get; set; }
 
@@ -188,6 +199,19 @@ public class PauseMenuUI : MonoBehaviour
         }
     }
 
+    public void ControlsPress()
+    {
+        if (ControlsMenu != null)
+        {
+            // Add the options menu to the list of open UI elements.
+            ModifyOpenUIElements(true, ControlsMenu);
+        }
+        else
+        {
+            Debug.LogError("Controls Menu is not assigned.");
+        }
+    }
+
     /// <summary>
     /// Initialisation check for button events.
     /// </summary>
@@ -198,6 +222,8 @@ public class PauseMenuUI : MonoBehaviour
         RestartButton.onClick.AddListener(() => RestartGame());
 
         OptionsButton.onClick.AddListener(() => OptionsPress());
+
+        ControlsButton.onClick.AddListener(() => ControlsPress());
 
         MenuButton.onClick.AddListener(() => ChangeScene(0));
 

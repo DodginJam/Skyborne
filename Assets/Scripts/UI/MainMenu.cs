@@ -40,6 +40,17 @@ public class MainMenu : MonoBehaviour
     public Button QuitButton
     { private get; set; }
 
+    [field: SerializeField]
+    public Button ControlsButton
+    { private get; set; }
+
+    /// <summary>
+    /// The gameobject holding the controls menu elements.
+    /// </summary>
+    [field: SerializeField]
+    public GameObject ControlsMenu
+    { private get; set; }
+
     /// <summary>
     /// The list of open UI elements to be tracked for menu control.
     /// </summary>
@@ -133,6 +144,8 @@ public class MainMenu : MonoBehaviour
         OptionsButton.onClick.AddListener(() => OptionsPress());
 
         QuitButton.onClick.AddListener(() => QuitGame());
+
+        ControlsButton.onClick.AddListener(() => ControlsPress());
     }
 
     /// <summary>
@@ -172,5 +185,18 @@ public class MainMenu : MonoBehaviour
     void QuitGame()
     {
         SceneHandler.Instance.QuitGame();
+    }
+
+    public void ControlsPress()
+    {
+        if (ControlsMenu != null)
+        {
+            // Add the options menu to the list of open UI elements.
+            ModifyOpenUIElements(true, ControlsMenu);
+        }
+        else
+        {
+            Debug.LogError("Controls Menu is not assigned.");
+        }
     }
 }
