@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e404ae1b502459f4bb7ba8270856ea7d, type: 3}
+  m_Name: RadioChatterGroup
+  m_EditorClassIdentifier: 
+  <SoundData>k__BackingField:
+  - <Name>k__BackingField: RadioChatter001
+    <SoundDataSO>k__BackingField: {fileID: 11400000, guid: 136d59d925683bf40a1973b2bef8edea,
+      type: 2}
+  - <Name>k__BackingField: RadioChatter002
+    <SoundDataSO>k__BackingField: {fileID: 11400000, guid: 4ca9c7d7f21e9c6478da4f5baa5e5666,
+      type: 2}
+  - <Name>k__BackingField: RadioChatter003
+    <SoundDataSO>k__BackingField: {fileID: 11400000, guid: 640fabc015fdb814fa6fc168a9a8745a,
+      type: 2}
+  - <Name>k__BackingField: RadioChatter004
+    <SoundDataSO>k__BackingField: {fileID: 11400000, guid: e8477ca0957f7b344961270e24620ea3,
+      type: 2}
+  - <Name>k__BackingField: RadioChatter005
+    <SoundDataSO>k__BackingField: {fileID: 11400000, guid: 72283d9c576a24d4a8d76cbc0b1b87cb,
+      type: 2}
+  - <Name>k__BackingField: RadioChatter006
+    <SoundDataSO>k__BackingField: {fileID: 11400000, guid: f9f2d6150f41f2e4bb86074ce1c6819e,
+      type: 2}
+  - <Name>k__BackingField: RadioChatter007
+    <SoundDataSO>k__BackingField: {fileID: 11400000, guid: dff609a3f58df204cb4e15f6a78c7288,
+      type: 2}
+  - <Name>k__BackingField: RadioChatter008
+    <SoundDataSO>k__BackingField: {fileID: 11400000, guid: 2faf31c1529c022418f71a6191776b7d,
+      type: 2}
+  - <Name>k__BackingField: RadioChatter009
+    <SoundDataSO>k__BackingField: {fileID: 11400000, guid: 9b070b88a51118a4782441de2820a40c,
+      type: 2}
+  - <Name>k__BackingField: RadioChatter010
+    <SoundDataSO>k__BackingField: {fileID: 11400000, guid: 8773e2afd63575e418ce57e6cf3b8582,
+      type: 2}
+  - <Name>k__BackingField: RadioChatter011
+    <SoundDataSO>k__BackingField: {fileID: 11400000, guid: 737361050b5adbc47b63f094cb886353,
+      type: 2}

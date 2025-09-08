@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a91c8f11e22bd174f96b51d874284ea7, type: 3}
+  m_Name: CheckpointCollect
+  m_EditorClassIdentifier: 
+  <AudioClip>k__BackingField: {fileID: 8300000, guid: cd2af0aa4d98a9a4393e7004690f5df2,
+    type: 3}

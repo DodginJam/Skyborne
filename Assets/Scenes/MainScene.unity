@@ -6191,16 +6191,6 @@ PrefabInstance:
       propertyPath: <CameraManagerScript>k__BackingField
       value: 
       objectReference: {fileID: 1999812917}
-    - target: {fileID: 4019517156532182229, guid: 7b82bb532206fde468345883997c8e03,
-        type: 3}
-      propertyPath: <MaxEngineVolume>k__BackingField
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4019517156532182229, guid: 7b82bb532206fde468345883997c8e03,
-        type: 3}
-      propertyPath: <MinEngineVolume>k__BackingField
-      value: 0.025
-      objectReference: {fileID: 0}
     - target: {fileID: 4369538761635429051, guid: 7b82bb532206fde468345883997c8e03,
         type: 3}
       propertyPath: m_AnchorMax.x
