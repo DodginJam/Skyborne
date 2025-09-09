@@ -1677,7 +1677,8 @@ MonoBehaviour:
   <MasterVolumeSlider>k__BackingField: {fileID: 7090362799405480017}
   <MusicVolumeSlider>k__BackingField: {fileID: 1809768188814850812}
   <SFXVolumeSlider>k__BackingField: {fileID: 2742042349142746185}
-  <InteractSound>k__BackingField: {fileID: 0}
+  <InteractSound>k__BackingField: {fileID: 11400000, guid: c07d940718acf724c91aff1295da46da,
+    type: 2}
 --- !u!1 &4245340085058231809
 GameObject:
   m_ObjectHideFlags: 0
