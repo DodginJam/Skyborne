@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 
-public class OptionsMenu : MonoBehaviour, UI_SoundMixerControls
+public class OptionsMenu : MonoBehaviour, IUI_SoundMixerControls, IUI_Sound
 {
     [field: SerializeField]
     public Slider MasterVolumeSlider
@@ -19,26 +19,30 @@ public class OptionsMenu : MonoBehaviour, UI_SoundMixerControls
     public Slider SFXVolumeSlider
     { get; private set; }
 
+    [field: SerializeField]
+    public SoundData_SO InteractSound
+    { get; set; }
+
     public event Action<float> AdjustMasterSound;
     public event Action<float> AdjustMusicSound;
     public event Action<float> AdjustSFXSound;
 
     private void Awake()
     {
-        UI_SoundMixerControls.InitialiseSlider(MasterVolumeSlider);
-        UI_SoundMixerControls.InitialiseSlider(MusicVolumeSlider);
-        UI_SoundMixerControls.InitialiseSlider(SFXVolumeSlider);
+        IUI_SoundMixerControls.InitialiseSlider(MasterVolumeSlider);
+        IUI_SoundMixerControls.InitialiseSlider(MusicVolumeSlider);
+        IUI_SoundMixerControls.InitialiseSlider(SFXVolumeSlider);
 
         InitialseListeners();
 
         // Set the slider values to reflect the current audio levels of the sound mixer upon a new options menu being loaded in.
         if (SoundManager.Instance != null)
         {
-            UI_SoundMixerControls.ChangeMixerValueToNormalised(SoundManager.Instance.AudioMixerAsset, SoundManager.Instance.MIXER_MASTER, MasterVolumeSlider);
+            IUI_SoundMixerControls.ChangeMixerValueToNormalised(SoundManager.Instance.AudioMixerAsset, SoundManager.Instance.MIXER_MASTER, MasterVolumeSlider);
 
-            UI_SoundMixerControls.ChangeMixerValueToNormalised(SoundManager.Instance.AudioMixerAsset, SoundManager.Instance.MIXER_MUSIC, MusicVolumeSlider);
+            IUI_SoundMixerControls.ChangeMixerValueToNormalised(SoundManager.Instance.AudioMixerAsset, SoundManager.Instance.MIXER_MUSIC, MusicVolumeSlider);
 
-            UI_SoundMixerControls.ChangeMixerValueToNormalised(SoundManager.Instance.AudioMixerAsset, SoundManager.Instance.MIXER_SFX, SFXVolumeSlider);
+            IUI_SoundMixerControls.ChangeMixerValueToNormalised(SoundManager.Instance.AudioMixerAsset, SoundManager.Instance.MIXER_SFX, SFXVolumeSlider);
         }
     }
 
@@ -78,5 +82,15 @@ public class OptionsMenu : MonoBehaviour, UI_SoundMixerControls
         MasterVolumeSlider.onValueChanged.AddListener(value => AdjustMasterSound?.Invoke(value));
         MusicVolumeSlider.onValueChanged.AddListener(value => AdjustMusicSound?.Invoke(value));
         SFXVolumeSlider.onValueChanged.AddListener(value => AdjustSFXSound?.Invoke(value));
+
+        if (this is IUI_Sound soundUI)
+        {
+            soundUI.ImplementSoundListeners(new List<Selectable>
+            {
+                MasterVolumeSlider,
+                MusicVolumeSlider,
+                SFXVolumeSlider,
+            });
+        }
     }
 }

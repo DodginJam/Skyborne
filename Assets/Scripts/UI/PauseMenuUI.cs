@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class PauseMenuUI : MonoBehaviour
+public class PauseMenuUI : MonoBehaviour, IUI_Sound
 {
     /// <summary>
     /// The input system for the UI.
@@ -71,6 +71,10 @@ public class PauseMenuUI : MonoBehaviour
     /// </summary>
     public List<GameObject> OpenUIELements
     { private get; set; } = new List<GameObject>();
+
+    [field: SerializeField]
+    public SoundData_SO InteractSound
+    { get; set; }
 
     void Awake()
     {
@@ -228,6 +232,19 @@ public class PauseMenuUI : MonoBehaviour
         MenuButton.onClick.AddListener(() => ChangeScene(0));
 
         QuitButton.onClick.AddListener(() => QuitGame());
+
+        if (this is IUI_Sound soundUI)
+        {
+            soundUI.ImplementSoundListeners(new List<Selectable>
+            {
+                ResumeButton,
+                RestartButton,
+                OptionsButton,
+                ControlsButton,
+                MenuButton,
+                QuitButton
+            });
+        }
     }
 
     /// <summary>

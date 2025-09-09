@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a91c8f11e22bd174f96b51d874284ea7, type: 3}
   m_Name: CheckpointCollect
   m_EditorClassIdentifier: 
-  <AudioClip>k__BackingField: {fileID: 8300000, guid: cd2af0aa4d98a9a4393e7004690f5df2,
+  <AudioClip>k__BackingField: {fileID: 8300000, guid: 69516e128ad3fe54aba89e36f8e596b2,
     type: 3}

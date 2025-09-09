@@ -806,7 +806,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Main Menu
+  m_text: 'Skyborne
+
+    Flight Simulation'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1675,6 +1677,7 @@ MonoBehaviour:
   <MasterVolumeSlider>k__BackingField: {fileID: 7090362799405480017}
   <MusicVolumeSlider>k__BackingField: {fileID: 1809768188814850812}
   <SFXVolumeSlider>k__BackingField: {fileID: 2742042349142746185}
+  <InteractSound>k__BackingField: {fileID: 0}
 --- !u!1 &4245340085058231809
 GameObject:
   m_ObjectHideFlags: 0
@@ -2621,6 +2624,8 @@ MonoBehaviour:
   <QuitButton>k__BackingField: {fileID: 7245786156789501818}
   <ControlsButton>k__BackingField: {fileID: 7616274648631322778}
   <ControlsMenu>k__BackingField: {fileID: 4638047953736854970}
+  <InteractSound>k__BackingField: {fileID: 11400000, guid: c07d940718acf724c91aff1295da46da,
+    type: 2}
 --- !u!1 &6406447480061213898
 GameObject:
   m_ObjectHideFlags: 0

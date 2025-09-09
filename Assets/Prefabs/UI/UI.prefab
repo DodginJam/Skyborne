@@ -7076,6 +7076,8 @@ MonoBehaviour:
   <MenuButton>k__BackingField: {fileID: 7710271188093938929}
   <QuitButton>k__BackingField: {fileID: 8573205237559011534}
   <PauseMenuElements>k__BackingField: {fileID: 2263126253456168743}
+  <InteractSound>k__BackingField: {fileID: 11400000, guid: f02aad682940d4346899ec05d549b1a2,
+    type: 2}
 --- !u!1 &8569776913424876762
 GameObject:
   m_ObjectHideFlags: 0
@@ -7298,6 +7300,8 @@ MonoBehaviour:
   <MasterVolumeSlider>k__BackingField: {fileID: 8887358786292995285}
   <MusicVolumeSlider>k__BackingField: {fileID: 8392278184946365993}
   <SFXVolumeSlider>k__BackingField: {fileID: 466289334880221687}
+  <InteractSound>k__BackingField: {fileID: 11400000, guid: f02aad682940d4346899ec05d549b1a2,
+    type: 2}
 --- !u!1 &8826917432374891073
 GameObject:
   m_ObjectHideFlags: 0

@@ -54,20 +54,20 @@ public class SoundManager : MonoBehaviour
 
     public void AdjustSoundMaster(float newValue)
     {
-        UI_SoundMixerControls.ChangeNormalisedValueToMixer(newValue, AudioMixerAsset, MIXER_MASTER);
+        IUI_SoundMixerControls.ChangeNormalisedValueToMixer(newValue, AudioMixerAsset, MIXER_MASTER);
     }
 
     public void AdjustSoundMusic(float newValue)
     {
-        UI_SoundMixerControls.ChangeNormalisedValueToMixer(newValue, AudioMixerAsset, MIXER_MUSIC);
+        IUI_SoundMixerControls.ChangeNormalisedValueToMixer(newValue, AudioMixerAsset, MIXER_MUSIC);
     }
 
     public void AdjustSoundSFX(float newValue)
     {
-        UI_SoundMixerControls.ChangeNormalisedValueToMixer(newValue, AudioMixerAsset, MIXER_SFX);
+        IUI_SoundMixerControls.ChangeNormalisedValueToMixer(newValue, AudioMixerAsset, MIXER_SFX);
     }
 
-    public void AddOrRemoveUI_SoundListeners(UI_SoundMixerControls uiSound, bool addTrueRemoveFalse)
+    public void AddOrRemoveUI_SoundListeners(IUI_SoundMixerControls uiSound, bool addTrueRemoveFalse)
     {
         if (addTrueRemoveFalse)
         {

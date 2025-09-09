@@ -8,7 +8,7 @@ using UnityEngine.Audio;
 /// <summary>
 /// Interface for UI elements that have events for adjusting the sound mixer values.
 /// </summary>
-public interface UI_SoundMixerControls
+public interface IUI_SoundMixerControls
 {
     public event Action<float> AdjustMasterSound;
 
