@@ -7,15 +7,8 @@ using UnityEngine;
 /// <summary>
 /// Central point for drawning in the gameplay loop elements.
 /// </summary>
-public class GameManager : MonoBehaviour
+public class GameManagerBase : MonoBehaviour
 {
-    /// <summary>
-    /// The reference to the GateScript spawning logic.
-    /// </summary>
-    [field: SerializeField]
-    public GateSpawning GateSpawningScript
-    { get; private set; }
-
     /// <summary>
     /// The list of HUD UI element for the aircraft display.
     /// </summary>
@@ -60,7 +53,7 @@ public class GameManager : MonoBehaviour
         Failure,
     }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         // Initialisation.
         if (DisplaysToUpdate == null)
@@ -70,16 +63,6 @@ public class GameManager : MonoBehaviour
             if (DisplaysToUpdate == null)
             {
                 Debug.LogWarning("Unable to locate the aircraft display component.");
-            }
-        }
-
-        if (GateSpawningScript == null)
-        {
-            GateSpawningScript = GameObject.FindAnyObjectByType<GateSpawning>();
-
-            if (GateSpawningScript == null)
-            {
-                Debug.LogWarning("Unable to locate the GateScript spawning component.");
             }
         }
     }
@@ -137,7 +120,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (PenaltyCounter >= PenaltyLimit && GameState == GameManager.GameStatus.Playing)
+        if (PenaltyCounter >= PenaltyLimit && GameState == GameManagerBase.GameStatus.Playing)
         {
             SetGameOverState();
         }

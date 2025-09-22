@@ -9,7 +9,7 @@ public class CheckpointPointer : MonoBehaviour
     /// The game manager script for controlling whether the checkpoint pointer should function.
     /// </summary>
     [field: SerializeField]
-    public GameManager GameManagerScript
+    public GameManagerBase GameManagerScript
     { get; private set; }
 
     /// <summary>
@@ -44,7 +44,7 @@ public class CheckpointPointer : MonoBehaviour
     {
         if (GameManagerScript == null)
         {
-            GameManagerScript = GameObject.FindObjectOfType<GameManager>();
+            GameManagerScript = GameObject.FindObjectOfType<GameManagerBase>();
 
             if (GameManagerScript == null)
             {

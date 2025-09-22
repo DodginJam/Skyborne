@@ -18,7 +18,7 @@ public class GateSpawning : MonoBehaviour
     [Header("References")]
     [SerializeField] private AircraftController AircraftController;
     [SerializeField] private List<GameObject> Gates; // Assign 3 gate objects in Inspector
-    [SerializeField] private GameManager GameManagerScript;
+    [SerializeField] private GameManagerBase GameManagerScript;
 
     [Header("Spline Path")]
     [SerializeField] private SplineContainer flightPath;

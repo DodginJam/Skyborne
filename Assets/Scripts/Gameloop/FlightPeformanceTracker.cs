@@ -5,7 +5,7 @@ using UnityEngine;
 public class FlightPeformanceTracker : MonoBehaviour
 {
     [field: SerializeField]
-    public GameManager GameManagerScript
+    public GameManagerBase GameManagerScript
     {  get; private set; }
 
     /// <summary>
@@ -63,7 +63,7 @@ public class FlightPeformanceTracker : MonoBehaviour
 
     private void Awake()
     {
-        if (TryGetComponent<GameManager>(out GameManager gameManagerScript))
+        if (TryGetComponent<GameManagerBase>(out GameManagerBase gameManagerScript))
         {
             GameManagerScript = gameManagerScript;
         }

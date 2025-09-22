@@ -6,15 +6,11 @@ using UnityEngine;
 public class Gate : MonoBehaviour, IGlobalSoundOnCollect
 {
     [field: SerializeField]
-    public GameManager GameManagerScript
+    public GameManagerBase GameManagerScript
     {  get; private set; }
 
     [field: SerializeField]
     public AircraftController PlayerController 
-    { get; private set; }
-
-    [field: SerializeField]
-    public GateSpawning GateSpawner 
     { get; private set; }
 
     [field: SerializeField]
@@ -37,21 +33,11 @@ public class Gate : MonoBehaviour, IGlobalSoundOnCollect
         // Initialisation of references.
         if (GameManagerScript == null)
         {
-            GameManagerScript = GameObject.FindObjectOfType<GameManager>();
+            GameManagerScript = GameObject.FindObjectOfType<GameManagerBase>();
 
             if (GameManagerScript == null)
             {
                 Debug.LogError("Unable to locate the game manager script.");
-            }
-        }
-
-        if (GateSpawner == null)
-        {
-            GateSpawner = GameObject.FindObjectOfType<GateSpawning>();
-
-            if (GateSpawner == null)
-            {
-                Debug.LogError("Unable to locate the GateSpawning script.");
             }
         }
 
@@ -74,6 +60,11 @@ public class Gate : MonoBehaviour, IGlobalSoundOnCollect
 
     // Update is called once per frame
     void Update()
+    {
+
+    }
+
+    void FixedUpdate()
     {
         Vector3 forward = transform.TransformDirection(Vector3.back);
         Vector3 distanceToPlane = Vector3.Normalize(PlayerController.transform.position - transform.position);

@@ -28,7 +28,7 @@ public class Destruction : MonoBehaviour
     public CameraManager CameraManagerScript
     { get; private set; }
 
-    public GameManager GameManagerScript
+    public GameManagerBase GameManagerScript
     { get; private set; }
 
     private void Awake()
@@ -45,7 +45,7 @@ public class Destruction : MonoBehaviour
 
         if (GameManagerScript == null)
         {
-            GameManagerScript = GameObject.FindAnyObjectByType<GameManager>();
+            GameManagerScript = GameObject.FindAnyObjectByType<GameManagerBase>();
 
             if (GameManagerScript == null)
             {

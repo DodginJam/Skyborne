@@ -14,7 +14,7 @@ public class AircraftDisplay : MonoBehaviour
     {  get; private set; }
 
     [field: SerializeField]
-    public GameManager GameManagerScript
+    public GameManagerBase GameManagerScript
     { get; private set; }
 
     /// <summary>
@@ -86,7 +86,7 @@ public class AircraftDisplay : MonoBehaviour
 
         if (GameManagerScript == null)
         {
-            GameManagerScript = GameObject.FindAnyObjectByType<GameManager>();
+            GameManagerScript = GameObject.FindAnyObjectByType<GameManagerBase>();
 
             if (GameManagerScript == null)
             {
