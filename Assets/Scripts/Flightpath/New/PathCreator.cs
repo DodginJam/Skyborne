@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class PathCreator : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Path Path_
+    {  get; private set; }
 
-    // Update is called once per frame
-    void Update()
+    public void CreatePath()
     {
-        
+        Path_ = new Path(transform.position);
     }
 }
