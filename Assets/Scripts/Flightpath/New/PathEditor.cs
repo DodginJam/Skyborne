@@ -13,6 +13,26 @@ public class PathEditor : Editor
     public Path Path_
     {  get; private set; }
 
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+
+        if (GUILayout.Button("Create New"))
+        {
+            Creator.CreatePath();
+            Path_ = Creator.Path_;
+
+            SceneView.RepaintAll();
+        }
+
+        if (GUILayout.Button("Toggle Closed"))
+        {
+            Path_.ToggleClosed();
+
+            SceneView.RepaintAll();
+        }
+    }
+
     private void OnSceneGUI()
     {
         Input();

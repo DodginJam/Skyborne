@@ -20,6 +20,9 @@ public class Path
     public List<Vector2> Points
     { get; set; }
 
+    public bool IsClosed
+    { get; set; }
+
     public Vector2 this[int i]
     {
         get
@@ -40,7 +43,7 @@ public class Path
     {
         get
         {
-            return (Points.Count - 4) / 3 + 1;
+            return Points.Count / 3;
         }
     }
 
@@ -58,7 +61,7 @@ public class Path
             Points[index * 3],
             Points[index * 3 + 1],
             Points[index * 3 + 2],
-            Points[index * 3 + 3]
+            Points[LoopIndex(index * 3 + 3)]
         };
     }
 
@@ -69,14 +72,14 @@ public class Path
 
         if (index % 3 == 0)
         {
-            if (index + 1 < Points.Count)
+            if (index + 1 < Points.Count || IsClosed)
             {
-                Points[index + 1] += deltaMove;
+                Points[LoopIndex(index + 1)] += deltaMove;
             }
 
-            if (index - 1 >= 0)
+            if (index - 1 >= 0 || IsClosed)
             {
-                Points[index - 1] += deltaMove;
+                Points[LoopIndex(index - 1)] += deltaMove;
             }
         }
         else
@@ -85,13 +88,34 @@ public class Path
             int corrospondingControlIndex = (nextPointIsAnchor) ? index + 2 : index - 2;
             int anchorIndex = (nextPointIsAnchor) ? index + 1 : index - 1;
 
-            if (corrospondingControlIndex >= 0 && corrospondingControlIndex < Points.Count)
+            if (corrospondingControlIndex >= 0 && corrospondingControlIndex < Points.Count || IsClosed)
             {
-                float distance = (Points[anchorIndex] - Points[corrospondingControlIndex]).magnitude;
-                Vector2 direction = (Points[anchorIndex] - position).normalized;
+                float distance = (Points[LoopIndex(anchorIndex)] - Points[LoopIndex(corrospondingControlIndex)]).magnitude;
+                Vector2 direction = (Points[LoopIndex(anchorIndex)] - position).normalized;
 
-                Points[corrospondingControlIndex] = Points[anchorIndex] + direction * distance;
+                Points[LoopIndex(corrospondingControlIndex)] = Points[LoopIndex(anchorIndex)] + direction * distance;
             }
         }
+    }
+
+    public void ToggleClosed()
+    {
+        IsClosed = !IsClosed;
+
+        if (IsClosed)
+        {
+            Points.Add(Points[Points.Count - 1] * 2 - Points[Points.Count - 2]);
+            Points.Add(Points[0] * 2 - Points[1]);
+
+        }
+        else
+        {
+            Points.RemoveRange(Points.Count - 2, 2);
+        }
+    }
+
+    private int LoopIndex(int i)
+    {
+        return (i + Points.Count) % Points.Count;
     }
 }
