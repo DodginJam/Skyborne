@@ -78,8 +78,6 @@ public class CameraManager : MonoBehaviour
     public bool IsFreeLookActive
     { get; private set; }
 
-    public event Action OnCameraViewChange;
-
     private void Awake()
     {
         // Error checks for the camera exisiting in scene.

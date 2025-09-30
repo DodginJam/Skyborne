@@ -82,7 +82,10 @@ public class FlightPeformanceTracker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateTicker();
+        if (GameManagerScript != null && GameManagerScript.GameState == GameManagerBase.GameStatus.Playing)
+        {
+            UpdateTicker();
+        }
     }
 
     /// <summary>

@@ -34,7 +34,7 @@ public class PathEditor : Editor
             Path_.ToggleClosed();
         }
 
-        bool autoSetControlsPoints = GUILayout.Toggle(Path_.AutoSetControlsPoints, "Auto Set Control Points");
+        bool autoSetControlsPoints = GUILayout.Toggle(Path_.AutoSetControlsPoints, "Auto Set Control PointsData");
 
         if (autoSetControlsPoints != Path_.AutoSetControlsPoints)
         {

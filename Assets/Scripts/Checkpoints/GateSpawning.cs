@@ -10,7 +10,6 @@ public class GateSpawning : MonoBehaviour
     [SerializeField] private float Radius = 125f;
     [SerializeField, Range(10, 80)] private float Angle = 10f;
     [SerializeField, Range(10, 80)] private float StartingAngle = 10f;
-    [SerializeField] private float MinDistanceFromPlayer = 50f;
 
     [Header("Timing Settings")]
     [SerializeField] private float SpawnDelay = 0.5f; // shorter for smooth reposition
