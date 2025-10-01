@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -13,17 +14,61 @@ public class PointGeneratorEditor : Editor
     public PointGenerator PointsGenerator
     { get; set; }
 
+    public float PointDisplaySize
+    { get; set; } = 0.1f;
+
+    public bool LiveUpdatePoints
+    { get; private set; } = false;
+
+    public bool ShowPointsVisual
+    { get; private set; } = false;
+
+    public bool ShowSpacingVisual
+    { get; private set; } = false;
+
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
 
+        GUILayout.Space(20);
+        GUILayout.Label("Editor Options");
+        GUILayout.Space(10);
+
+        bool newLiveUpdate = GUILayout.Toggle(LiveUpdatePoints, "Live Update Points");
+        if (newLiveUpdate != LiveUpdatePoints)
+        {
+            LiveUpdatePoints = newLiveUpdate;
+            SceneView.RepaintAll();
+        }
+
+        bool newShowPoints = GUILayout.Toggle(ShowPointsVisual, "Toggle Points Visual");
+        if (newShowPoints != ShowPointsVisual)
+        {
+            ShowPointsVisual = newShowPoints;
+            SceneView.RepaintAll();
+        }
+
+        bool newShowSpacing = GUILayout.Toggle(ShowSpacingVisual, "Show Spacing Visual");
+        if (newShowSpacing != ShowSpacingVisual)
+        {
+            ShowSpacingVisual = newShowSpacing;
+            SceneView.RepaintAll();
+        }
+
+        float newPointSize = EditorGUILayout.Slider(PointDisplaySize, 0.01f, 10.0f);
+        if (newPointSize != PointDisplaySize)
+        {
+            PointDisplaySize = newPointSize;
+            SceneView.RepaintAll();
+        }
+
         if (GUILayout.Button("Create New PointsData"))
         {
-            PointsGenerator.CreatePoints(Points.X_Dimension, Points.Y_Dimension, Points.X_Dimension, PointsGenerator.transform.position);
-            Points = PointsGenerator.Points;
+            GeneratePoints();
 
             SceneView.RepaintAll();
         }
+
     }
 
     private void OnEnable()
@@ -32,7 +77,7 @@ public class PointGeneratorEditor : Editor
 
         if (PointsGenerator.Points == null)
         {
-            PointsGenerator.CreatePoints(Points.X_Dimension, Points.Y_Dimension, Points.X_Dimension, PointsGenerator.transform.position);
+            PointsGenerator.CreatePoints(1, 1, 1, 1, PointsGenerator.transform.position);
             Points = PointsGenerator.Points;
         }
 
@@ -41,16 +86,61 @@ public class PointGeneratorEditor : Editor
 
     private void OnSceneGUI()
     {
-        Draw();
+        DrawPoints();
     }
 
-    void Draw()
+    void DrawPoints()
     {
-        Handles.color = Color.red;
-
-        for (int i = 0; i < Points.PointPositions.Count; i++)
+        if (Points == null || Points.PointPositions == null) 
         {
-            Handles.DrawWireCube(Points.PointPositions[i], new Vector3(1f, 1f, 1f));
+            return;
         }
+
+        if (ShowPointsVisual)
+        {
+            for (int i = 0; i < Points.PointPositions.Count; i++)
+            {
+                if (Points.PointPositions[i].PositionalHelper != PointData.PointPositionalHelper.Normal)
+                {
+                    Handles.color = Color.yellow;
+                }
+                else
+                {
+                    Handles.color = Color.red;
+                }
+
+                Handles.DotHandleCap(i, Points.PointPositions[i].WorldPosition, Quaternion.identity, PointDisplaySize, EventType.Repaint);
+            }
+        }
+
+        if (ShowSpacingVisual)
+        {
+            for (int i = 0; i < Points.PointPositions.Count; i++)
+            {
+                if (Points.PointPositions[i].PositionalHelper != PointData.PointPositionalHelper.Normal)
+                {
+                    Handles.color = Color.yellow;
+                }
+                else
+                {
+                    Handles.color = Color.red;
+                }
+
+                Handles.DrawWireCube(Points.PointPositions[i].WorldPosition, new Vector3(Points.GridSpacing, Points.GridSpacing, Points.GridSpacing));
+            }
+        }
+
+        if (LiveUpdatePoints)
+        {
+            GeneratePoints();
+        }
+
+        SceneView.RepaintAll();
+    }
+
+    public void GeneratePoints()
+    {
+        PointsGenerator.CreatePoints(Points.X_Dimension, Points.Y_Dimension, Points.Z_Dimension, Points.GridSpacing, PointsGenerator.transform.position);
+        Points = PointsGenerator.Points;
     }
 }
