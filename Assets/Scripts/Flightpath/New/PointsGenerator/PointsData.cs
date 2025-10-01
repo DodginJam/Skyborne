@@ -31,6 +31,8 @@ public class PointsData
     {
         PointPositions.Clear();
 
+        startLocation = new Vector3(startLocation.x - ((dimensions.x - 1) * spacings.x / 2), startLocation.y, startLocation.z - ((dimensions.z - 1) * spacings.z / 2));
+
         for (int i_x = 0; i_x < dimensions.x; i_x ++)
         {
             for (int i_y = 0; i_y < dimensions.y; i_y ++)

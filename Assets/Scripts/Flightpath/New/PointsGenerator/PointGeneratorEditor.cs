@@ -15,7 +15,7 @@ public class PointGeneratorEditor : Editor
     { get; set; }
 
     public float PointDisplaySize
-    { get; set; } = 0.1f;
+    { get; set; } = 1f;
 
     public bool LiveUpdatePoints
     { get; private set; } = false;
@@ -55,7 +55,7 @@ public class PointGeneratorEditor : Editor
             SceneView.RepaintAll();
         }
 
-        float newPointSize = EditorGUILayout.Slider(PointDisplaySize, 0.01f, 10.0f);
+        float newPointSize = EditorGUILayout.Slider(PointDisplaySize, 0.01f, 100.0f);
         if (newPointSize != PointDisplaySize)
         {
             PointDisplaySize = newPointSize;
@@ -109,7 +109,7 @@ public class PointGeneratorEditor : Editor
                     Handles.color = Color.red;
                 }
 
-                Handles.DotHandleCap(i, Points.PointPositions[i].WorldPosition, Quaternion.identity, PointDisplaySize, EventType.Repaint);
+                Handles.SphereHandleCap(i, Points.PointPositions[i].WorldPosition, Quaternion.identity, PointDisplaySize, EventType.Repaint);
             }
         }
 
