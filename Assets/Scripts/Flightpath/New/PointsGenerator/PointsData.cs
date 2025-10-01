@@ -6,46 +6,38 @@ using UnityEngine;
 [Serializable]
 public class PointsData
 {
-    public PointsData(int xLength, int yLength, int zLength, float gridSpacing, Vector3 startLocation)
+    public PointsData(int xLength, int yLength, int zLength, float gridSpacingX, float gridSpacingY, float gridSpacingZ, Vector3 startLocation)
     {
-        X_Dimension = xLength;
-        Y_Dimension = yLength;
-        Z_Dimension = zLength;
-        GridSpacing = gridSpacing;
+        GridDimension = new Vector3Int(xLength, yLength, zLength);
 
-        GeneratePoints(X_Dimension, Y_Dimension, Z_Dimension, GridSpacing, startLocation);
+        GridSpacing = new Vector3(gridSpacingX, gridSpacingY, gridSpacingZ);
+
+        GeneratePoints(GridDimension, GridSpacing, startLocation);
     }
 
     [field: SerializeField, Min(1)]
-    public int X_Dimension
-    { get; set; } = 1;
+    public Vector3Int GridDimension
+    { get; set; } = Vector3Int.one;
 
     [field: SerializeField, Min(1)]
-    public int Y_Dimension
-    { get; set; } = 1;
+    public Vector3 GridSpacing
+    { get; set; } = Vector3.one;
 
-    [field: SerializeField, Min(1)]
-    public int Z_Dimension
-    { get; set; } = 1;
-
-    [field: SerializeField, Min(1)]
-    public float GridSpacing
-    { get; set; } = 1;
 
     public List<PointData> PointPositions
     { get; set; } = new List<PointData>();
 
-    public void GeneratePoints(int x, int y, int z, float gridSpacing, Vector3 startLocation)
+    public void GeneratePoints(Vector3Int dimensions, Vector3 spacings, Vector3 startLocation)
     {
         PointPositions.Clear();
 
-        for (int i_x = 0; i_x < x; i_x ++)
+        for (int i_x = 0; i_x < dimensions.x; i_x ++)
         {
-            for (int i_y = 0; i_y < y; i_y ++)
+            for (int i_y = 0; i_y < dimensions.y; i_y ++)
             {
-                for (int i_z = 0; i_z < z; i_z++)
+                for (int i_z = 0; i_z < dimensions.z; i_z++)
                 {
-                    Vector3 worldPosition = new Vector3(startLocation.x + (i_x * gridSpacing), startLocation.y + (i_y * gridSpacing), startLocation.z + (i_z * gridSpacing));
+                    Vector3 worldPosition = new Vector3(startLocation.x + (i_x * spacings.x), startLocation.y + (i_y * spacings.y), startLocation.z + (i_z * spacings.z));
 
                     PointData newPoint = new PointData(worldPosition);
 
@@ -53,7 +45,7 @@ public class PointsData
                     {
                         newPoint.PositionalHelper = PointData.PointPositionalHelper.Start;
                     }
-                    else if (i_x == x - 1 || i_y == y - 1 || i_z == z - 1)
+                    else if (i_x == dimensions.x - 1 || i_y == dimensions.y - 1 || i_z == dimensions.z - 1)
                     {
                         newPoint.PositionalHelper = PointData.PointPositionalHelper.End;
                     }

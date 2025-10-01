@@ -2772,10 +2772,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Points>k__BackingField:
-    <X_Dimension>k__BackingField: 20
-    <Y_Dimension>k__BackingField: 20
-    <Z_Dimension>k__BackingField: 20
-    <GridSpacing>k__BackingField: 300
+    <GridDimension>k__BackingField: {x: 25, y: 25, z: 25}
+    <GridSpacing>k__BackingField: {x: 1000, y: 150, z: 1000}
 --- !u!1001 &1202991829
 PrefabInstance:
   m_ObjectHideFlags: 0

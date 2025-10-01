@@ -77,7 +77,7 @@ public class PointGeneratorEditor : Editor
 
         if (PointsGenerator.Points == null)
         {
-            PointsGenerator.CreatePoints(1, 1, 1, 1, PointsGenerator.transform.position);
+            PointsGenerator.CreatePoints(1, 1, 1, 1, 1, 1, PointsGenerator.transform.position);
             Points = PointsGenerator.Points;
         }
 
@@ -120,13 +120,12 @@ public class PointGeneratorEditor : Editor
                 if (Points.PointPositions[i].PositionalHelper != PointData.PointPositionalHelper.Normal)
                 {
                     Handles.color = Color.yellow;
+                    Handles.DrawWireCube(Points.PointPositions[i].WorldPosition, Points.GridSpacing);
                 }
                 else
                 {
                     Handles.color = Color.red;
                 }
-
-                Handles.DrawWireCube(Points.PointPositions[i].WorldPosition, new Vector3(Points.GridSpacing, Points.GridSpacing, Points.GridSpacing));
             }
         }
 
@@ -140,7 +139,7 @@ public class PointGeneratorEditor : Editor
 
     public void GeneratePoints()
     {
-        PointsGenerator.CreatePoints(Points.X_Dimension, Points.Y_Dimension, Points.Z_Dimension, Points.GridSpacing, PointsGenerator.transform.position);
+        PointsGenerator.CreatePoints(Points.GridDimension, Points.GridSpacing, PointsGenerator.transform.position);
         Points = PointsGenerator.Points;
     }
 }
