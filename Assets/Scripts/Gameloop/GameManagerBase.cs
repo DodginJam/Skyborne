@@ -40,6 +40,9 @@ public class GameManagerBase : MonoBehaviour
     public GameStatus GameState
     { get; private set; }
 
+    public GamePlayingStatus GamePlayStatus
+    { get; private set; }
+
     /// <summary>
     /// Reference to the player controller script and providing access to it's gameobject too.
     /// </summary>
@@ -51,6 +54,13 @@ public class GameManagerBase : MonoBehaviour
     {
         Playing,
         Failure,
+    }
+
+    public enum GamePlayingStatus
+    {
+        Start,
+        Gameloop,
+        End
     }
 
     protected virtual void Awake()
@@ -67,12 +77,12 @@ public class GameManagerBase : MonoBehaviour
         }
     }
 
-    void Start()
+    protected virtual void Start()
     {
         
     }
 
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
 
     }

@@ -5,6 +5,9 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
+/// <summary>
+/// The custom editor for interfacing within the insepctor the point generator class in editor mode.
+/// </summary>
 [CustomEditor(typeof(PointGenerator))]
 public class PointGeneratorEditor : Editor
 {

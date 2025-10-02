@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <PenaltyLimit>k__BackingField: 3
   <AircraftController>k__BackingField: {fileID: 0}
+  <PointGenerator>k__BackingField: {fileID: 0}
 --- !u!114 &5132273174457978304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,8 +96,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  <MinAltitudeValue>k__BackingField: 243.84
-  <MaxAltitudeValue>k__BackingField: 365.76
+  <MinAltitudeValue>k__BackingField: 600
+  <MaxAltitudeValue>k__BackingField: 1000
   <LevelRotationMultiplier>k__BackingField:
     serializedVersion: 2
     m_Curve:

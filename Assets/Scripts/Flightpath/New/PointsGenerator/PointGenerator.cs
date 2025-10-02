@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The point generator is the monobehaviour component that is attached to the gameobject in charge for managing the generation of a grid of points.
+/// </summary>
 public class PointGenerator : MonoBehaviour
 {
     [field: SerializeField]
@@ -32,22 +35,15 @@ public class PointGenerator : MonoBehaviour
         {
             Debug.LogError("No start location has been passed through.");
         }
-    }
 
-    public void Start()
-    {
         if (Points == null || Points.PointPositions == null)
         {
             CreatePoints(Points.GridDimension, Points.GridSpacing, transform.position);
         }
+    }
 
-        /*
-        foreach (PointData point in Points.PointPositions)
-        {
-            GameObject gameObjectExample = GameObject.CreatePrimitive(PrimitiveType.Cube);
+    public void Start()
+    {
 
-            gameObjectExample.transform.position = point.WorldPosition;
-        }
-        */
     }
 }

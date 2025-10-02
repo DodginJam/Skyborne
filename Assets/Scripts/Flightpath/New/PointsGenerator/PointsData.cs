@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// PointsData are a collection of PointData within a list and how the points are generated and spaced out.
+/// </summary>
 [Serializable]
 public class PointsData
 {
