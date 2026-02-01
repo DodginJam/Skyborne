@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(AircraftCurrentValues)), RequireComponent(typeof(AircraftInput))]
 public class AircraftController : MonoBehaviour
